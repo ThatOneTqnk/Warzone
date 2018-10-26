@@ -1,6 +1,16 @@
 package network.warzone.tgm.util;
 
-public class Strings {
+public final class Strings {
+
+    @Deprecated
+    public static String repeat(String string, int amount) { //TODO Replace in Java 11 with "".repeat
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < amount; i++) {
+            builder.append(string);
+        }
+        return builder.toString();
+    }
+
     public static String formatTime(double time) {
         boolean negative = false;
         if (time < 0) {

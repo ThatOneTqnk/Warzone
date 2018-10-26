@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 @AllArgsConstructor
 public class VisibilityControllerImpl implements VisibilityController {
+
     private final SpectatorModule spectatorModule;
 
     @Override

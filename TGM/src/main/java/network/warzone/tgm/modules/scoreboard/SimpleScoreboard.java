@@ -238,11 +238,13 @@ public class SimpleScoreboard {
     @SuppressWarnings("deprecation")
     private OfflinePlayer getOfflinePlayerSkipLookup(String name) {
         try {
+
             if (craftOfflinePlayerConstructor == null) {
                 Class<?> craftOfflinePlayerClass = Class.forName(Bukkit.getServer().getClass().getName().replace("CraftServer", "CraftOfflinePlayer"));
                 craftOfflinePlayerConstructor = craftOfflinePlayerClass.getDeclaredConstructor(Bukkit.getServer().getClass(), GameProfile.class);
                 craftOfflinePlayerConstructor.setAccessible(true);
             }
+
             GameProfile gameProfile = new GameProfile(invalidUserUUID, name);
             Object craftOfflinePlayer = craftOfflinePlayerConstructor.newInstance(Bukkit.getServer(), gameProfile);
             return (OfflinePlayer) craftOfflinePlayer;

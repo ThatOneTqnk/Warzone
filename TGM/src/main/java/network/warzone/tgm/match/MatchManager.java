@@ -1,5 +1,6 @@
 package network.warzone.tgm.match;
 
+import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import lombok.Setter;
 import network.warzone.tgm.TGM;
@@ -107,10 +108,6 @@ public class MatchManager {
             match.unload();
         }
 
-        // Transport all players to the new world so we can unload the old one.
-        Bukkit.getOnlinePlayers().forEach(player ->
-                player.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN));
-
         //create and load the match.
         Match createdMatch = new Match(matchUuid, matchManifest, world, mapContainer);
         Match oldMatch = match;
@@ -118,27 +115,35 @@ public class MatchManager {
 
         createdMatch.load();
 
-        //parse locations now that we have the world object.
-        mapContainer.parseWorldDependentContent(world);
+        // Transport all players to the new world so we can unload the old one.
+        MapContainer finalMapContainer = mapContainer; //TODO Temp 1.13 fix
 
-        //if a match is currently running, unload it.
-        if (oldMatch != null) {
-            oldMatch.getWorld().getPlayers().forEach(player ->
-                    player.teleport(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN));
+        PaperLib.getChunkAtAsync(world.getSpawnLocation(), true).thenRun(() -> {
+            //parse locations now that we have the world object.
+            finalMapContainer.parseWorldDependentContent(world);
 
-            TGM.get().getLogger().info("Unloading match: " + oldMatch.getUuid().toString() + " (File: " + oldMatch.getWorld().getWorldFolder().getPath() + ")");
+            Bukkit.getScheduler().runTaskLater(TGM.get(), () -> {
+                Bukkit.getOnlinePlayers().forEach(player ->
+                        player.teleportAsync(world.getSpawnLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN)
+                                .thenRun(() -> {
+                                    //if a match is currently running, unload it.
+                                    if (oldMatch != null && oldMatch.getWorld().getPlayerCount() == 0) {
+                                        TGM.get().getLogger().info("Unloading match: " + oldMatch.getUuid().toString() + " (File: " + oldMatch.getWorld().getWorldFolder().getPath() + ")");
 
-            Bukkit.unloadWorld(oldMatch.getWorld(), false);
+                                        Bukkit.unloadWorld(oldMatch.getWorld(), false);
 
-            //.getScheduler().runTaskLater(TGM.get(), () -> {
+                                        //.getScheduler().runTaskLater(TGM.get(), () -> {
 
-                //try {
-                //    FileUtils.deleteDirectory(oldMatch.getWorld().getWorldFolder());
-                //} catch (IOException e) {
-                //    e.printStackTrace();
-                //}
-            //}, 80L); // 4 seconds
-        }
+                                        //try {
+                                        //    FileUtils.deleteDirectory(oldMatch.getWorld().getWorldFolder());
+                                        //} catch (IOException e) {
+                                        //    e.printStackTrace();
+                                        //}
+                                        //}, 80L); // 4 seconds
+                                    }
+                                }));
+            }, 2L);
+        });
     }
 
     public MapContainer getNextMap() {

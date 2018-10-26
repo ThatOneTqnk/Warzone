@@ -57,7 +57,7 @@ public class SpawnPointHandlerModule extends MatchModule implements Listener {
         Players.reset(playerContext.getPlayer(), true);
 
         if (teleport) {
-            playerContext.getPlayer().teleport(getTeamSpawn(matchTeam).getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+            playerContext.getPlayer().teleportAsync(getTeamSpawn(matchTeam).getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
             if (!matchTeam.isSpectator()) playerContext.getPlayer().setGameMode(GameMode.SURVIVAL);
         }
 

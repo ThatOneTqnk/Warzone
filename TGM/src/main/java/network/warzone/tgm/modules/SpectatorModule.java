@@ -12,14 +12,16 @@ import network.warzone.tgm.util.itemstack.ItemFactory;
 import network.warzone.tgm.util.menu.Menu;
 import network.warzone.tgm.util.menu.PlayerMenu;
 import network.warzone.tgm.util.menu.PublicMenu;
-import network.warzone.warzoneapi.models.UserProfile;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
@@ -58,7 +60,7 @@ public class SpectatorModule extends MatchModule implements Listener {
 
         compassItem = ItemFactory.createItem(Material.COMPASS, ChatColor.YELLOW + "Teleport Tool");
         teamSelectionItem = ItemFactory.createItem(Material.NETHER_STAR, ChatColor.YELLOW + "Team Selection");
-        teleportMenuItem = ItemFactory.createItem(Material.WATCH, ChatColor.YELLOW + "Player Teleport");
+        teleportMenuItem = ItemFactory.createItem(Material.CLOCK, ChatColor.YELLOW + "Player Teleport");
 
         leatherHelmet = new ItemStack(Material.LEATHER_HELMET);
         LeatherArmorMeta leatherHelmetMeta = (LeatherArmorMeta) leatherHelmet.getItemMeta();
@@ -283,18 +285,26 @@ public class SpectatorModule extends MatchModule implements Listener {
                     size += 9;
                 }
                 Menu teleportMenu = new PlayerMenu(ChatColor.UNDERLINE + "Teleport", size, event.getPlayer());
+
                 int i = 0;
-              for (Map.Entry<Player, ChatColor> entry : players.entrySet()) {
-                Player player = entry.getKey();
-                ChatColor teamColor = entry.getValue();
-                teleportMenu.setItem(i, ItemFactory.getPlayerSkull(player.getName(), teamColor + player.getName(), " ", "&fClick to teleport to " + player.getName()),
-                        clicker -> {
-                          if (player.isOnline()) clicker.teleport(player);
-                        });
-                i++;
-                if (i >= size) break;
-              }
-              teleportMenu.open(event.getPlayer());
+                for (Map.Entry<Player, ChatColor> entry : players.entrySet()) {
+                    Player player = entry.getKey();
+                    ChatColor teamColor = entry.getValue();
+
+                    teleportMenu.setItem(i, new ItemStack(Material.PLAYER_HEAD));
+
+                    int finalI = i;
+                    Bukkit.getScheduler().runTaskAsynchronously(TGM.get(), () -> {
+                        teleportMenu.setItem(finalI, ItemFactory.getPlayerSkull(player.getName(), teamColor + player.getName(), " ", "&fClick to teleport to " + player.getName()),
+                                clicker -> {
+                                    if (player.isOnline()) clicker.teleportAsync(player.getLocation(), PlayerTeleportEvent.TeleportCause.PLUGIN);
+                                });
+                    });
+
+                    i++; if (i >= size) break;
+                }
+
+                teleportMenu.open(event.getPlayer());
             }
         }
     }

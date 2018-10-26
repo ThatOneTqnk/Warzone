@@ -105,7 +105,7 @@ public class WoolChestModule extends MatchModule implements Listener {
     private void registerInventory(Inventory inventory) {
         for (ItemStack itemStack : inventory.getContents()) {
             if (itemStack != null && itemStack.getType() != null &&
-                    itemStack.getType() == Material.WOOL) {
+                    itemStack.getType().name().contains("WOOL")) { //TODO 1.13 Temp fix
                 DyeColor dyeColor = ((Wool) itemStack.getData()).getColor();
                 woolChests.put(inventory.getHolder(), dyeColor);
                 fillInventoryWithWool(inventory, dyeColor);

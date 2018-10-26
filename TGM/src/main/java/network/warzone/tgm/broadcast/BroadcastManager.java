@@ -260,7 +260,7 @@ public class BroadcastManager {
             if (permission.startsWith("!")) {
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (!player.hasPermission(permission.substring(1, permission.length())))
-                        broadcastRaw(player, String.format(broadcast.getMessage(), args));
+                        broadcastRaw(player, String.format(broadcast.getMessage(), (Object[]) args));
                 }
             } else {
                 for (Player player : Bukkit.getOnlinePlayers()) {
