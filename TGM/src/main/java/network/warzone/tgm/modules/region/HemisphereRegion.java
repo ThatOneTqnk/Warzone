@@ -18,36 +18,36 @@ public class HemisphereRegion implements Region {
     private HemisphereFace hemisphereFace;
 
     public HemisphereRegion(Location focalPoint, double radius, HemisphereFace hemisphereFace) {
-       this.focalPoint = focalPoint;
-       this.radius = radius;
-       this.hemisphereFace = hemisphereFace;
-       switch (hemisphereFace) {
-           case POSITIVE_X:
-               this.min = new Location(focalPoint.getWorld(), focalPoint.getX(), focalPoint.getY() - radius, focalPoint.getZ() - radius);
-               this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
-                break;
-           case NEGATIVE_X:
-               this.min = new Location(focalPoint.getWorld(), focalPoint.getX(), focalPoint.getY() - radius, focalPoint.getZ() - radius);
-               this.max = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
-               break;
-           case POSITIVE_Y:
-               this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY(), focalPoint.getZ() - radius);
-               this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
-               break;
-           case NEGATIVE_Y:
-               this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY(), focalPoint.getZ() - radius);
-               this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() - radius, focalPoint.getZ() + radius);
-               break;
-           case POSITIVE_Z:
-               this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY() - radius, focalPoint.getZ());
-               this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
-               break;
-           case NEGATIVE_Z:
-           default:
-               this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY() - radius, focalPoint.getZ());
-               this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() - radius);
-               break;
-       }
+        this.focalPoint = focalPoint;
+        this.radius = radius;
+        this.hemisphereFace = hemisphereFace;
+        switch (hemisphereFace) {
+        case POSITIVE_X:
+            this.min = new Location(focalPoint.getWorld(), focalPoint.getX(), focalPoint.getY() - radius, focalPoint.getZ() - radius);
+            this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
+            break;
+        case NEGATIVE_X:
+            this.min = new Location(focalPoint.getWorld(), focalPoint.getX(), focalPoint.getY() - radius, focalPoint.getZ() - radius);
+            this.max = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
+            break;
+        case POSITIVE_Y:
+            this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY(), focalPoint.getZ() - radius);
+            this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
+            break;
+        case NEGATIVE_Y:
+            this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY(), focalPoint.getZ() - radius);
+            this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() - radius, focalPoint.getZ() + radius);
+            break;
+        case POSITIVE_Z:
+            this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY() - radius, focalPoint.getZ());
+            this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() + radius);
+            break;
+        case NEGATIVE_Z:
+        default:
+            this.min = new Location(focalPoint.getWorld(), focalPoint.getX() - radius, focalPoint.getY() - radius, focalPoint.getZ());
+            this.max = new Location(focalPoint.getWorld(), focalPoint.getX() + radius, focalPoint.getY() + radius, focalPoint.getZ() - radius);
+            break;
+        }
     }
     @Override
     public boolean contains(Location location) {

@@ -49,9 +49,9 @@ public class KillstreakModule extends MatchModule implements Listener {
         if (deathInfo.killer == null) {
             if (players.getOrDefault(deathInfo.player.getUniqueId().toString(), 0) >= 5) {
                 Bukkit.broadcastMessage(ColorConverter.filterString(
-                        deathInfo.playerTeam.getColor().toString() + deathInfo.playerName + "&7" + (deathInfo.playerName.endsWith("s") ? "'" : "'s") +
-                                " kill streak of &c&l" + players.get(deathInfo.player.getUniqueId().toString()) + "&r&7 was shutdown"
-                ));
+                                            deathInfo.playerTeam.getColor().toString() + deathInfo.playerName + "&7" + (deathInfo.playerName.endsWith("s") ? "'" : "'s") +
+                                            " kill streak of &c&l" + players.get(deathInfo.player.getUniqueId().toString()) + "&r&7 was shutdown"
+                                        ));
             }
 
             players.put(deathInfo.player.getUniqueId().toString(), 0);
@@ -67,9 +67,9 @@ public class KillstreakModule extends MatchModule implements Listener {
 
         if (players.get(killedUuid) != null && players.get(killedUuid) >= 5) {
             Bukkit.broadcastMessage(ColorConverter.filterString(
-                    deathInfo.killerTeam.getColor().toString() + deathInfo.killerName + " &7shutdown " +
-                            deathInfo.playerTeam.getColor().toString() + deathInfo.playerName + "&7" + (deathInfo.playerName.endsWith("s") ? "'" : "'s") + " kill streak of &c&l" + players.get(killedUuid)
-            ));
+                                        deathInfo.killerTeam.getColor().toString() + deathInfo.killerName + " &7shutdown " +
+                                        deathInfo.playerTeam.getColor().toString() + deathInfo.playerName + "&7" + (deathInfo.playerName.endsWith("s") ? "'" : "'s") + " kill streak of &c&l" + players.get(killedUuid)
+                                    ));
 
         }
 
@@ -79,20 +79,20 @@ public class KillstreakModule extends MatchModule implements Listener {
             if (!killstreak.isRepeat() && players.get(killerUuid) == killstreak.getCount() || killstreak.isRepeat() && players.get(killerUuid) % killstreak.getCount() == 0) {
                 if (killstreak.getMessage() != null && !killstreak.getMessage().isEmpty())
                     Bukkit.broadcastMessage(ColorConverter.filterString(killstreak.getMessage())
-                            .replace("%killername%", deathInfo.killerName)
-                            .replace("%killercolor%", deathInfo.killerTeam.getColor().toString())
-                            .replace("%killedname%", deathInfo.playerName)
-                            .replace("%count%", String.valueOf(killstreak.getCount()))
-                    );
+                                            .replace("%killername%", deathInfo.killerName)
+                                            .replace("%killercolor%", deathInfo.killerTeam.getColor().toString())
+                                            .replace("%killedname%", deathInfo.playerName)
+                                            .replace("%count%", String.valueOf(killstreak.getCount()))
+                                           );
 
                 killstreak.getActions().forEach(a -> a.apply(deathInfo.killer));
 
                 killstreak.getCommands().forEach(s -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), ColorConverter.filterString(s)
-                        .replace("%killername%", deathInfo.killerName)
-                        .replace("%killercolor%", deathInfo.killerTeam.getColor().toString())
-                        .replace("%killedname%", deathInfo.playerName)
-                        .replace("%count%", String.valueOf(killstreak.getCount())))
-                );
+                                                 .replace("%killername%", deathInfo.killerName)
+                                                 .replace("%killercolor%", deathInfo.killerTeam.getColor().toString())
+                                                 .replace("%killedname%", deathInfo.playerName)
+                                                 .replace("%count%", String.valueOf(killstreak.getCount())))
+                                                );
             }
         });
     }
@@ -123,44 +123,44 @@ public class KillstreakModule extends MatchModule implements Listener {
 
     private void addDefaults() {
         killstreaks.addAll(Arrays.asList( //TODO Add option to disable it
-                new Killstreak()
-                        .setCount(5)
-                        .setMessage("%killercolor%%killername% &7is on a kill streak of &2&l%count%&r&7!")
-                        .setActions(Collections.singletonList(
-                                new SoundKillstreakAction(Sound.ENTITY_ZOMBIE_DEATH, SoundKillstreakAction.SoundTarget.EVERYONE, 3.0F, 1.0F)
-                        )),
+                               new Killstreak()
+                               .setCount(5)
+                               .setMessage("%killercolor%%killername% &7is on a kill streak of &2&l%count%&r&7!")
+                               .setActions(Collections.singletonList(
+                                               new SoundKillstreakAction(Sound.ENTITY_ZOMBIE_DEATH, SoundKillstreakAction.SoundTarget.EVERYONE, 3.0F, 1.0F)
+                                           )),
 
-                new Killstreak()
-                        .setCount(10)
-                        .setMessage("%killercolor%%killername% &7is on a kill streak of &6&l%count%&r&7!")
-                        .setActions(Arrays.asList(
-                                new SoundKillstreakAction(Sound.ENTITY_WITHER_AMBIENT, SoundKillstreakAction.SoundTarget.EVERYONE, 7.0F, 1.0F),
-                                new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.CREEPER).withColor(Color.RED).withFade(Color.fromRGB(9371648)).build(), 0)
-                        )),
+                               new Killstreak()
+                               .setCount(10)
+                               .setMessage("%killercolor%%killername% &7is on a kill streak of &6&l%count%&r&7!")
+                               .setActions(Arrays.asList(
+                                               new SoundKillstreakAction(Sound.ENTITY_WITHER_AMBIENT, SoundKillstreakAction.SoundTarget.EVERYONE, 7.0F, 1.0F),
+                                               new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.CREEPER).withColor(Color.RED).withFade(Color.fromRGB(9371648)).build(), 0)
+                                           )),
 
-                new Killstreak()
-                        .setCount(25)
-                        .setMessage("%killercolor%%killername% &7is on a kill streak of &c&l%count%&r&7!")
-                        .setActions(Arrays.asList(
-                                new SoundKillstreakAction(Sound.ENTITY_ENDER_DRAGON_GROWL, SoundKillstreakAction.SoundTarget.EVERYONE, 1000.0F, 1.0F),
-                                new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.BALL).withColor(Color.RED).withFade(Color.fromRGB(9371648)).build(), 0)
-                        )),
+                               new Killstreak()
+                               .setCount(25)
+                               .setMessage("%killercolor%%killername% &7is on a kill streak of &c&l%count%&r&7!")
+                               .setActions(Arrays.asList(
+                                               new SoundKillstreakAction(Sound.ENTITY_ENDER_DRAGON_GROWL, SoundKillstreakAction.SoundTarget.EVERYONE, 1000.0F, 1.0F),
+                                               new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.BALL).withColor(Color.RED).withFade(Color.fromRGB(9371648)).build(), 0)
+                                           )),
 
-                new Killstreak()
-                        .setCount(50)
-                        .setMessage("%killercolor%%killername% &7is on a kill streak of &3&l%count%&r&7!")
-                        .setActions(Arrays.asList(
-                                new SoundKillstreakAction(Sound.ENTITY_WITHER_SPAWN, SoundKillstreakAction.SoundTarget.EVERYONE, 1000.0F, 1.4F),
-                                new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.RED).withFade(Color.fromRGB(9371648)).build(), 0)
-                        )),
+                               new Killstreak()
+                               .setCount(50)
+                               .setMessage("%killercolor%%killername% &7is on a kill streak of &3&l%count%&r&7!")
+                               .setActions(Arrays.asList(
+                                               new SoundKillstreakAction(Sound.ENTITY_WITHER_SPAWN, SoundKillstreakAction.SoundTarget.EVERYONE, 1000.0F, 1.4F),
+                                               new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.BALL_LARGE).withColor(Color.RED).withFade(Color.fromRGB(9371648)).build(), 0)
+                                           )),
 
-                new Killstreak()
-                        .setCount(100)
-                        .setMessage("%killercolor%%killername% &7is on a kill streak of &5&l%count%&r&7!")
-                        .setActions(Arrays.asList(
-                                new SoundKillstreakAction(Sound.UI_TOAST_CHALLENGE_COMPLETE, SoundKillstreakAction.SoundTarget.PLAYER, 1000.0F, 1.0F),
-                                new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.STAR).withColor(Color.fromRGB(16766776)).withFade(Color.fromRGB(16774912)).build(), 0)
-                        ))
-        ));
+                               new Killstreak()
+                               .setCount(100)
+                               .setMessage("%killercolor%%killername% &7is on a kill streak of &5&l%count%&r&7!")
+                               .setActions(Arrays.asList(
+                                               new SoundKillstreakAction(Sound.UI_TOAST_CHALLENGE_COMPLETE, SoundKillstreakAction.SoundTarget.PLAYER, 1000.0F, 1.0F),
+                                               new FireworkKillstreakAction(new Location(match.get().getWorld(), 0.0, 0.0, 0.0), FireworkEffect.builder().with(FireworkEffect.Type.STAR).withColor(Color.fromRGB(16766776)).withFade(Color.fromRGB(16774912)).build(), 0)
+                                           ))
+                           ));
     }
 }

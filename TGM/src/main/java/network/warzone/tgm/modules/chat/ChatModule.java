@@ -109,17 +109,17 @@ public class ChatModule extends MatchModule implements Listener {
             StringBuilder format = new StringBuilder();
             if (!TGM.get().getModule(StatsModule.class).isStatsDisabled()) format.append(playerContext.getLevelString()).append(" ");
             format.append(prefix)
-                    .append(matchTeam.getColor())
-                    .append(event.getPlayer().getName());
+            .append(matchTeam.getColor())
+            .append(event.getPlayer().getName());
             if (!playerContext.isNicked() && userProfile.getActiveTag() != null && !"".equals(userProfile.getActiveTag()))
                 format.append(ChatColor.GRAY)
-                        .append(" [")
-                        .append(ChatColor.translateAlternateColorCodes('&', userProfile.getActiveTag()))
-                        .append(ChatColor.GRAY)
-                        .append("]");
+                .append(" [")
+                .append(ChatColor.translateAlternateColorCodes('&', userProfile.getActiveTag()))
+                .append(ChatColor.GRAY)
+                .append("]");
             format.append(ChatColor.WHITE)
-                    .append(": ")
-                    .append(event.getMessage().replaceAll("%", "%%"));
+            .append(": ")
+            .append(event.getMessage().replaceAll("%", "%%"));
             event.setFormat(format.toString());
         }
     }
@@ -152,17 +152,19 @@ public class ChatModule extends MatchModule implements Listener {
         PlayerContext playerContext = TGM.get().getPlayerManager().getPlayerContext(event.getPlayer());
         if (!event.isCancelled())  {
             Bukkit.getOnlinePlayers().forEach(player -> {
-                BaseComponent[] stats = new BaseComponent[]{new TextComponent(ChatColor.AQUA + "Level: " + playerContext.getLevelString()
-                        .replace("[", "").replace("]", "")),
-                        new TextComponent("\n"),
-                        new TextComponent("\n" + ChatColor.AQUA + "XP: " + ChatColor.RESET + playerContext.getUserProfile().getXP()),
-                        new TextComponent("\n" + ChatColor.AQUA + "Kills: " + ChatColor.RESET + playerContext.getUserProfile().getKills()),
-                        new TextComponent("\n" + ChatColor.AQUA + "Deaths: " + ChatColor.RESET + playerContext.getUserProfile().getDeaths()),
-                        new TextComponent("\n" + ChatColor.AQUA + "K/D: " + ChatColor.RESET + playerContext.getUserProfile().getKDR()),
-                        new TextComponent("\n"),
-                        new TextComponent("\n" + ChatColor.AQUA + "Wins: " + ChatColor.RESET + playerContext.getUserProfile().getWins()),
-                        new TextComponent("\n" + ChatColor.AQUA + "Losses: " + ChatColor.RESET + playerContext.getUserProfile().getLosses()),
-                        new TextComponent("\n" + ChatColor.AQUA + "W/L: " + ChatColor.RESET + playerContext.getUserProfile().getWLR())};
+                BaseComponent[] stats = new BaseComponent[]{
+                    new TextComponent(ChatColor.AQUA + "Level: " + playerContext.getLevelString()
+                                      .replace("[", "").replace("]", "")),
+                    new TextComponent("\n"),
+                    new TextComponent("\n" + ChatColor.AQUA + "XP: " + ChatColor.RESET + playerContext.getUserProfile().getXP()),
+                    new TextComponent("\n" + ChatColor.AQUA + "Kills: " + ChatColor.RESET + playerContext.getUserProfile().getKills()),
+                    new TextComponent("\n" + ChatColor.AQUA + "Deaths: " + ChatColor.RESET + playerContext.getUserProfile().getDeaths()),
+                    new TextComponent("\n" + ChatColor.AQUA + "K/D: " + ChatColor.RESET + playerContext.getUserProfile().getKDR()),
+                    new TextComponent("\n"),
+                    new TextComponent("\n" + ChatColor.AQUA + "Wins: " + ChatColor.RESET + playerContext.getUserProfile().getWins()),
+                    new TextComponent("\n" + ChatColor.AQUA + "Losses: " + ChatColor.RESET + playerContext.getUserProfile().getLosses()),
+                    new TextComponent("\n" + ChatColor.AQUA + "W/L: " + ChatColor.RESET + playerContext.getUserProfile().getWLR())
+                };
                 HoverEvent hoverEvent = new HoverEvent(HoverEvent.Action.SHOW_TEXT, stats);
 
                 BaseComponent[] mainComponents = TextComponent.fromLegacyText(String.format(event.getFormat(), playerContext.getPlayer().getName(), event.getMessage()));
@@ -180,7 +182,7 @@ public class ChatModule extends MatchModule implements Listener {
         MatchTeam matchTeam = teamManagerModule.getTeam(playerContext.getPlayer());
         for (PlayerContext member : matchTeam.getMembers()) {
             member.getPlayer().sendMessage(matchTeam.getColor() + "[" + matchTeam.getAlias() + "] "
-                    + playerContext.getPlayer().getName() + ChatColor.WHITE + ": " + message);
+                                           + playerContext.getPlayer().getName() + ChatColor.WHITE + ": " + message);
         }
         //if (!matchTeam.isSpectator()) chatLog.add(new Chat(playerContext.getUserProfile().getId().toString(), playerContext.getPlayer().getName(), playerContext.getPlayer().getUniqueId().toString(), message, matchTeam.getId(), timeModule.getTimeElapsed(), true));
     }

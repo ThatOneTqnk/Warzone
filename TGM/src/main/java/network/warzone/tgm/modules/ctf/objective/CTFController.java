@@ -41,8 +41,8 @@ public abstract class CTFController implements FlagSubscriber, Listener {
         stealer.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 1000000, 2, true, false), true);
         MatchTeam team = teamManagerModule.getTeam(stealer);
         Bukkit.broadcastMessage(team.getColor() + stealer.getName() + ChatColor.GRAY
-                + " stole " + flag.getTeam().getColor() + flag.getTeam().getAlias()
-                + ChatColor.GRAY + "'s flag");
+                                + " stole " + flag.getTeam().getColor() + flag.getTeam().getAlias()
+                                + ChatColor.GRAY + "'s flag");
     }
 
     @Override
@@ -51,8 +51,8 @@ public abstract class CTFController implements FlagSubscriber, Listener {
         if (team == null) team = teamManagerModule.getSpectators();
         if (team == null) return;
         Bukkit.broadcastMessage(team.getColor() + stealer.getName() + ChatColor.GRAY
-                + " dropped " + flag.getTeam().getColor() + flag.getTeam().getAlias()
-                + ChatColor.GRAY + "'s flag");
+                                + " dropped " + flag.getTeam().getColor() + flag.getTeam().getAlias()
+                                + ChatColor.GRAY + "'s flag");
     }
 
     @Override
@@ -61,8 +61,8 @@ public abstract class CTFController implements FlagSubscriber, Listener {
         capturer.removePotionEffect(PotionEffectType.SLOW);
         MatchTeam capturerTeam = teamManagerModule.getTeam(capturer);
         Bukkit.broadcastMessage(capturerTeam.getColor() + capturer.getName() + ChatColor.GRAY
-                + " captured " + flag.getTeam().getColor() + flag.getTeam().getAlias()
-                + ChatColor.GRAY + "'s flag");
+                                + " captured " + flag.getTeam().getColor() + flag.getTeam().getAlias()
+                                + ChatColor.GRAY + "'s flag");
     }
 
     public void unload() {

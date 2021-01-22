@@ -75,8 +75,12 @@ public class MetaRegion implements Region {
     }
 
     private void calculateMinMax() {
-        minX = 0; minY = 0; minZ = 0;
-        maxX = 0; maxY = 0; maxZ = 0;
+        minX = 0;
+        minY = 0;
+        minZ = 0;
+        maxX = 0;
+        maxY = 0;
+        maxZ = 0;
         if (regions != null && !regions.isEmpty()) {
             Region r = regions.get(0);
             minX = r.getMin().getBlockX();

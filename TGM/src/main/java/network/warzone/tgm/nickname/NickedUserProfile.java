@@ -13,23 +13,23 @@ public class NickedUserProfile extends UserProfile {
 
     public NickedUserProfile(UserProfile profile) {
         super(profile.getId(),
-                profile.getName(),
-                profile.getNameLower(),
-                profile.getUuid(),
-                profile.getInitialJoinDate(),
-                profile.getLastOnlineDate(),
-                profile.getIps(),
-                profile.getRanks(),
-                profile.getRanksLoaded(),
-                profile.getWins(),
-                profile.getLosses(),
-                profile.getKills(),
-                profile.getDeaths(),
-                profile.getWool_destroys(),
-                profile.getPunishments(),
-                profile.getTags(),
-                null,
-                profile.isNew());
+              profile.getName(),
+              profile.getNameLower(),
+              profile.getUuid(),
+              profile.getInitialJoinDate(),
+              profile.getLastOnlineDate(),
+              profile.getIps(),
+              profile.getRanks(),
+              profile.getRanksLoaded(),
+              profile.getWins(),
+              profile.getLosses(),
+              profile.getKills(),
+              profile.getDeaths(),
+              profile.getWool_destroys(),
+              profile.getPunishments(),
+              profile.getTags(),
+              null,
+              profile.isNew());
         this.frozen = false;
     }
 

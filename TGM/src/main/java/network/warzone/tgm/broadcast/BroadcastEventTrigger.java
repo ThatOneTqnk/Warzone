@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 /**
  * Created by Jorge on 4/16/2018.
  */
-public class BroadcastEventTrigger implements Listener{
+public class BroadcastEventTrigger implements Listener {
 
     private BroadcastManager manager;
 

@@ -50,7 +50,7 @@ public class StartCountdown extends BossBarCountdown {
             int needed = REQUIRED_PLAYERS - amountParticipating;
             getBossBar().setProgress(1);
             getBossBar().setTitle(ChatColor.RED + "Waiting for " + ChatColor.AQUA + needed +
-                    ChatColor.RED + " more player" + (needed == 1 ? "" : "s") + " to join");
+                                  ChatColor.RED + " more player" + (needed == 1 ? "" : "s") + " to join");
             getBossBar().setColor(BarColor.RED);
 
             setTimeLeft(getTimeMax());
@@ -63,7 +63,7 @@ public class StartCountdown extends BossBarCountdown {
         if (getTimeLeft() % 20 == 0) {
             getBossBar().setColor(BarColor.GREEN);
             getBossBar().setTitle(ChatColor.GREEN + "Match starting in " + ChatColor.DARK_RED + getTimeLeftSeconds() +
-                    ChatColor.GREEN + " second" + (getTimeLeftSeconds() > 1 ? "s" : ""));
+                                  ChatColor.GREEN + " second" + (getTimeLeftSeconds() > 1 ? "s" : ""));
             BossBarUtil.displayForOldVersions(getBossBar());
             if (getTimeLeftSeconds() <= 3) {
                 Bukkit.getOnlinePlayers().forEach(player -> {

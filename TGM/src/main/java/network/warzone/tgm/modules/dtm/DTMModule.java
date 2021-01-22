@@ -77,7 +77,7 @@ public class DTMModule extends MatchModule implements Listener {
 
         //monument services
         for (Monument monument : this.monuments) {
-            String unformattedName = ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&' , (monument.getName())));
+            String unformattedName = ChatColor.stripColor(ChatColor.translateAlternateColorCodes('&', (monument.getName())));
 
             monument.addService(new MonumentService() {
                 @Override
@@ -142,10 +142,10 @@ public class DTMModule extends MatchModule implements Listener {
 
     private void playFireworkEffect(ChatColor color, Location location) {
         FireworkUtil.spawnFirework(location, FireworkEffect.builder()
-                .with(FireworkEffect.Type.BURST)
-                .withFlicker()
-                .withColor(ColorConverter.getColor(color))
-                .build(), 0);
+                                   .with(FireworkEffect.Type.BURST)
+                                   .withFlicker()
+                                   .withColor(ColorConverter.getColor(color))
+                                   .build(), 0);
 
         // Play the sound for the player if they are too far to render the firework.
         //for (Player listener : Bukkit.getOnlinePlayers()) {

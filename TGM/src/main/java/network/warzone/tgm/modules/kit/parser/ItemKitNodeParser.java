@@ -19,29 +19,29 @@ public class ItemKitNodeParser implements KitNodeParser {
 
         if (jsonObject.get("slot").getAsString() != null) {
             switch (jsonObject.get("slot").getAsString()) {
-                case "head":
-                case "helmet":
-                    slot = 103;
-                    break;
-                case "chest":
-                case "chestplate":
-                    slot = 102;
-                    break;
-                case "legs":
-                case "leggings":
-                    slot = 101;
-                    break;
-                case "feet":
-                case "boots":
-                    slot = 100;
-                    break;
-                case "otherhand":
-                case "offhand":
-                    slot = -106;
-                    break;
-                default:
-                    slot = jsonObject.get("slot").getAsInt();
-                    break;
+            case "head":
+            case "helmet":
+                slot = 103;
+                break;
+            case "chest":
+            case "chestplate":
+                slot = 102;
+                break;
+            case "legs":
+            case "leggings":
+                slot = 101;
+                break;
+            case "feet":
+            case "boots":
+                slot = 100;
+                break;
+            case "otherhand":
+            case "offhand":
+                slot = -106;
+                break;
+            default:
+                slot = jsonObject.get("slot").getAsInt();
+                break;
             }
         }
 

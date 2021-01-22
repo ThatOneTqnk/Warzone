@@ -47,7 +47,7 @@ public class ItemBookParser implements ItemMetaParser {
         bookMeta.setTitle(object.has("title") ? ColorConverter.filterString(object.get("title").getAsString()) : "Empty Book");
         bookMeta.setAuthor(object.has("author") ? ColorConverter.filterString(object.get("author").getAsString()) : "Mojang");
         bookMeta.setGeneration(object.has("generation") ?
-                BookMeta.Generation.valueOf(Strings.getTechnicalName(object.get("generation").getAsString())) : BookMeta.Generation.ORIGINAL);
+                               BookMeta.Generation.valueOf(Strings.getTechnicalName(object.get("generation").getAsString())) : BookMeta.Generation.ORIGINAL);
 
         if (object.has("pages")) { // Json pages
             try {
@@ -55,14 +55,14 @@ public class ItemBookParser implements ItemMetaParser {
 
                 List<Object> pages = (List<Object>) fieldPages.get(bookMeta);
                 object.getAsJsonArray("pages").forEach(
-                        jsonElement -> {
-                            try {
-                                String page = (String) methodA.invoke(ColorConverter.filterString(jsonElement.getAsString()));
-                                pages.add(page);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
+                jsonElement -> {
+                    try {
+                        String page = (String) methodA.invoke(ColorConverter.filterString(jsonElement.getAsString()));
+                        pages.add(page);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 );
 
                 fieldPages.setAccessible(false);

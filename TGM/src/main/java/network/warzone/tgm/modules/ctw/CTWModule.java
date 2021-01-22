@@ -79,7 +79,7 @@ public class CTWModule extends MatchModule implements Listener {
                         updateOnScoreboard(woolObjective);
 
                         Bukkit.broadcastMessage(matchTeam.getColor() + player.getName() + ChatColor.WHITE +
-                                " picked up " + woolObjective.getColor() + ChatColor.BOLD.toString() + woolObjective.getName());
+                                                " picked up " + woolObjective.getColor() + ChatColor.BOLD.toString() + woolObjective.getName());
 
                         for (MatchTeam otherTeam : teamManagerModule.getTeams()) {
                             for (PlayerContext playerContext : otherTeam.getMembers()) {
@@ -98,7 +98,7 @@ public class CTWModule extends MatchModule implements Listener {
                     updateOnScoreboard(woolObjective);
 
                     Bukkit.broadcastMessage(matchTeam.getColor() + player.getName() + ChatColor.WHITE +
-                            " placed " + woolObjective.getColor() + ChatColor.BOLD.toString() + woolObjective.getName());
+                                            " placed " + woolObjective.getColor() + ChatColor.BOLD.toString() + woolObjective.getName());
 
                     for (MatchTeam otherTeam : teamManagerModule.getTeams()) {
                         for (PlayerContext playerContext : otherTeam.getMembers()) {
@@ -117,13 +117,13 @@ public class CTWModule extends MatchModule implements Listener {
                     }
                 }
 
-                 @Override
-                 public void drop(Player player, MatchTeam matchTeam, boolean broadcast) {
+                @Override
+                public void drop(Player player, MatchTeam matchTeam, boolean broadcast) {
                     updateOnScoreboard(woolObjective);
 
-                     if (broadcast) Bukkit.broadcastMessage(matchTeam.getColor() + player.getName() + ChatColor.WHITE +
-                             " dropped " + woolObjective.getColor() + ChatColor.BOLD.toString() + woolObjective.getName());
-                 }
+                    if (broadcast) Bukkit.broadcastMessage(matchTeam.getColor() + player.getName() + ChatColor.WHITE +
+                                                               " dropped " + woolObjective.getColor() + ChatColor.BOLD.toString() + woolObjective.getName());
+                }
 
             });
         }
@@ -170,11 +170,11 @@ public class CTWModule extends MatchModule implements Listener {
 
     private void playFireworkEffect(ChatColor color, Location location) {
         FireworkUtil.spawnFirework(location, FireworkEffect.builder()
-                .with(FireworkEffect.Type.BURST)
-                .withFlicker()
-                .trail(false)
-                .withColor(ColorConverter.getColor(color))
-                .build(), 0);
+                                   .with(FireworkEffect.Type.BURST)
+                                   .withFlicker()
+                                   .trail(false)
+                                   .withColor(ColorConverter.getColor(color))
+                                   .build(), 0);
     }
 
     @EventHandler

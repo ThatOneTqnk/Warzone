@@ -34,10 +34,10 @@ public class NickCommands {
         sender.sendMessage(ChatColor.YELLOW + "Nicked Players:");
         for (Nick nick : nicks) {
             sender.sendMessage(
-                    ChatColor.DARK_PURPLE + nick.getOriginalName()
-                            + ChatColor.GRAY + " is nicked as "
-                            + ChatColor.LIGHT_PURPLE + nick.getName()
-                            + (nick.isActive() ? ChatColor.GREEN + " [ACTIVE]" : "")
+                ChatColor.DARK_PURPLE + nick.getOriginalName()
+                + ChatColor.GRAY + " is nicked as "
+                + ChatColor.LIGHT_PURPLE + nick.getName()
+                + (nick.isActive() ? ChatColor.GREEN + " [ACTIVE]" : "")
             );
         }
     }
@@ -104,8 +104,8 @@ public class NickCommands {
         if (cmd.argsLength() > 0) {
             String username = cmd.getString(0);
             Optional<Nick> optionalNick = TGM.get().getNickManager().getNicks().stream()
-                    .filter(nick -> nick.getName().equals(username))
-                    .findFirst();
+                                          .filter(nick -> nick.getName().equals(username))
+                                          .findFirst();
 
             if (optionalNick.isPresent()) {
                 sender.sendMessage(ChatColor.YELLOW + username + ChatColor.GREEN + " is " + ChatColor.YELLOW + optionalNick.get().getOriginalName());
@@ -139,15 +139,15 @@ public class NickCommands {
             }
         }
         NickManager.NickDetails details = new NickManager.NickDetails(
-                name,
-                skin,
-                getRank(cmd.getString(index + 3, "")),
-                cmd.getInteger(index + 4, context.getUserProfile(true).getKills()),
-                cmd.getInteger(index + 5, context.getUserProfile(true).getDeaths()),
-                cmd.getInteger(index + 6, context.getUserProfile(true).getWins()),
-                cmd.getInteger(index + 7, context.getUserProfile(true).getLosses()),
-                cmd.getInteger(index + 8, context.getUserProfile(true).getWool_destroys()),
-                "true".equals(cmd.getString(index + 9, null))
+            name,
+            skin,
+            getRank(cmd.getString(index + 3, "")),
+            cmd.getInteger(index + 4, context.getUserProfile(true).getKills()),
+            cmd.getInteger(index + 5, context.getUserProfile(true).getDeaths()),
+            cmd.getInteger(index + 6, context.getUserProfile(true).getWins()),
+            cmd.getInteger(index + 7, context.getUserProfile(true).getLosses()),
+            cmd.getInteger(index + 8, context.getUserProfile(true).getWool_destroys()),
+            "true".equals(cmd.getString(index + 9, null))
         );
         nickManager.create(context, details);
         send("Created new nick. Use [/nick preview] to view and [/nick apply] to apply it.", ChatColor.GREEN, sender);
@@ -237,24 +237,24 @@ public class NickCommands {
         if (cmd.argsLength() > index + 3) {
             int newValue = cmd.getInteger(index + 3);
             switch (stat) {
-                case "kills":
-                    nickManager.update(context, nick -> nick.getProfile().setKills(newValue));
-                    break;
-                case "deaths":
-                    nickManager.update(context, nick -> nick.getProfile().setDeaths(newValue));
-                    break;
-                case "wins":
-                    nickManager.update(context, nick -> nick.getProfile().setWins(newValue));
-                    break;
-                case "losses":
-                    nickManager.update(context, nick -> nick.getProfile().setLosses(newValue));
-                    break;
-                case "objectives":
-                    nickManager.update(context, nick -> nick.getProfile().setWool_destroys(newValue));
-                    break;
-                default:
-                    sender.sendMessage(ChatColor.RED + "Invalid stat name. Try kills, deaths, wins, losses or objectives.");
-                    return;
+            case "kills":
+                nickManager.update(context, nick -> nick.getProfile().setKills(newValue));
+                break;
+            case "deaths":
+                nickManager.update(context, nick -> nick.getProfile().setDeaths(newValue));
+                break;
+            case "wins":
+                nickManager.update(context, nick -> nick.getProfile().setWins(newValue));
+                break;
+            case "losses":
+                nickManager.update(context, nick -> nick.getProfile().setLosses(newValue));
+                break;
+            case "objectives":
+                nickManager.update(context, nick -> nick.getProfile().setWool_destroys(newValue));
+                break;
+            default:
+                sender.sendMessage(ChatColor.RED + "Invalid stat name. Try kills, deaths, wins, losses or objectives.");
+                return;
             }
             sender.sendMessage(ChatColor.GREEN + "Updated " + ChatColor.YELLOW + stat + ChatColor.GREEN + " to " + ChatColor.YELLOW + newValue);
         }
@@ -320,7 +320,7 @@ public class NickCommands {
         }
         if (rank == null) {
             sender.sendMessage(ChatColor.RED + "Invalid rank. Valid ranks are "
-                    + ranks.stream().map(Rank::getName).collect(Collectors.joining(", ")));
+                               + ranks.stream().map(Rank::getName).collect(Collectors.joining(", ")));
             return;
         }
         Rank finalRank = rank;

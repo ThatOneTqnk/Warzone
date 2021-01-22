@@ -29,8 +29,7 @@ public class TimeUnitPair {
                 else if (this.unit == ChronoUnit.CENTURIES) toString = value + " century";
                 else if (this.unit.name().toLowerCase().endsWith("s")) {
                     toString = value + " " + this.unit.name().substring(0, this.unit.name().length() - 1).toLowerCase().replace("_", " ");
-                }
-                else toString = value + " " + this.unit.name().toLowerCase().replace("_", " ");
+                } else toString = value + " " + this.unit.name().toLowerCase().replace("_", " ");
             } else toString = value + " " + this.unit.name().toLowerCase().replace("_", " ");
         }
         return toString;

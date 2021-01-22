@@ -18,7 +18,7 @@ import java.util.List;
 
 public class RotationCommands {
 
-    @Command(aliases={"rots", "rotations"}, desc= "View all the rotations.")
+    @Command(aliases= {"rots", "rotations"}, desc= "View all the rotations.")
     public static void viewRotations(CommandContext context, CommandSender sender) throws CommandException {
         int index = context.argsLength() == 0 ? 1 : context.getInteger(0);
         List<Rotation> rotationLibrary = TGM.get().getMatchManager().getMapRotation().getRotationLibrary();
@@ -50,7 +50,7 @@ public class RotationCommands {
     }
 
 
-    @Command(aliases={"setrot", "setrotation"}, desc = "Sets the current rotation.")
+    @Command(aliases= {"setrot", "setrotation"}, desc = "Sets the current rotation.")
     @CommandPermissions({"tgm.command.setrot"})
     public static void setRotation(CommandContext context, CommandSender sender) {
         if (context.argsLength() == 0) {
@@ -112,9 +112,9 @@ public class RotationCommands {
         TextComponent message = new TextComponent(rotationName);
         message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/setrot " + rotation.getName()));
         ComponentBuilder builder = new ComponentBuilder(ChatColor.GOLD + rotation.getName() + (rotation.isDefault() ? ChatColor.GRAY + " - Default" : "")).append("\n\n")
-                .append(ChatColor.GRAY + "Requirements: ").append(ChatColor.YELLOW +
-                        (rotation.isDefault() ? rotation.getRequirements().getMin() + "-" + rotation.getRequirements().getMax() + " players" : "N/A")).append("\n")
-                .append(ChatColor.GRAY + "Map Count: ").append(ChatColor.YELLOW + String.valueOf(rotation.getMaps().size()));
+        .append(ChatColor.GRAY + "Requirements: ").append(ChatColor.YELLOW +
+                (rotation.isDefault() ? rotation.getRequirements().getMin() + "-" + rotation.getRequirements().getMax() + " players" : "N/A")).append("\n")
+        .append(ChatColor.GRAY + "Map Count: ").append(ChatColor.YELLOW + String.valueOf(rotation.getMaps().size()));
         message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, builder.create()));
         return message;
     }

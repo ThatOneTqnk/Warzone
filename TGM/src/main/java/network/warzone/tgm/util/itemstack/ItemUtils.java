@@ -25,7 +25,7 @@ public class ItemUtils {
         }
         return false;
     }
-    
+
     public static boolean isPotion(Material material) {
         return material.equals(Material.POTION) || material.equals(Material.SPLASH_POTION) || material.equals(Material.LINGERING_POTION);
     }

@@ -28,7 +28,7 @@ import java.util.Map;
  */
 @Getter
 public class TDMModule extends MatchModule implements Listener {
-    
+
     private WeakReference<Match> match;
     private PointsModule pointsModule;
     private TeamManagerModule teamManager;

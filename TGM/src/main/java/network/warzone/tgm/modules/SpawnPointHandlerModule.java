@@ -51,7 +51,7 @@ public class SpawnPointHandlerModule extends MatchModule implements Listener {
         }
         //player is swapping teams pre/post match.
         //else {
-            //we don't need to teleport them in this case. Let them stay in their position.
+        //we don't need to teleport them in this case. Let them stay in their position.
         //}
     }
 
@@ -94,18 +94,18 @@ public class SpawnPointHandlerModule extends MatchModule implements Listener {
             }, 1L);  // Delay by 1 tick to prevent missing armor points bug
         } else
             Bukkit.getScheduler().runTaskLater(TGM.get(), () -> {
-                playerContext.getPlayer().setFlying(false);
-                playerContext.getPlayer().setAllowFlight(false);
+            playerContext.getPlayer().setFlying(false);
+            playerContext.getPlayer().setAllowFlight(false);
 
-                if (matchTeam.isSpectator()) {
-                    spectatorModule.applySpectatorKit(playerContext);
-                }
-                if (reset) {
-                    matchTeam.getKits().forEach(kit -> kit.apply(playerContext.getPlayer(), matchTeam));
-                    playerContext.getPlayer().updateInventory();
-                }
-                playerContext.getPlayer().setFireTicks(-20);  // Weird lava bug
-            }, 1L); // Delay by 1 tick to prevent missing armor points bug
+            if (matchTeam.isSpectator()) {
+                spectatorModule.applySpectatorKit(playerContext);
+            }
+            if (reset) {
+                matchTeam.getKits().forEach(kit -> kit.apply(playerContext.getPlayer(), matchTeam));
+                playerContext.getPlayer().updateInventory();
+            }
+            playerContext.getPlayer().setFireTicks(-20);  // Weird lava bug
+        }, 1L); // Delay by 1 tick to prevent missing armor points bug
     }
 
     @Override

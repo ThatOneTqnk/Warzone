@@ -19,10 +19,10 @@ public class ChatUtil {
         CraftPlayer obcPlayer = (CraftPlayer) player;
         for (IChatBaseComponent component : components) {
             obcPlayer.getHandle().playerConnection.sendPacket(new PacketPlayOutChat(
-                component,
-                ChatMessageType.CHAT,
-                SystemUtils.b
-            ));
+                        component,
+                        ChatMessageType.CHAT,
+                        SystemUtils.b
+                    ));
         }
     }
 

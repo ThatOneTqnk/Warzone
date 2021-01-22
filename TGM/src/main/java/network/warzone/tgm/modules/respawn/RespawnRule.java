@@ -9,10 +9,10 @@ import java.util.List;
 @AllArgsConstructor @Getter
 public class RespawnRule {
 
-       private List<MatchTeam> teams;
-       private int delay;
-       private boolean freeze;
-       private boolean blindness;
-       private boolean confirm;
+    private List<MatchTeam> teams;
+    private int delay;
+    private boolean freeze;
+    private boolean blindness;
+    private boolean confirm;
 
 }

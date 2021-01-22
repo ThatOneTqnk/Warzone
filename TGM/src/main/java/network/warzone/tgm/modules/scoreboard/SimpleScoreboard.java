@@ -180,7 +180,7 @@ public class SimpleScoreboard {
         removed.stream().forEach((remove) -> {
             for (String s : scoreboard.getEntries()) {
                 Score score = obj.getScore(s);
-                
+
                 if (score == null) continue;
                 if (score.getScore() != remove) continue;
 

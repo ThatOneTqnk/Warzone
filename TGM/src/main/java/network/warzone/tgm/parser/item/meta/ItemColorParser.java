@@ -27,6 +27,6 @@ public class ItemColorParser implements ItemMetaParser {
             potionMeta.setColor(color);
             itemStack.setItemMeta(potionMeta);
         }
-        
+
     }
 }

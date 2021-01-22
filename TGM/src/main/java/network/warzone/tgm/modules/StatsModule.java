@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
  * Created by Jorge on 10/6/2017.
  */
 @Getter
-public class StatsModule extends MatchModule implements Listener{
+public class StatsModule extends MatchModule implements Listener {
     private int xpBarTaskId;
 
     private boolean statsDisabled = false;

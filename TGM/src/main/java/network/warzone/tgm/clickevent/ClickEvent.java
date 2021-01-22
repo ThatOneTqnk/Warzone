@@ -42,35 +42,35 @@ public abstract class ClickEvent {
         }
         JsonElement value = jsonObject.get("value");
         switch (action) {
-            case OPEN_SCREEN:
-                return new OpenScreenClickEvent(value.getAsString());
-            case CLOSE_SCREEN:
-                return new CloseScreenClickEvent();
-            case TRADE:
-                List<ItemStack> give = new ArrayList<>(), take = new ArrayList<>();
-                if (!value.isJsonObject()) return null;
-                JsonObject valueObject = value.getAsJsonObject();
-                for (JsonElement jsonElement : valueObject.getAsJsonArray("give"))
-                    give.add(ItemDeserializer.parse(jsonElement));
-                for (JsonElement jsonElement : valueObject.getAsJsonArray("take"))
-                    take.add(ItemDeserializer.parse(jsonElement));
-                return new TradeClickEvent(give, take);
-            case TELEPORT:
-                return new TeleportClickEvent(Parser.convertLocation(null, value));
-            case RUN_AS_PLAYER:
-                List<String> playerCommands = new ArrayList<>();
-                for (JsonElement element : value.getAsJsonArray()) {
-                    playerCommands.add(element.getAsString());
-                }
-                return new RunAsPlayerClickEvent(playerCommands);
-            case RUN_AS_CONSOLE:
-                List<String> consoleCommands = new ArrayList<>();
-                for (JsonElement element : value.getAsJsonArray()) {
-                    consoleCommands.add(element.getAsString());
-                }
-                return new RunAsConsoleClickEvent(consoleCommands);
-            default:
-                return null;
+        case OPEN_SCREEN:
+            return new OpenScreenClickEvent(value.getAsString());
+        case CLOSE_SCREEN:
+            return new CloseScreenClickEvent();
+        case TRADE:
+            List<ItemStack> give = new ArrayList<>(), take = new ArrayList<>();
+            if (!value.isJsonObject()) return null;
+            JsonObject valueObject = value.getAsJsonObject();
+            for (JsonElement jsonElement : valueObject.getAsJsonArray("give"))
+                give.add(ItemDeserializer.parse(jsonElement));
+            for (JsonElement jsonElement : valueObject.getAsJsonArray("take"))
+                take.add(ItemDeserializer.parse(jsonElement));
+            return new TradeClickEvent(give, take);
+        case TELEPORT:
+            return new TeleportClickEvent(Parser.convertLocation(null, value));
+        case RUN_AS_PLAYER:
+            List<String> playerCommands = new ArrayList<>();
+            for (JsonElement element : value.getAsJsonArray()) {
+                playerCommands.add(element.getAsString());
+            }
+            return new RunAsPlayerClickEvent(playerCommands);
+        case RUN_AS_CONSOLE:
+            List<String> consoleCommands = new ArrayList<>();
+            for (JsonElement element : value.getAsJsonArray()) {
+                consoleCommands.add(element.getAsString());
+            }
+            return new RunAsConsoleClickEvent(consoleCommands);
+        default:
+            return null;
         }
     }
 

@@ -186,23 +186,23 @@ public class RespawnModule extends MatchModule implements Listener {
         long timeLeft = getTimeLeft(goal);
         if (!shouldRespawn) {
             if (timeLeft >= -40 && timeLeft <= 0) player.sendTitle(format("&c&lYOU DIED"),
-                    "",
-                    0, 20, 0);
+                        "",
+                        0, 20, 0);
             return;
         }
         if (goal.getRule().isConfirm() && !goal.isConfirmed()) {
             if (timeLeft > 0) {
                 player.sendTitle(format("&c&lYOU DIED"),
-                        format("&7Punch to respawn in &e" + String.format("%.1f", timeLeft / 1000.0) + 's'),
-                        0, 20, 0);
+                                 format("&7Punch to respawn in &e" + String.format("%.1f", timeLeft / 1000.0) + 's'),
+                                 0, 20, 0);
             } else {
                 player.sendTitle(format("&c&lRESPAWN"), format("&7Punch to respawn"), 0, 20, 0);
             }
             return;
         }
         player.sendTitle(format("&c&lYOU DIED"),
-                format("&7Respawning in &e" + String.format("%.1f", timeLeft / 1000.0) + 's'),
-                0, 20, 0);
+                         format("&7Respawning in &e" + String.format("%.1f", timeLeft / 1000.0) + 's'),
+                         0, 20, 0);
 
     }
 

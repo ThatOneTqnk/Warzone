@@ -192,26 +192,26 @@ public class GameClassModule extends MatchModule implements Listener {
         PHOENIX(PhoenixClass.class,
                 Arrays.asList(PhoenixAbility.class),
                 ItemFactory.createItem(Material.FIRE_CHARGE,
-                        ChatColor.GOLD + "Phoenix",
-                        Arrays.asList(ChatColor.YELLOW + "Fight with the power of the sun!"))),
+                                       ChatColor.GOLD + "Phoenix",
+                                       Arrays.asList(ChatColor.YELLOW + "Fight with the power of the sun!"))),
 
         NINJA(NinjaClass.class,
-                Arrays.asList(NinjaAbility.class),
-                ItemFactory.createItem(Material.FLINT,
-                        ChatColor.WHITE + "Ninja",
-                        Arrays.asList(ChatColor.YELLOW + "Don't need armor when you can't get hit!"))),
+              Arrays.asList(NinjaAbility.class),
+              ItemFactory.createItem(Material.FLINT,
+                                     ChatColor.WHITE + "Ninja",
+                                     Arrays.asList(ChatColor.YELLOW + "Don't need armor when you can't get hit!"))),
 
         BUILDER(BuilderClass.class,
                 Arrays.asList(BuilderAbility.class),
                 ItemFactory.createItem(Material.OAK_STAIRS,
-                        ChatColor.YELLOW + "Builder",
-                        Arrays.asList(ChatColor.YELLOW + "Extra blocks to help build fortifications."))),
+                                       ChatColor.YELLOW + "Builder",
+                                       Arrays.asList(ChatColor.YELLOW + "Extra blocks to help build fortifications."))),
 
         SPY(SpyClass.class,
-                Arrays.asList(SpyAbility.class),
-                ItemFactory.createItem(Material.LEATHER_HELMET,
-                        ChatColor.LIGHT_PURPLE + "Spy",
-                        Arrays.asList(ChatColor.YELLOW + "Keep your friends close, and your enemies closer!")));
+            Arrays.asList(SpyAbility.class),
+            ItemFactory.createItem(Material.LEATHER_HELMET,
+                                   ChatColor.LIGHT_PURPLE + "Spy",
+                                   Arrays.asList(ChatColor.YELLOW + "Keep your friends close, and your enemies closer!")));
 
         @Getter private Class hostGameClass;
         @Getter private List<Class<? extends Ability>> hostAbilities;

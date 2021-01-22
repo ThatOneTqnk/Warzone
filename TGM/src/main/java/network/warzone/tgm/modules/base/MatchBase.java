@@ -89,11 +89,11 @@ public class MatchBase implements Listener {
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         if (match.getMatchStatus() != MatchStatus.MID ||
-            (playerRedeemables == null && itemRedeemables == null) ||
-            (playerRedeemables.size() == 0 && itemRedeemables.size() == 0) ||
-            respawnModule.isDead(event.getPlayer()) ||
-            !isOnBaseTeam(event.getPlayer()) ||
-            !baseRegion.contains(event.getFrom())) return;
+                (playerRedeemables == null && itemRedeemables == null) ||
+                (playerRedeemables.size() == 0 && itemRedeemables.size() == 0) ||
+                respawnModule.isDead(event.getPlayer()) ||
+                !isOnBaseTeam(event.getPlayer()) ||
+                !baseRegion.contains(event.getFrom())) return;
         else {
             List<PlayerRedeemable> eligiblePlayerRedeemables = hasPlayerRedeemables(event.getPlayer());
             List<ItemRedeemable> eligibleItemRedeemables = applicableItemRedeemables(event.getPlayer().getActiveItem());

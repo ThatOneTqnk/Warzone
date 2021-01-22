@@ -51,7 +51,7 @@ public class ItemFactory {
 
         return item;
     }
-    
+
     public static ItemStack createItem(Material material, String name, List<String> lore, int amount, byte data) {
         ItemStack item = new ItemStack(material, amount, data);
 
@@ -59,7 +59,7 @@ public class ItemFactory {
         meta.setDisplayName(name);
         meta.setLore(lore);
         item.setItemMeta(meta);
-        
+
         return item;
     }
 

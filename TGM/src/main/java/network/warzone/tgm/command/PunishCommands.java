@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
 public class PunishCommands {
 
     private static final Pattern IP_PATTERN = Pattern.compile(
-            "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+                "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
     private static final ChatColor punisherColor = ChatColor.DARK_PURPLE;
     private static final ChatColor punishedColor = ChatColor.LIGHT_PURPLE;
     private static final ChatColor durationColor = ChatColor.LIGHT_PURPLE;
@@ -68,13 +68,13 @@ public class PunishCommands {
                     for (int i = 0; i < players.length; i++) lore[i + 2] = ChatColor.GRAY + "- " + ChatColor.WHITE + players[i];
                     ItemFactory.appendLore(configItem, lore);
                     new ConfirmMenu(player, ChatColor.UNDERLINE + "Confirm bulk punish", configItem,
-                            (p, e) -> {
-                                Arrays.stream(players).forEach(username -> PunishMenu.issuePunishment(username, player, config));
-                                p.closeInventory();
-                                player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 2.0f);
-                            }, (p, e) -> {
-                                p.closeInventory();
-                                p.sendMessage(ChatColor.RED + "Bulk punish cancelled.");
+                    (p, e) -> {
+                        Arrays.stream(players).forEach(username -> PunishMenu.issuePunishment(username, player, config));
+                        p.closeInventory();
+                        player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 2.0f);
+                    }, (p, e) -> {
+                        p.closeInventory();
+                        p.sendMessage(ChatColor.RED + "Bulk punish cancelled.");
                     }).open(player);
                     return;
                 }
@@ -210,11 +210,11 @@ public class PunishCommands {
                 if (playerInfoResponse.getUsers().isEmpty()) return;
                 UserProfile profile = playerInfoResponse.getUsers().get(0);
                 sender.sendMessage(ChatColor.GRAY + "ID: " + ChatColor.RESET + profile.getId() +
-                        "\n" + ChatColor.GRAY + "UUID: " + ChatColor.RESET + profile.getUuid() +
-                        "\n" + ChatColor.GRAY + "Name: " + ChatColor.RESET + profile.getName() +
-                        "\n" + ChatColor.GRAY + "First join: " + ChatColor.RESET + new Date(profile.getInitialJoinDate()).toString() +
-                        "\n" + ChatColor.GRAY + "Last online: " + ChatColor.RESET + new Date(profile.getLastOnlineDate()).toString()
-                );
+                                   "\n" + ChatColor.GRAY + "UUID: " + ChatColor.RESET + profile.getUuid() +
+                                   "\n" + ChatColor.GRAY + "Name: " + ChatColor.RESET + profile.getName() +
+                                   "\n" + ChatColor.GRAY + "First join: " + ChatColor.RESET + new Date(profile.getInitialJoinDate()).toString() +
+                                   "\n" + ChatColor.GRAY + "Last online: " + ChatColor.RESET + new Date(profile.getLastOnlineDate()).toString()
+                                  );
             }
         });
     }
@@ -232,15 +232,15 @@ public class PunishCommands {
                 sender.sendMessage(ChatColor.GRAY + "Users " + ChatColor.RESET + "(" + playerInfoResponse.getUsers().size() + ")" + ChatColor.GRAY + ":");
                 for (UserProfile profile : playerInfoResponse.getUsers()) {
                     sender.spigot().sendMessage(new ComponentBuilder(ChatColor.GRAY + " - " + ChatColor.RESET + profile.getName()).event(
-                            new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(
-                                    ChatColor.GRAY + "ID: " + ChatColor.RESET + profile.getId() +
-                                            "\n" + ChatColor.GRAY + "UUID: " + ChatColor.RESET + profile.getUuid() +
-                                            "\n" + ChatColor.GRAY + "Name: " + ChatColor.RESET + profile.getName() +
-                                            "\n" + ChatColor.GRAY + "First join: " + ChatColor.RESET + new Date(profile.getInitialJoinDate()).toString() +
-                                            "\n" + ChatColor.GRAY + "Last online: " + ChatColor.RESET + new Date(profile.getLastOnlineDate()).toString()
-                            ).create())).event(
-                            new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lookup " + profile.getName())
-                    ).create());
+                                                    new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(
+                                                            ChatColor.GRAY + "ID: " + ChatColor.RESET + profile.getId() +
+                                                            "\n" + ChatColor.GRAY + "UUID: " + ChatColor.RESET + profile.getUuid() +
+                                                            "\n" + ChatColor.GRAY + "Name: " + ChatColor.RESET + profile.getName() +
+                                                            "\n" + ChatColor.GRAY + "First join: " + ChatColor.RESET + new Date(profile.getInitialJoinDate()).toString() +
+                                                            "\n" + ChatColor.GRAY + "Last online: " + ChatColor.RESET + new Date(profile.getLastOnlineDate()).toString()
+                                                            ).create())).event(
+                                                    new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/lookup " + profile.getName())
+                                                ).create());
                 }
             }
         });
@@ -264,9 +264,9 @@ public class PunishCommands {
 
                 String name = response.getLookupUser().getName();
                 List<String> alts = new ArrayList<>(Arrays.asList(
-                        "",
-                        ChatColor.AQUA + name + (name.endsWith("s") ? "'" : "'s") + " known alts:"
-                ));
+                                                        "",
+                                                        ChatColor.AQUA + name + (name.endsWith("s") ? "'" : "'s") + " known alts:"
+                                                    ));
 
                 for (UserProfile user : response.getUsers()) {
                     boolean isBanned = false;
@@ -321,13 +321,13 @@ public class PunishCommands {
                 if (revertPunishmentResponse.isSuccess()) {
                     Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("tgm.punish.revert")).forEach(player ->
                             player.spigot().sendMessage(new TextComponent(ChatColor.YELLOW + sender.getName() + " reverted "),
-                                    punishmentToTextComponent(
-                                            revertPunishmentResponse.getPunishment(),
-                                            userMappings.get(revertPunishmentResponse.getPunishment().getPunished()),
-                                            userMappings.get(revertPunishmentResponse.getPunishment().getPunisher()),
-                                            false)
-                            )
-                    );
+                                                        punishmentToTextComponent(
+                                                            revertPunishmentResponse.getPunishment(),
+                                                            userMappings.get(revertPunishmentResponse.getPunishment().getPunished()),
+                                                            userMappings.get(revertPunishmentResponse.getPunishment().getPunisher()),
+                                                            false)
+                                                       )
+                                                                                                                          );
                     TGM.get().getPlayerManager().getPlayers().forEach(playerContext -> {
                         Punishment punishment;
                         if ((punishment = playerContext.getUserProfile().getPunishment(revertPunishmentResponse.getPunishment().getId())) != null) {
@@ -392,11 +392,11 @@ public class PunishCommands {
         int amount = ReportsModule.getAmount(reported.getUniqueId().toString()) + 1;
 
         Report report = new Report()
-                .setReporter(reporter.getName())
-                .setReported(reported.getName())
-                .setReason(cmd.getJoinedStrings(1))
-                .setTimestamp(System.currentTimeMillis())
-                .setAmount(amount);
+        .setReporter(reporter.getName())
+        .setReported(reported.getName())
+        .setReason(cmd.getJoinedStrings(1))
+        .setTimestamp(System.currentTimeMillis())
+        .setAmount(amount);
 
         ReportsModule.addReport(report);
         ReportsModule.setAmount(reported.getUniqueId().toString(), amount);
@@ -415,7 +415,7 @@ public class PunishCommands {
             if (player.hasPermission("tgm.reports")) {
                 TextComponent message = new TextComponent(ChatColor.translateAlternateColorCodes('&',
                         "&4[REPORT]&8 [" + amount + "] &5" + reporter.getName() + " &7reported &d" +
-                                reportedName + " &7for &r" + cmd.getJoinedStrings(1)));
+                        reportedName + " &7for &r" + cmd.getJoinedStrings(1)));
                 message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tp " + report.getReported()));
                 player.spigot().sendMessage(message);
             }
@@ -479,8 +479,8 @@ public class PunishCommands {
                 TextComponent message = new TextComponent(reported);
                 message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tp " + report.getReported()));
                 message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GOLD + reported).append("\n\n")
-                        .append(ChatColor.GRAY + "Date/Time: ").append(dateFormat.format(date)).append("\n")
-                        .append(ChatColor.GRAY + "Reporter: ").append(report.getReporter()).create()));
+                                                     .append(ChatColor.GRAY + "Date/Time: ").append(dateFormat.format(date)).append("\n")
+                                                     .append(ChatColor.GRAY + "Reporter: ").append(report.getReporter()).create()));
 
                 sender.spigot().sendMessage(message);
             }
@@ -494,14 +494,14 @@ public class PunishCommands {
     private static void issuePunishment(String type, String name, String ip, boolean ip_ban, CommandSender punisher, String verb, TimeUnitPair timeUnitPair, String reason, boolean time, boolean broadcast) {
         Bukkit.getScheduler().runTaskAsynchronously(TGM.get(), () -> {
             IssuePunishmentResponse response = TGM.get().getTeamClient().issuePunishment(
-                    new IssuePunishmentRequest(
-                            name,
-                            ip,
-                            ip_ban,
-                            punisher instanceof Player ? ((Player) punisher).getUniqueId() : null,
-                            type.toUpperCase(),
-                            timeUnitPair.toMilliseconds(),
-                            reason)
+                new IssuePunishmentRequest(
+                    name,
+                    ip,
+                    ip_ban,
+                    punisher instanceof Player ? ((Player) punisher).getUniqueId() : null,
+                    type.toUpperCase(),
+                    timeUnitPair.toMilliseconds(),
+                    reason)
             );
             if (response.isNotFound()) {
                 punisher.sendMessage(ChatColor.RED + "Player not found!");
@@ -524,11 +524,11 @@ public class PunishCommands {
     private static boolean kickPlayer(Punishment punishment, String name) {
         if (punishment.getType().equalsIgnoreCase("ban")) {
             String reason = ChatColor.RED + "You have been banned from the server. Reason:\n"
-                    + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', punishment.getReason()) + "\n\n"
-                    + ChatColor.RED + "Ban expires: " + ChatColor.RESET +
-                    (punishment.getExpires() != -1 ? new Date(punishment.getExpires()).toString() : "Never") + "\n"
-                    + ChatColor.AQUA + "Appeal at " + TGM.get().getConfig().getString("server.appeal") + "\n"
-                    + ChatColor.GRAY + "ID: " + punishment.getId().toString();
+                            + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', punishment.getReason()) + "\n\n"
+                            + ChatColor.RED + "Ban expires: " + ChatColor.RESET +
+                            (punishment.getExpires() != -1 ? new Date(punishment.getExpires()).toString() : "Never") + "\n"
+                            + ChatColor.AQUA + "Appeal at " + TGM.get().getConfig().getString("server.appeal") + "\n"
+                            + ChatColor.GRAY + "ID: " + punishment.getId().toString();
             if (punishment.isIp_ban()) {
                 boolean found = false;
                 for (Player player : Bukkit.getOnlinePlayers()) {
@@ -560,18 +560,18 @@ public class PunishCommands {
                 + (punishment.isReverted() ? ChatColor.STRIKETHROUGH + "" : (punishment.isActive() ? ChatColor.RED : ChatColor.YELLOW))
                 + punishment.getType() + ChatColor.RESET + " " + (punished == null ? punishment.getIp() : punished));
 
-        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[]{
-                new TextComponent(ChatColor.GRAY + "ID: "               + ChatColor.RESET + punishment.getId().toString()),
-                new TextComponent(ChatColor.GRAY + "\nType: "           + ChatColor.RESET + punishment.getType().toUpperCase()),
-                new TextComponent(ChatColor.GRAY + "\nPunished IP: "    + ChatColor.RESET + punishment.getIp()),
-                new TextComponent(ChatColor.GRAY + "\nIP Punishment: "  + ChatColor.RESET + punishment.isIp_ban()),
-                new TextComponent(ChatColor.GRAY + "\nIssued by: "      + ChatColor.RESET + punisher),
-                new TextComponent(ChatColor.GRAY + "\nReverted: "       + ChatColor.RESET + punishment.isReverted()),
-                new TextComponent(ChatColor.GRAY + "\nIssued: "         + ChatColor.RESET + new Date(punishment.getIssued()).toString()),
-                new TextComponent(ChatColor.GRAY + "\nExpires: "        + ChatColor.RESET + (punishment.getExpires() != -1 ? new Date(punishment.getExpires()).toString() : "Never")),
-                new TextComponent(ChatColor.GRAY + "\n\nReason: "       + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', punishment.getReason()) +
-                (revertOption && !punishment.isReverted() ? "\n\n" + ChatColor.YELLOW + "Click to revert" : ""))
-        }));
+        textComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new BaseComponent[] {
+                                        new TextComponent(ChatColor.GRAY + "ID: "               + ChatColor.RESET + punishment.getId().toString()),
+                                        new TextComponent(ChatColor.GRAY + "\nType: "           + ChatColor.RESET + punishment.getType().toUpperCase()),
+                                        new TextComponent(ChatColor.GRAY + "\nPunished IP: "    + ChatColor.RESET + punishment.getIp()),
+                                        new TextComponent(ChatColor.GRAY + "\nIP Punishment: "  + ChatColor.RESET + punishment.isIp_ban()),
+                                        new TextComponent(ChatColor.GRAY + "\nIssued by: "      + ChatColor.RESET + punisher),
+                                        new TextComponent(ChatColor.GRAY + "\nReverted: "       + ChatColor.RESET + punishment.isReverted()),
+                                        new TextComponent(ChatColor.GRAY + "\nIssued: "         + ChatColor.RESET + new Date(punishment.getIssued()).toString()),
+                                        new TextComponent(ChatColor.GRAY + "\nExpires: "        + ChatColor.RESET + (punishment.getExpires() != -1 ? new Date(punishment.getExpires()).toString() : "Never")),
+                                        new TextComponent(ChatColor.GRAY + "\n\nReason: "       + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', punishment.getReason()) +
+                                                (revertOption && !punishment.isReverted() ? "\n\n" + ChatColor.YELLOW + "Click to revert" : ""))
+                                    }));
 
         if (revertOption && !punishment.isReverted()) textComponent.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/revert " + punishment.getId().toString()));
         return textComponent;
@@ -579,45 +579,45 @@ public class PunishCommands {
 
     private static void broadcastPunishment(String name, String ip, String punisher, String action, TimeUnitPair timeUnitPair, String reason, boolean timed, boolean everyone) {
         TGM.get().getLogger().info(String.format("new-punishment {name=%s, ip=%s, punisher=%s, action=%s, timeUnitPair=%s, reason=%s, timed=%b, public=%s}",
-                name, ip, punisher, action, timeUnitPair.toString(), reason, timed, everyone));
+                                   name, ip, punisher, action, timeUnitPair.toString(), reason, timed, everyone));
         if (name != null) {
             if (timed) {
                 if (everyone) { // Timed & Public
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (p.hasPermission("tgm.punish.list")) {
                             Players.sendMessage(p, "%s%s&7 has been &c%s&7 by %s%s&7 for %s%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    punisherColor, punisher,
-                                    durationColor, timeUnitPair,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                punisherColor, punisher,
+                                                durationColor, timeUnitPair,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         } else {
                             Players.sendMessage(p, "%s%s&7 has been &c%s&7 for %s%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    durationColor, timeUnitPair,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                durationColor, timeUnitPair,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         }
                     }
                 } else { // Timed & Silent
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (p.hasPermission("tgm.punish.list")) {
                             Players.sendMessage(p, "&7[SILENT] %s%s&7 has been &c%s&7 by %s%s&7 for %s%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    punisherColor, punisher,
-                                    durationColor, timeUnitPair,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                punisherColor, punisher,
+                                                durationColor, timeUnitPair,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         } else if (p.getName().equalsIgnoreCase(name)) {
                             Players.sendMessage(p, "%s%s&7 has been &c%s&7 for %s%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    durationColor, timeUnitPair,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                durationColor, timeUnitPair,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         }
                     }
                 }
@@ -626,34 +626,34 @@ public class PunishCommands {
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (p.hasPermission("tgm.punish.list")) {
                             Players.sendMessage(p, "%s%s&7 has been &c%s&7 by %s%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    punisherColor, punisher,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                punisherColor, punisher,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         } else {
                             Players.sendMessage(p, "%s%s&7 has been &c%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         }
                     }
                 } else { // Non-timed & Silent
                     for (Player p : Bukkit.getOnlinePlayers()) {
                         if (p.hasPermission("tgm.punish.list")) {
                             Players.sendMessage(p, "&7[SILENT] %s%s&7 has been &c%s&7 by %s%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    punisherColor, punisher,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                punisherColor, punisher,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         } else if (p.getName().equalsIgnoreCase(name)) {
                             Players.sendMessage(p, "%s%s&7 has been &c%s&7 for &r%s",
-                                    punishedColor, name,
-                                    action,
-                                    ChatColor.translateAlternateColorCodes('&', reason)
-                            );
+                                                punishedColor, name,
+                                                action,
+                                                ChatColor.translateAlternateColorCodes('&', reason)
+                                               );
                         }
                     }
                 }
@@ -661,12 +661,12 @@ public class PunishCommands {
         } else { // IP Ban, no need to broadcast publicly.
             if (timed) { // Timed & Silent
                 String result = String.format("&7[SILENT] %s%s&7 has been &c%s&7 by %s%s&7 for %s%s&7 for &r%s",
-                        punishedColor, ip,
-                        action,
-                        punisherColor, punisher,
-                        durationColor, timeUnitPair,
-                        ChatColor.translateAlternateColorCodes('&', reason)
-                );
+                                              punishedColor, ip,
+                                              action,
+                                              punisherColor, punisher,
+                                              durationColor, timeUnitPair,
+                                              ChatColor.translateAlternateColorCodes('&', reason)
+                                             );
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     if (p.hasPermission("tgm.punish.list")) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', result));
@@ -674,11 +674,11 @@ public class PunishCommands {
                 }
             } else { // Non-timed & Silent
                 String result = String.format("&7[SILENT] %s%s&7 has &c%s&7 %s%s&7 for &r%s",
-                        punisherColor, punisher,
-                        action,
-                        punishedColor, ip,
-                        ChatColor.translateAlternateColorCodes('&', reason)
-                );
+                                              punisherColor, punisher,
+                                              action,
+                                              punishedColor, ip,
+                                              ChatColor.translateAlternateColorCodes('&', reason)
+                                             );
                 for (Player p : Bukkit.getOnlinePlayers()) {
                     if (p.hasPermission("tgm.punish.list")) {
                         p.sendMessage(ChatColor.translateAlternateColorCodes('&', result));

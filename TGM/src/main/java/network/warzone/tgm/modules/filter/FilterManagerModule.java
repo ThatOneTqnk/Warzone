@@ -19,9 +19,9 @@ import java.util.List;
 public class FilterManagerModule extends MatchModule {
 
     private List<FilterType> filterTypes = new ArrayList<>();
-    
+
     private WeakReference<Match> match;
-    
+
     @Override
     public void load(Match match) {
         this.match = new WeakReference<Match>(match);
@@ -56,10 +56,10 @@ public class FilterManagerModule extends MatchModule {
         List<FilterType> filterTypes = new ArrayList<>();
 
         String type = jsonObject.get("type").getAsString()
-                .replace(" ", "")
-                .replace("_", "")
-                .replace("-", "")
-                .toLowerCase();
+                      .replace(" ", "")
+                      .replace("_", "")
+                      .replace("-", "")
+                      .toLowerCase();
 
         if ("build".equals(type))               filterTypes.add(BuildFilterType.parse(match, jsonObject));
         else if ("enter".equals(type))          filterTypes.add(EnterFilterType.parse(match, jsonObject));
@@ -76,12 +76,12 @@ public class FilterManagerModule extends MatchModule {
 
     public static FilterEvaluator initEvaluator(Match match, JsonObject parent) {
         switch (parent.get("evaluate").getAsString()) {
-            case "allow":
-                return new AllowFilterEvaluator();
-            case "deny":
-                return new DenyFilterEvaluator();
-            default:
-                return null;
+        case "allow":
+            return new AllowFilterEvaluator();
+        case "deny":
+            return new DenyFilterEvaluator();
+        default:
+            return null;
         }
     }
 }

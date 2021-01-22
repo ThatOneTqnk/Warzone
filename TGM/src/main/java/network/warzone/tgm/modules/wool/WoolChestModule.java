@@ -30,9 +30,9 @@ public class WoolChestModule extends MatchModule implements Listener {
     @Override
     public void load(Match match) {
         runnableId = Bukkit.getScheduler().runTaskTimer(TGM.get(), () ->
-                woolChests.forEach((inventory, color) ->
-                        fillInventoryWithWool(inventory.getInventory(), color)
-                ), 1L, 1L).getTaskId();
+                     woolChests.forEach((inventory, color) ->
+                                        fillInventoryWithWool(inventory.getInventory(), color)
+                                       ), 1L, 1L).getTaskId();
     }
 
     @Override

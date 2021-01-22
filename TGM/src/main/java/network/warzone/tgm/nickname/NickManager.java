@@ -58,15 +58,15 @@ public class NickManager {
             applyDetailToProfile(details, profile);
 
             nicks.add(new Nick(
-                    originalUUID,
-                    getOriginalName(context.getPlayer().getName()),
-                    name,
-                    skin,
-                    details,
-                    profile,
-                    false,
-                    false
-            ));
+                          originalUUID,
+                          getOriginalName(context.getPlayer().getName()),
+                          name,
+                          skin,
+                          details,
+                          profile,
+                          false,
+                          false
+                      ));
         });
     }
 

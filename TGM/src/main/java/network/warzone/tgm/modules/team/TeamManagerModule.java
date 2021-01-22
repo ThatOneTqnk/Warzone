@@ -43,15 +43,15 @@ public class TeamManagerModule extends MatchModule implements Listener {
 
         for (ParsedTeam parsedTeam : match.getMapContainer().getMapInfo().getTeams()) {
             teams.add(new MatchTeam(
-                    parsedTeam.getId(),
-                    parsedTeam.getAlias(),
-                    parsedTeam.getTeamColor(),
-                    parsedTeam.getTeamGamemode(),
-                    false,
-                    parsedTeam.getMax(),
-                    parsedTeam.getMin(),
-                    parsedTeam.isFriendlyFire()
-            ));
+                          parsedTeam.getId(),
+                          parsedTeam.getAlias(),
+                          parsedTeam.getTeamColor(),
+                          parsedTeam.getTeamGamemode(),
+                          false,
+                          parsedTeam.getMax(),
+                          parsedTeam.getMin(),
+                          parsedTeam.isFriendlyFire()
+                      ));
         }
     }
 

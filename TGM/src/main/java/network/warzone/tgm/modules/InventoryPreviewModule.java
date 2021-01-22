@@ -50,7 +50,7 @@ public class InventoryPreviewModule extends MatchModule implements Listener, Tas
     @Override
     public void tick() {
         inventoryClones.keySet()
-                .forEach(this::updateInventory);
+        .forEach(this::updateInventory);
     }
 
     @EventHandler

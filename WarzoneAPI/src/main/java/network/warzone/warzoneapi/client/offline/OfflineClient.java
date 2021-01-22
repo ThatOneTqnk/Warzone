@@ -54,7 +54,7 @@ public class OfflineClient implements TeamClient {
     public UserProfile login(PlayerLogin playerLogin) {
         List<String> ranks = new ArrayList<String>();
         return new UserProfile(new ObjectId(), playerLogin.getName(), playerLogin.getName().toLowerCase(),
-                playerLogin.getUuid(), new Date().getTime(), new Date().getTime(), Collections.singletonList(playerLogin.getIp()), ranks, new ArrayList<Rank>(), 0, 0, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), null, false);
+                               playerLogin.getUuid(), new Date().getTime(), new Date().getTime(), Collections.singletonList(playerLogin.getIp()), ranks, new ArrayList<Rank>(), 0, 0, 0, 0, 0, new ArrayList<>(), new ArrayList<>(), null, false);
     }
 
     @Override
@@ -118,7 +118,9 @@ public class OfflineClient implements TeamClient {
     }
 
     @Override
-    public LeaderboardResponse getLeaderboard(LeaderboardCriterion leaderboardCriterion) { return new LeaderboardResponse(); }
+    public LeaderboardResponse getLeaderboard(LeaderboardCriterion leaderboardCriterion) {
+        return new LeaderboardResponse();
+    }
 
     @Override
     public RevertPunishmentResponse revertPunishment(String id) {

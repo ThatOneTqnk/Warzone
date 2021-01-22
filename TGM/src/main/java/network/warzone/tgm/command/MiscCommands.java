@@ -55,7 +55,7 @@ public class MiscCommands {
         sender.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "TGM INFO");
         sender.sendMessage(String.format("%sMatch number: %s%s", ChatColor.GRAY, ChatColor.WHITE, TGM.get().getMatchManager().getMatchNumber()));
         sender.sendMessage(String.format("%sPlayer contexts: %s%s%s", ChatColor.GRAY, ChatColor.WHITE, TGM.get().getPlayerManager().getPlayers().size(),
-                TGM.get().getPlayerManager().getPlayers().size() != Bukkit.getOnlinePlayers().size() ? ChatColor.RED + "" + ChatColor.BOLD + " !" : ""));
+                                         TGM.get().getPlayerManager().getPlayers().size() != Bukkit.getOnlinePlayers().size() ? ChatColor.RED + "" + ChatColor.BOLD + " !" : ""));
         sender.sendMessage(String.format("%sModules loaded: %s%s", ChatColor.GRAY, ChatColor.WHITE, TGM.get().getMatchManager().getMatch().getModules().size()));
         sender.sendMessage(String.format("%sCached profiles: %s%s", ChatColor.GRAY, ChatColor.WHITE, ProfileCache.getInstance().size()));
     }

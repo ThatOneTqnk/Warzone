@@ -632,8 +632,8 @@ public class CycleCommands {
                 criterion = LeaderboardCriterion.valueOf(Strings.getTechnicalName(cmd.getString(0)));
             } catch (IllegalArgumentException e) {
                 List<String> criteria = Arrays.stream(LeaderboardCriterion.values())
-                        .map(c -> c.name().toLowerCase())
-                        .collect(Collectors.toList());
+                                        .map(c -> c.name().toLowerCase())
+                                        .collect(Collectors.toList());
                 sender.sendMessage(ChatColor.RED + "Usage: /" + cmd.getCommand() + " <" + String.join("|", criteria) + ">");
                 return;
             }
@@ -672,8 +672,7 @@ public class CycleCommands {
             } else {
                 sender.sendMessage(ChatColor.RED + "There are no registered countdowns.");
             }
-        }
-        else if (cmd.getString(0).equalsIgnoreCase("start")) {
+        } else if (cmd.getString(0).equalsIgnoreCase("start")) {
             if (cmd.argsLength() <= 1) {
                 sender.sendMessage(ChatColor.RED + "Usage: /" + cmd.getCommand() + " start (id)");
                 return;
@@ -699,11 +698,11 @@ public class CycleCommands {
             boolean visible = cmd.argsLength() <= 6 || Boolean.parseBoolean(cmd.getString(6));
             boolean invert = cmd.argsLength() > 7 && Boolean.parseBoolean(cmd.getString(7));
             List<MatchTeam> teams = cmd.argsLength() > 8 ?
-                    Arrays.stream(cmd.getString(8).split(",")).map(t -> TGM.get().getModule(TeamManagerModule.class).getTeamById(t)).collect(Collectors.toList()) :
-                    new ArrayList<>();
+                                    Arrays.stream(cmd.getString(8).split(",")).map(t -> TGM.get().getModule(TeamManagerModule.class).getTeamById(t)).collect(Collectors.toList()) :
+                                    new ArrayList<>();
             List<String> onFinish = cmd.argsLength() > 9 ?
-                    Arrays.asList(cmd.getString(9).split(",")) :
-                    new ArrayList<>();
+                                    Arrays.asList(cmd.getString(9).split(",")) :
+                                    new ArrayList<>();
             countdownManagerModule.addCountdown(id, new CustomCountdown(time, title, color, style, visible, invert, teams, onFinish));
             sender.sendMessage(ChatColor.GREEN + "Created new countdown.");
         } else if (cmd.getString(0).equalsIgnoreCase("edit")) {
@@ -714,42 +713,42 @@ public class CycleCommands {
             String id = cmd.getString(1);
             CustomCountdown countdown = countdownManagerModule.getCountdown(id);
             switch (cmd.getString(2)) {
-                case "time":
-                    countdown.setTime(cmd.getInteger(3));
+            case "time":
+                countdown.setTime(cmd.getInteger(3));
+                break;
+            case "title":
+                countdown.setTitle(cmd.getRemainingString(3));
+                break;
+            case "color":
+                countdown.setColor(BarColor.valueOf(Strings.getTechnicalName(cmd.getRemainingString(3))));
+                break;
+            case "style":
+                countdown.setStyle(BarStyle.valueOf(Strings.getTechnicalName(cmd.getRemainingString(3))));
+                break;
+            case "visible":
+                countdown.setVisible(Boolean.parseBoolean(cmd.getString(3)));
+                break;
+            case "invert":
+                countdown.setInvert(Boolean.parseBoolean(cmd.getString(3)));
+                break;
+            case "teams":
+                if (cmd.getRemainingString(3).equalsIgnoreCase("-")) {
+                    countdown.setTeams(new ArrayList<>());
                     break;
-                case "title":
-                    countdown.setTitle(cmd.getRemainingString(3));
+                }
+                TeamManagerModule teamManagerModule = TGM.get().getModule(TeamManagerModule.class);
+                countdown.setTeams(Arrays.stream(cmd.getRemainingString(3).split(";")).map(teamManagerModule::getTeamFromInput).collect(Collectors.toList()));
+                break;
+            case "onFinish":
+                if (cmd.getRemainingString(3).equalsIgnoreCase("-")) {
+                    countdown.setOnFinish(new ArrayList<>());
                     break;
-                case "color":
-                    countdown.setColor(BarColor.valueOf(Strings.getTechnicalName(cmd.getRemainingString(3))));
-                    break;
-                case "style":
-                    countdown.setStyle(BarStyle.valueOf(Strings.getTechnicalName(cmd.getRemainingString(3))));
-                    break;
-                case "visible":
-                    countdown.setVisible(Boolean.parseBoolean(cmd.getString(3)));
-                    break;
-                case "invert":
-                    countdown.setInvert(Boolean.parseBoolean(cmd.getString(3)));
-                    break;
-                case "teams":
-                    if (cmd.getRemainingString(3).equalsIgnoreCase("-")) {
-                        countdown.setTeams(new ArrayList<>());
-                        break;
-                    }
-                    TeamManagerModule teamManagerModule = TGM.get().getModule(TeamManagerModule.class);
-                    countdown.setTeams(Arrays.stream(cmd.getRemainingString(3).split(";")).map(teamManagerModule::getTeamFromInput).collect(Collectors.toList()));
-                    break;
-                case "onFinish":
-                    if (cmd.getRemainingString(3).equalsIgnoreCase("-")) {
-                        countdown.setOnFinish(new ArrayList<>());
-                        break;
-                    }
-                    countdown.setOnFinish(Arrays.asList(cmd.getRemainingString(3).split(";")));
-                    break;
-                default:
-                    sender.sendMessage(ChatColor.RED + "Usage: /" + cmd.getCommand() + " edit <id> <time|title|color|style|visible|invert|teams|onFinish> [value]");
-                    return;
+                }
+                countdown.setOnFinish(Arrays.asList(cmd.getRemainingString(3).split(";")));
+                break;
+            default:
+                sender.sendMessage(ChatColor.RED + "Usage: /" + cmd.getCommand() + " edit <id> <time|title|color|style|visible|invert|teams|onFinish> [value]");
+                return;
             }
             sender.sendMessage(ChatColor.GREEN + "Updated countdown.");
         } else if (cmd.getString(0).equalsIgnoreCase("cancel")) {
@@ -839,7 +838,7 @@ public class CycleCommands {
                 player.sendMessage(ChatColor.LIGHT_PURPLE + "Only premium users can pick their team!\nPurchase a rank at " + TGM.get().getConfig().getString("server.store"));
                 return;
             } else if (!player.hasPermission("tgm.pickteam.bypass") &&
-                    (!TGM.get().getApiManager().isStatsDisabled() || !TGM.get().getConfig().getBoolean("map.team-picking-conditions.ignore-untracked"))) {
+                       (!TGM.get().getApiManager().isStatsDisabled() || !TGM.get().getConfig().getBoolean("map.team-picking-conditions.ignore-untracked"))) {
                 if (getPlayerCount() < TGM.get().getConfig().getInt("map.team-picking-conditions.min-players")) {
                     player.sendMessage(ChatColor.RED + "There are not enough players in the server for you to be able to pick your team.");
                     return;
@@ -856,23 +855,23 @@ public class CycleCommands {
 
     public static TextComponent profileToTextComponent(UserProfile profile, int place, LeaderboardCriterion criterion) {
         TextComponent main = new TextComponent(
-                ChatColor.translateAlternateColorCodes('&', "&7" + place + "." + " &b" +
-                        profile.getName() + " &7(&9" + criterion.extract(profile) + " " +
-                        criterion.getDisplay() + "&7)"
-                )
+            ChatColor.translateAlternateColorCodes('&', "&7" + place + "." + " &b" +
+                    profile.getName() + " &7(&9" + criterion.extract(profile) + " " +
+                    criterion.getDisplay() + "&7)"
+                                                  )
         );
-        main.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[]{
-                new TextComponent(ChatColor.AQUA + "Level: " + ChatColor.RESET + profile.getLevel()),
-                new TextComponent("\n"),
-                new TextComponent("\n" + ChatColor.AQUA + "XP: " + ChatColor.RESET + profile.getXP()),
-                new TextComponent("\n" + ChatColor.AQUA + "Kills: " + ChatColor.RESET + profile.getKills()),
-                new TextComponent("\n" + ChatColor.AQUA + "Deaths: " + ChatColor.RESET + profile.getDeaths()),
-                new TextComponent("\n" + ChatColor.AQUA + "K/D: " + ChatColor.RESET + profile.getKDR()),
-                new TextComponent("\n"),
-                new TextComponent("\n" + ChatColor.AQUA + "Wins: " + ChatColor.RESET + profile.getWins()),
-                new TextComponent("\n" + ChatColor.AQUA + "Losses: " + ChatColor.RESET + profile.getLosses()),
-                new TextComponent("\n" + ChatColor.AQUA + "W/L: " + ChatColor.RESET + profile.getWLR())
-        }));
+        main.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] {
+                                              new TextComponent(ChatColor.AQUA + "Level: " + ChatColor.RESET + profile.getLevel()),
+                                              new TextComponent("\n"),
+                                              new TextComponent("\n" + ChatColor.AQUA + "XP: " + ChatColor.RESET + profile.getXP()),
+                                              new TextComponent("\n" + ChatColor.AQUA + "Kills: " + ChatColor.RESET + profile.getKills()),
+                                              new TextComponent("\n" + ChatColor.AQUA + "Deaths: " + ChatColor.RESET + profile.getDeaths()),
+                                              new TextComponent("\n" + ChatColor.AQUA + "K/D: " + ChatColor.RESET + profile.getKDR()),
+                                              new TextComponent("\n"),
+                                              new TextComponent("\n" + ChatColor.AQUA + "Wins: " + ChatColor.RESET + profile.getWins()),
+                                              new TextComponent("\n" + ChatColor.AQUA + "Losses: " + ChatColor.RESET + profile.getLosses()),
+                                              new TextComponent("\n" + ChatColor.AQUA + "W/L: " + ChatColor.RESET + profile.getWLR())
+                                          }));
         main.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/stats " + profile.getName()));
         return main;
     }
@@ -888,9 +887,9 @@ public class CycleCommands {
         TextComponent message = new TextComponent(mapName);
         message.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/setnext " + mapInfo.getName()));
         message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GOLD + mapInfo.getName()).append("\n\n")
-                .append(ChatColor.GRAY + "Authors: ").append(ChatColor.YELLOW + mapInfo.getAuthors().stream().map(Strings::getAuthorUsername).collect(Collectors.joining(", "))).append("\n")
-                .append(ChatColor.GRAY + "Game Type: ").append(ChatColor.YELLOW + mapInfo.getGametype().toString()).append("\n")
-                .append(ChatColor.GRAY + "Version: ").append(ChatColor.YELLOW + mapInfo.getVersion()).create()));
+                                             .append(ChatColor.GRAY + "Authors: ").append(ChatColor.YELLOW + mapInfo.getAuthors().stream().map(Strings::getAuthorUsername).collect(Collectors.joining(", "))).append("\n")
+                                             .append(ChatColor.GRAY + "Game Type: ").append(ChatColor.YELLOW + mapInfo.getGametype().toString()).append("\n")
+                                             .append(ChatColor.GRAY + "Version: ").append(ChatColor.YELLOW + mapInfo.getVersion()).create()));
         return message;
     }
 

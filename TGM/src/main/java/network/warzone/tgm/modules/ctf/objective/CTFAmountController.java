@@ -81,7 +81,7 @@ public class CTFAmountController extends CTFController {
             if (!addedAnyFlags) addedAnyFlags = true;
             MatchTeam team = teamManagerModule.getTeam(flag.getFlagHolder());
             scoreboard.add(flag.getTeam().getColor() +
-                    CTFModule.RIGHT_ARROW + " " + team.getColor() + flag.getFlagHolder().getName(), ++positionOnScoreboard);
+                           CTFModule.RIGHT_ARROW + " " + team.getColor() + flag.getFlagHolder().getName(), ++positionOnScoreboard);
         }
         if (addedAnyFlags) scoreboard.add(StringUtils.repeat(" ", ++spaceCount), ++positionOnScoreboard);
         scoreboard.update();

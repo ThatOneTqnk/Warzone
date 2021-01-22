@@ -20,8 +20,8 @@ public class PlayerManager {
 
     public void addPlayer(PlayerContext playerContext) {
         List<PlayerContext> toRemove = players.stream()
-                .filter(p -> !Bukkit.getOnlinePlayers().contains(p.getPlayer()))
-                .collect(Collectors.toList());
+                                       .filter(p -> !Bukkit.getOnlinePlayers().contains(p.getPlayer()))
+                                       .collect(Collectors.toList());
         this.players.removeAll(toRemove);
         this.players.add(playerContext);
     }

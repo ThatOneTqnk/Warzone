@@ -13,7 +13,7 @@ public final class RegionSave {
 
     public RegionSave(Region region) {
         region.getBlocks().forEach(block ->
-                blocks.put(new BlockVector(new Location(block.getWorld(), block.getX(), block.getY(), block.getZ()).toVector()), block.getType()));
+                                   blocks.put(new BlockVector(new Location(block.getWorld(), block.getX(), block.getY(), block.getZ()).toVector()), block.getType()));
     }
 
     public BlockVector blockAlign(Vector vector) {

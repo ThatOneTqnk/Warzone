@@ -63,17 +63,17 @@ public class ApiManager implements Listener {
                 }
             }
             Heartbeat heartbeat = new Heartbeat(serverId,
-                    TGM.get().getConfig().getString("server.name"),
-                    TGM.get().getConfig().getString("server.id"),
-                    Bukkit.getMotd(),
-                    players,
-                    playerNames,
-                    playerCount,
-                    spectatorCount,
-                    maxPlayers,
-                    TGM.get().getMatchManager().getMatch().getMapContainer().getMapInfo().getName(),
-                    TGM.get().getMatchManager().getMatch().getMapContainer().getMapInfo().getGametype().getName()
-            );
+                                                TGM.get().getConfig().getString("server.name"),
+                                                TGM.get().getConfig().getString("server.id"),
+                                                Bukkit.getMotd(),
+                                                players,
+                                                playerNames,
+                                                playerCount,
+                                                spectatorCount,
+                                                maxPlayers,
+                                                TGM.get().getMatchManager().getMatch().getMapContainer().getMapInfo().getName(),
+                                                TGM.get().getMatchManager().getMatch().getMapContainer().getMapInfo().getGametype().getName()
+                                               );
             TGM.get().getTeamClient().heartbeat(heartbeat);
         }, 40L, 20L);
     }
@@ -111,15 +111,15 @@ public class ApiManager implements Listener {
             }
             Bukkit.getScheduler().runTaskAsynchronously(TGM.get(), () -> {
                 MatchFinishPacket matchFinishPacket = new MatchFinishPacket(
-                        matchInProgress.getId(),
-                        matchInProgress.getMap(),
-                        event.getMatch().getStartedTime(),
-                        event.getMatch().getFinishedTime(),
-                        TGM.get().getModule(ChatModule.class).getChatLog(),
-                        winners,
-                        losers,
-                        event.getWinningTeam() != null ? event.getWinningTeam().getId() : null,
-                        teamMappings);
+                    matchInProgress.getId(),
+                    matchInProgress.getMap(),
+                    event.getMatch().getStartedTime(),
+                    event.getMatch().getFinishedTime(),
+                    TGM.get().getModule(ChatModule.class).getChatLog(),
+                    winners,
+                    losers,
+                    event.getWinningTeam() != null ? event.getWinningTeam().getId() : null,
+                    teamMappings);
                 TGM.get().getTeamClient().finishMatch(matchFinishPacket);
             });
         } catch (Exception e) {
@@ -177,7 +177,7 @@ public class ApiManager implements Listener {
             }
 
             Death death = new Death(killed.getUserProfile().getId().toString(), killerId, playerItem,
-                    killerItem, matchInProgress.getMap(), matchInProgress.getId());
+                                    killerItem, matchInProgress.getMap(), matchInProgress.getId());
 
             Bukkit.getScheduler().runTaskAsynchronously(TGM.get(), () -> TGM.get().getTeamClient().addKill(death));
         } catch (Exception e) {

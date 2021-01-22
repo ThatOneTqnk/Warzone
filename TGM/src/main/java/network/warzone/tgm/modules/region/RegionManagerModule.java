@@ -20,9 +20,9 @@ public class RegionManagerModule extends MatchModule {
     @Override
     public void load(Match match) {
         regions.put("global", new CuboidRegion(
-                new Location(match.getWorld(), Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE),
-                new Location(match.getWorld(), Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE))
-        );
+                        new Location(match.getWorld(), Integer.MIN_VALUE, Integer.MIN_VALUE, Integer.MIN_VALUE),
+                        new Location(match.getWorld(), Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE))
+                   );
 
         if (match.getMapContainer().getMapInfo().getJsonObject().has("regions")) {
             for (JsonElement regionElement : match.getMapContainer().getMapInfo().getJsonObject().getAsJsonArray("regions")) {
@@ -56,36 +56,36 @@ public class RegionManagerModule extends MatchModule {
             }
 
             switch (type) {
-                case "cylinder":
-                    region = new CylinderRegion(
-                            Parser.convertLocation(match.getWorld(), regionJson.get("base")),
-                            regionJson.get("radius").getAsDouble(),
-                            regionJson.get("height").getAsDouble()
-                    );
-                    break;
-                case "sphere":
-                    region = new SphereRegion(
-                            Parser.convertLocation(match.getWorld(), regionJson.get("center")),
-                            regionJson.get("radius").getAsDouble()
-                    );
-                    break;
-                case "hemisphere":
-                    region = new HemisphereRegion(
-                            Parser.convertLocation(match.getWorld(), regionJson.get("center")),
-                            regionJson.get("radius").getAsDouble(),
-                            regionJson.has("direction") ? HemisphereRegion.parseHemisphereDirection(regionJson.get("direction")) : HemisphereRegion.HemisphereFace.NEGATIVE_Z
-                    );
-                    break;
-                case "meta":
-                    region = new MetaRegion(regionJson.getAsJsonArray("regions"));
-                    break;
-                case "cuboid":
-                default:
-                    region = new CuboidRegion(
-                            Parser.convertLocation(match.getWorld(), regionJson.get("min")),
-                            Parser.convertLocation(match.getWorld(), regionJson.get("max"))
-                    );
-                    break;
+            case "cylinder":
+                region = new CylinderRegion(
+                    Parser.convertLocation(match.getWorld(), regionJson.get("base")),
+                    regionJson.get("radius").getAsDouble(),
+                    regionJson.get("height").getAsDouble()
+                );
+                break;
+            case "sphere":
+                region = new SphereRegion(
+                    Parser.convertLocation(match.getWorld(), regionJson.get("center")),
+                    regionJson.get("radius").getAsDouble()
+                );
+                break;
+            case "hemisphere":
+                region = new HemisphereRegion(
+                    Parser.convertLocation(match.getWorld(), regionJson.get("center")),
+                    regionJson.get("radius").getAsDouble(),
+                    regionJson.has("direction") ? HemisphereRegion.parseHemisphereDirection(regionJson.get("direction")) : HemisphereRegion.HemisphereFace.NEGATIVE_Z
+                );
+                break;
+            case "meta":
+                region = new MetaRegion(regionJson.getAsJsonArray("regions"));
+                break;
+            case "cuboid":
+            default:
+                region = new CuboidRegion(
+                    Parser.convertLocation(match.getWorld(), regionJson.get("min")),
+                    Parser.convertLocation(match.getWorld(), regionJson.get("max"))
+                );
+                break;
             }
 
             if (regionJson.has("id")) {

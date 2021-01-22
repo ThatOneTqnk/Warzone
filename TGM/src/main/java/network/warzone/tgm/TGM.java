@@ -85,15 +85,15 @@ public class TGM extends JavaPlugin {
         saveDefaultConfig();
 
         gson = new GsonBuilder()
-                // TGM
-                .registerTypeAdapter(MapInfo.class, new MapInfoDeserializer())
-                .registerTypeAdapter(Killstreak.class, new KillstreakDeserializer())
-                .registerTypeAdapter(Rotation.class, new RotationDeserializer())
-                // Bukkit
-                .registerTypeAdapter(ItemStack.class, new ItemDeserializer())
-                .registerTypeAdapter(PotionEffect.class, new EffectDeserializer())
+        // TGM
+        .registerTypeAdapter(MapInfo.class, new MapInfoDeserializer())
+        .registerTypeAdapter(Killstreak.class, new KillstreakDeserializer())
+        .registerTypeAdapter(Rotation.class, new RotationDeserializer())
+        // Bukkit
+        .registerTypeAdapter(ItemStack.class, new ItemDeserializer())
+        .registerTypeAdapter(PotionEffect.class, new EffectDeserializer())
 
-                .create();
+        .create();
 
         ConfigurationSection apiConfig = fileConfiguration.getConfigurationSection("api");
         if (apiConfig != null && apiConfig.getBoolean("enabled")) {
@@ -147,7 +147,7 @@ public class TGM extends JavaPlugin {
         Plugins.checkSoftDependencies();
 
         matchManager.cycleNextMatch();
-        nickManager = new NickManager(); 
+        nickManager = new NickManager();
     }
 
     @Override

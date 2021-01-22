@@ -92,13 +92,13 @@ public class PunishMenu extends Menu {
                     return;
                 }
                 new ConfirmMenu(player, ChatColor.UNDERLINE + "Confirm", getDisplayItem(playerName, config, false),
-                        (p, e) -> {
-                            issuePunishment(playerName, player, config);
-                            player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 2.0f);
-                            new PunishMenu(player).open(player);
-                        },
-                        (p, e) -> new PunishMenu(player).open(player)
-                ).open(player);
+                (p, e) -> {
+                    issuePunishment(playerName, player, config);
+                    player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 2.0f);
+                    new PunishMenu(player).open(player);
+                },
+                (p, e) -> new PunishMenu(player).open(player)
+                               ).open(player);
             });
             slot++;
         }
@@ -125,33 +125,33 @@ public class PunishMenu extends Menu {
         });
         if (config.getType().isTimed())
             setItem(47, ItemFactory.createItem(Material.CLOCK, ChatColor.DARK_AQUA + "Length", Arrays.asList(
-                    "",
-                    ChatColor.GRAY + config.getTime().toString(),
-                    "",
-                    ChatColor.YELLOW + "Click to edit")
+                                                   "",
+                                                   ChatColor.GRAY + config.getTime().toString(),
+                                                   "",
+                                                   ChatColor.YELLOW + "Click to edit")
             ), (p, event) -> {
-                this.mode = Mode.SETTING_LENGTH;
-                clickSound();
-                p.closeInventory();
-                p.sendMessage(ChatColor.AQUA + "Enter the punishment length (1h, 2d, 3w, 4mo):");
-            });
+            this.mode = Mode.SETTING_LENGTH;
+            clickSound();
+            p.closeInventory();
+            p.sendMessage(ChatColor.AQUA + "Enter the punishment length (1h, 2d, 3w, 4mo):");
+        });
         else
             setItem(47, ItemFactory.createItem(Material.BLACK_STAINED_GLASS_PANE, ChatColor.DARK_GRAY + "Length"));
         setItem(48, ItemFactory.createItem(Material.NOTE_BLOCK, ChatColor.DARK_AQUA + "Silent", Arrays.asList(
-                "",
-                (config.isSilent() ? ChatColor.GREEN + "True" : ChatColor.RED + "False"),
-                "",
-                ChatColor.YELLOW + "Click to toggle"
+                                               "",
+                                               (config.isSilent() ? ChatColor.GREEN + "True" : ChatColor.RED + "False"),
+                                               "",
+                                               ChatColor.YELLOW + "Click to toggle"
         )), (p, event) -> {
             config.setSilent(!config.isSilent());
             clickSound();
             updateMenu();
         });
         setItem(49, ItemFactory.createItem(Material.PAPER, ChatColor.DARK_AQUA + "Reason", Arrays.asList(
-                "",
-                ChatColor.GRAY + config.getReason(),
-                "",
-                ChatColor.YELLOW + "Click to edit")
+                                               "",
+                                               ChatColor.GRAY + config.getReason(),
+                                               "",
+                                               ChatColor.YELLOW + "Click to edit")
         ), (p, event) -> {
             this.mode = Mode.SETTING_REASON;
             clickSound();
@@ -165,22 +165,22 @@ public class PunishMenu extends Menu {
             presetsMenu.open(p);
         });
         setItem(52, ItemFactory.createItem(Material.ENDER_PEARL, ChatColor.DARK_AQUA + "Live update: " + (liveUpdate ? ChatColor.GREEN + "ON" : ChatColor.RED + "OFF"), ChatColor.GRAY,
-                "",
-                "Update list on player",
-                "join and leave.",
-                "",
-                "If live update is off,",
-                "shift-click to skip",
-                "confirmation.",
-                "",
-                ChatColor.YELLOW + "Click to toggle"
+                                           "",
+                                           "Update list on player",
+                                           "join and leave.",
+                                           "",
+                                           "If live update is off,",
+                                           "shift-click to skip",
+                                           "confirmation.",
+                                           "",
+                                           ChatColor.YELLOW + "Click to toggle"
         ), (p, event) -> {
             clickSound();
             liveUpdate = !liveUpdate;
             updateMenu();
         });
     }
-    
+
     private void clickSound() {
         player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_HAT, 1.0f, 2.0f);
     }
@@ -199,7 +199,7 @@ public class PunishMenu extends Menu {
             lore.add(ChatColor.RED + "Player is offline.");
         lore.add("");
         lore.add(ChatColor.GRAY + "Type: " + ChatColor.RESET + config.getType().name() +
-              (config.getType().isTimed() ? " " + ChatColor.GRAY + "Time: " + ChatColor.RESET + config.getTime().toString() : ""));
+                 (config.getType().isTimed() ? " " + ChatColor.GRAY + "Time: " + ChatColor.RESET + config.getTime().toString() : ""));
         lore.add(ChatColor.GRAY + "Silent: " + ChatColor.RESET + config.isSilent());
         lore.add(ChatColor.GRAY + "Reason: " + ChatColor.RESET + config.getReason());
         if (clickMsg) {
@@ -256,34 +256,34 @@ public class PunishMenu extends Menu {
         if (!event.getPlayer().getUniqueId().equals(getPlayerUuid())) return;
         if (this.mode != Mode.NONE) {
             switch (this.mode) {
-                case SETTING_REASON:
-                    this.mode = Mode.NONE;
-                    Bukkit.getScheduler().runTask(TGM.get(), () -> {
-                        getConfig().setReason(event.getMessage());
-                        getPlayer().sendMessage(ChatColor.GRAY + "Set reason to: " + ChatColor.WHITE + event.getMessage());
-                        updateMenu();
+            case SETTING_REASON:
+                this.mode = Mode.NONE;
+                Bukkit.getScheduler().runTask(TGM.get(), () -> {
+                    getConfig().setReason(event.getMessage());
+                    getPlayer().sendMessage(ChatColor.GRAY + "Set reason to: " + ChatColor.WHITE + event.getMessage());
+                    updateMenu();
+                    this.open(getPlayer());
+                });
+                event.setCancelled(true);
+                break;
+            case SETTING_LENGTH:
+                this.mode = Mode.NONE;
+                Bukkit.getScheduler().runTask(TGM.get(), () -> {
+                    TimeUnitPair timeUnitPair = TimeUnitPair.parse(event.getMessage());
+                    if (timeUnitPair == null) {
+                        getPlayer().sendMessage(ChatColor.RED + "Invalid duration. Should be: 1m, 1h, 1d, etc.");
                         this.open(getPlayer());
-                    });
-                    event.setCancelled(true);
-                    break;
-                case SETTING_LENGTH:
-                    this.mode = Mode.NONE;
-                    Bukkit.getScheduler().runTask(TGM.get(), () -> {
-                        TimeUnitPair timeUnitPair = TimeUnitPair.parse(event.getMessage());
-                        if (timeUnitPair == null) {
-                            getPlayer().sendMessage(ChatColor.RED + "Invalid duration. Should be: 1m, 1h, 1d, etc.");
-                            this.open(getPlayer());
-                            return;
-                        }
-                        getConfig().setTime(timeUnitPair);
-                        getPlayer().sendMessage(ChatColor.GRAY + "Set length to: " + ChatColor.WHITE + getConfig().getTime().toString());
-                        updateMenu();
-                        this.open(getPlayer());
-                    });
-                    event.setCancelled(true);
-                    break;
-                default:
-                    break;
+                        return;
+                    }
+                    getConfig().setTime(timeUnitPair);
+                    getPlayer().sendMessage(ChatColor.GRAY + "Set length to: " + ChatColor.WHITE + getConfig().getTime().toString());
+                    updateMenu();
+                    this.open(getPlayer());
+                });
+                event.setCancelled(true);
+                break;
+            default:
+                break;
             }
         }
     }
@@ -349,10 +349,10 @@ public class PunishMenu extends Menu {
 
         public ItemStack toItem() {
             return ItemFactory.createItem(Material.ENDER_CHEST, ChatColor.YELLOW + getReason(), ChatColor.GRAY,
-                    "",
-                    "Type: " + ChatColor.WHITE + getType().name() + (getType().isTimed() ? " " + ChatColor.GRAY + "Time: " + ChatColor.RESET + getTime().toString() : ""),
-                    "Silent: " + ChatColor.WHITE + isSilent()
-            );
+                                          "",
+                                          "Type: " + ChatColor.WHITE + getType().name() + (getType().isTimed() ? " " + ChatColor.GRAY + "Time: " + ChatColor.RESET + getTime().toString() : ""),
+                                          "Silent: " + ChatColor.WHITE + isSilent()
+                                         );
         }
 
     }
@@ -387,15 +387,15 @@ public class PunishMenu extends Menu {
             } catch (FileNotFoundException e) {
                 TGM.get().getLogger().warning("Punishment presets file not found. Using fallback presets.");
                 registerPresets(
-                        PunishConfig.SPAM_BOT,
-                        PunishConfig.COMBAT_MOD,
-                        PunishConfig.MOVEMENT_MOD,
-                        PunishConfig.AUTO_CLICK,
-                        PunishConfig.BUG_EXPLOIT,
-                        PunishConfig.DISCRIMINATION,
-                        PunishConfig.MUTE_EVASION,
-                        PunishConfig.SUICIDE_ENCOURAGEMENT,
-                        PunishConfig.EXTREME_HARASSMENT
+                    PunishConfig.SPAM_BOT,
+                    PunishConfig.COMBAT_MOD,
+                    PunishConfig.MOVEMENT_MOD,
+                    PunishConfig.AUTO_CLICK,
+                    PunishConfig.BUG_EXPLOIT,
+                    PunishConfig.DISCRIMINATION,
+                    PunishConfig.MUTE_EVASION,
+                    PunishConfig.SUICIDE_ENCOURAGEMENT,
+                    PunishConfig.EXTREME_HARASSMENT
                 );
             }
             setItem(22, ItemFactory.createItem(Material.ARROW, ChatColor.RED + "Close"), (p, event) -> PunishMenu.openNew(p));

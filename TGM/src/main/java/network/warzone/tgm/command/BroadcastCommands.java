@@ -27,7 +27,7 @@ public class BroadcastCommands {
                 sender.sendMessage(ChatColor.RED + "/" + cmd.getCommand() + " preset <id> [args]");
                 return;
             }
-            if (!broadcastManager.broadcast(cmd.getString(1), (cmd.argsLength() > 2 ? cmd.getParsedSlice(2) : new String[]{}))) sender.sendMessage(ChatColor.RED + "Broadcast not found.");
+            if (!broadcastManager.broadcast(cmd.getString(1), (cmd.argsLength() > 2 ? cmd.getParsedSlice(2) : new String[] {}))) sender.sendMessage(ChatColor.RED + "Broadcast not found.");
         } else if ("raw".equalsIgnoreCase(cmd.getString(0))) {
             if (cmd.argsLength() <= 1) {
                 sender.sendMessage(ChatColor.RED + "/" + cmd.getCommand() + " raw <message>");
@@ -44,7 +44,7 @@ public class BroadcastCommands {
                 sender.sendMessage(ChatColor.RED + "Player not found \"" + cmd.getString(1) + "\".");
                 return;
             }
-            if (!broadcastManager.broadcast(target, cmd.getString(2), (cmd.argsLength() > 3 ? cmd.getParsedSlice(3) : new String[]{}))) sender.sendMessage(ChatColor.RED + "Broadcast not found.");
+            if (!broadcastManager.broadcast(target, cmd.getString(2), (cmd.argsLength() > 3 ? cmd.getParsedSlice(3) : new String[] {}))) sender.sendMessage(ChatColor.RED + "Broadcast not found.");
         } else if ("praw".equalsIgnoreCase(cmd.getString(0)) || "playerraw".equalsIgnoreCase(cmd.getString(0))) {
             if (cmd.argsLength() <= 2) {
                 sender.sendMessage(ChatColor.RED + "/" + cmd.getCommand() + " playerraw <player> <message>");
@@ -60,8 +60,8 @@ public class BroadcastCommands {
             if (!broadcastManager.getBroadcasts().isEmpty()) {
                 sender.sendMessage(ChatColor.YELLOW + "Presets: ");
                 broadcastManager.getBroadcasts().forEach(broadcast -> sender.sendMessage(
-                        ChatColor.GRAY + " - " + ChatColor.GREEN + broadcast.getId() + ChatColor.GRAY + ": \"" + ChatColor.RESET + broadcast.getMessage().replace("\n", "\\n") + ChatColor.GRAY + "\""
-                ));
+                            ChatColor.GRAY + " - " + ChatColor.GREEN + broadcast.getId() + ChatColor.GRAY + ": \"" + ChatColor.RESET + broadcast.getMessage().replace("\n", "\\n") + ChatColor.GRAY + "\""
+                        ));
             } else {
                 sender.sendMessage(ChatColor.YELLOW + "No broadcast presets defined.");
             }

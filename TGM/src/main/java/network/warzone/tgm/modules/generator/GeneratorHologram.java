@@ -48,11 +48,11 @@ public class GeneratorHologram {
             timeSpan = "second" + (parsed == 1 ? "" : "s");
         }
         String formatted = baseContent
-            .replace("%material%",
-                    Strings.capitalizeString(material.name().toLowerCase().replace("_", " ")))
-            .replace("%time%", Integer.toString(parsed))
-            .replace("%span%", timeSpan)
-            .replace("%level%", Integer.toString(generatorLevel));
+                           .replace("%material%",
+                                    Strings.capitalizeString(material.name().toLowerCase().replace("_", " ")))
+                           .replace("%time%", Integer.toString(parsed))
+                           .replace("%span%", timeSpan)
+                           .replace("%level%", Integer.toString(generatorLevel));
         holoAnchor.setCustomName(formatted);
     }
 

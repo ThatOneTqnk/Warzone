@@ -130,7 +130,7 @@ public class SpectatorModule extends MatchModule implements Listener {
         playerContext.getPlayer().getInventory().setItem(2, compassItem);
         playerContext.getPlayer().getInventory().setItem(4, teamSelectionItem);
         playerContext.getPlayer().getInventory().setItem(6, teleportMenuItem);
-        
+
         playerContext.getPlayer().getInventory().setHeldItemSlot(4);
     }
 
@@ -142,7 +142,7 @@ public class SpectatorModule extends MatchModule implements Listener {
         leatherArmorMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         leatherArmorMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         leatherArmorMeta.setLore(Collections.singletonList(ChatColor.WHITE.toString() + matchTeam.getMembers().size() + ChatColor.GRAY.toString()
-                + "/" + matchTeam.getMax() + " playing."));
+                                 + "/" + matchTeam.getMax() + " playing."));
         itemStack.setItemMeta(leatherArmorMeta);
         teamSelectionMenu.setItem(i, itemStack);
     }
@@ -173,13 +173,13 @@ public class SpectatorModule extends MatchModule implements Listener {
             }
         }
         ItemStack autoJoinHelmet = ItemFactory.createItem(
-                Material.CHAINMAIL_HELMET,
-                ChatColor.WHITE + ChatColor.BOLD.toString() + "Auto Join",
-                Arrays.asList(
-                        "",
-                        ChatColor.WHITE.toString() + totalMatchSize + ChatColor.GRAY.toString() + "/" + totalMatchMaxSize + " playing."
-                )
-        );
+                                       Material.CHAINMAIL_HELMET,
+                                       ChatColor.WHITE + ChatColor.BOLD.toString() + "Auto Join",
+                                       Arrays.asList(
+                                           "",
+                                           ChatColor.WHITE.toString() + totalMatchSize + ChatColor.GRAY.toString() + "/" + totalMatchMaxSize + " playing."
+                                       )
+                                   );
         ItemMeta autoJoinHelmetMeta = autoJoinHelmet.getItemMeta();
         autoJoinHelmetMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         autoJoinHelmetMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -300,7 +300,7 @@ public class SpectatorModule extends MatchModule implements Listener {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
         if (isSpectating(event.getPlayer())) {
@@ -346,9 +346,9 @@ public class SpectatorModule extends MatchModule implements Listener {
                     Player player = entry.getKey();
                     ChatColor teamColor = entry.getValue();
                     teleportMenu.setItem(i, ItemFactory.getPlayerSkull(player.getName(), teamColor + player.getName(), " ", "&fClick to teleport to " + player.getName()),
-                            (clicker, clickEvent) -> {
-                                if (player.isOnline()) clicker.teleport(player.getLocation());
-                            });
+                    (clicker, clickEvent) -> {
+                        if (player.isOnline()) clicker.teleport(player.getLocation());
+                    });
                     i++;
                     if (i >= size) break;
                 }
@@ -460,15 +460,15 @@ public class SpectatorModule extends MatchModule implements Listener {
             String[] lines = objective.split("\n");
             String gamemode = mapInfo.getGametype().getName();
             player.sendMessage(
-                    ChatColor.BLUE.toString() +
-                            ChatColor.BOLD +
-                            "---------- " +
-                            ChatColor.WHITE +
-                            ChatColor.BOLD +
-                            gamemode +
-                            ChatColor.BLUE.toString() +
-                            ChatColor.BOLD +
-                            " ----------"
+                ChatColor.BLUE.toString() +
+                ChatColor.BOLD +
+                "---------- " +
+                ChatColor.WHITE +
+                ChatColor.BOLD +
+                gamemode +
+                ChatColor.BLUE.toString() +
+                ChatColor.BOLD +
+                " ----------"
             );
             for (String line : lines) {
                 player.sendMessage(ChatColor.GRAY + ChatColor.translateAlternateColorCodes('&', line));

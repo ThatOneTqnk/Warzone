@@ -78,13 +78,13 @@ public class MatchFlag extends PlayerRedeemable implements Listener {
 
         if (bannerType.contains("WALL")) {
             this.protectiveRegion = new CuboidRegion(
-                    location.clone().subtract(1, 2, 1),
-                    location.clone().add(1, 1, 1)
+                location.clone().subtract(1, 2, 1),
+                location.clone().add(1, 1, 1)
             );
         } else {
             this.protectiveRegion = new CuboidRegion(
-                    location.clone().subtract(1, 1, 1),
-                    location.clone().add(1, 2, 1)
+                location.clone().subtract(1, 1, 1),
+                location.clone().add(1, 2, 1)
             );
         }
 
@@ -156,8 +156,8 @@ public class MatchFlag extends PlayerRedeemable implements Listener {
         if (flagHolder != null) return;
         MatchTeam playerTeam = teamManagerModule.getTeam(event.getPlayer());
         if (respawnModule.isDead(event.getPlayer()) ||
-            !passesGeneralConditions(playerTeam) ||
-            playerTeam.equals(team)) return;
+                !passesGeneralConditions(playerTeam) ||
+                playerTeam.equals(team)) return;
         else if (event.getFrom().distanceSquared(location) > 1) return;
 
         this.flagHolder = event.getPlayer();

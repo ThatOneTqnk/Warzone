@@ -77,71 +77,71 @@ public class CraftingModule extends MatchModule implements Listener {
         ItemStack result = ItemDeserializer.parse(jsonObject.get("result"));
         NamespacedKey namespacedKey = KeyUtil.tgm(result.getType().name() + new Date().getTime());
         switch (type) {
-            case "shapeless":
-                ShapelessRecipe shapelessRecipe = new ShapelessRecipe(namespacedKey, result);
-                for (JsonElement element : jsonObject.getAsJsonArray("ingredients")) {
-                    RecipeChoice ingredient = parseRecipeIngredient(element);
+        case "shapeless":
+            ShapelessRecipe shapelessRecipe = new ShapelessRecipe(namespacedKey, result);
+            for (JsonElement element : jsonObject.getAsJsonArray("ingredients")) {
+                RecipeChoice ingredient = parseRecipeIngredient(element);
+                if (ingredient == null) continue;
+                shapelessRecipe.addIngredient(ingredient);
+            }
+            return shapelessRecipe;
+        case "shaped":
+            ShapedRecipe shapedRecipe = new ShapedRecipe(namespacedKey, result);
+            JsonArray shapeArray = jsonObject.getAsJsonArray("shape");
+            String[] shape = new String[shapeArray.size()];
+            for (int i = 0; i < shapeArray.size(); i++) {
+                shape[i] = shapeArray.get(i).getAsString();
+            }
+            shapedRecipe.shape(shape);
+            for (Map.Entry<String, JsonElement> entry : jsonObject.getAsJsonObject("ingredients").entrySet()) {
+                try {
+                    char key = entry.getKey().charAt(0);
+                    RecipeChoice ingredient = parseRecipeIngredient(entry.getValue());
                     if (ingredient == null) continue;
-                    shapelessRecipe.addIngredient(ingredient);
+                    shapedRecipe.setIngredient(key, ingredient);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-                return shapelessRecipe;
-            case "shaped":
-                ShapedRecipe shapedRecipe = new ShapedRecipe(namespacedKey, result);
-                JsonArray shapeArray = jsonObject.getAsJsonArray("shape");
-                String[] shape = new String[shapeArray.size()];
-                for (int i = 0; i < shapeArray.size(); i++) {
-                    shape[i] = shapeArray.get(i).getAsString();
-                }
-                shapedRecipe.shape(shape);
-                for (Map.Entry<String, JsonElement> entry : jsonObject.getAsJsonObject("ingredients").entrySet()) {
-                    try {
-                        char key = entry.getKey().charAt(0);
-                        RecipeChoice ingredient = parseRecipeIngredient(entry.getValue());
-                        if (ingredient == null) continue;
-                        shapedRecipe.setIngredient(key, ingredient);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-                return shapedRecipe;
-            case "furnace":
-                RecipeChoice furnaceIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
-                if (furnaceIngredient == null) return null;
-                int furnaceExp = 0;
-                int furnaceCookingTime = 200;
-                if (jsonObject.has("experience")) furnaceExp = jsonObject.get("experience").getAsInt();
-                if (jsonObject.has("cookingTime")) furnaceCookingTime = jsonObject.get("cookingTime").getAsInt();
-                return new FurnaceRecipe(namespacedKey, result, furnaceIngredient, furnaceExp, furnaceCookingTime);
-            case "smoking":
-                RecipeChoice smokingIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
-                if (smokingIngredient == null) return null;
-                int smokingExp = 0;
-                int smokingCookingTime = 100;
-                if (jsonObject.has("experience")) smokingExp = jsonObject.get("experience").getAsInt();
-                if (jsonObject.has("cookingTime")) smokingCookingTime = jsonObject.get("cookingTime").getAsInt();
-                return new SmokingRecipe(namespacedKey, result, smokingIngredient, smokingExp, smokingCookingTime);
-            case "blasting":
-                RecipeChoice blastingIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
-                if (blastingIngredient == null) return null;
-                int blastingExp = 0;
-                int blastingCookingTime = 100;
-                if (jsonObject.has("experience")) blastingExp = jsonObject.get("experience").getAsInt();
-                if (jsonObject.has("cookingTime")) blastingCookingTime = jsonObject.get("cookingTime").getAsInt();
-                return new BlastingRecipe(namespacedKey, result, blastingIngredient, blastingExp, blastingCookingTime);
-            case "campfire":
-                RecipeChoice campfireIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
-                if (campfireIngredient == null) return null;
-                int campfireExp = 0;
-                int campfireCookingTime = 600;
-                if (jsonObject.has("experience")) campfireExp = jsonObject.get("experience").getAsInt();
-                if (jsonObject.has("cookingTime")) campfireCookingTime = jsonObject.get("cookingTime").getAsInt();
-                return new CampfireRecipe(namespacedKey, result, campfireIngredient, campfireExp, campfireCookingTime);
-            case "stonecutting":
-                RecipeChoice stonecuttingIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
-                if (stonecuttingIngredient == null) return null;
-                return new StonecuttingRecipe(namespacedKey, result, stonecuttingIngredient);
-            default:
-                return null;
+            }
+            return shapedRecipe;
+        case "furnace":
+            RecipeChoice furnaceIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
+            if (furnaceIngredient == null) return null;
+            int furnaceExp = 0;
+            int furnaceCookingTime = 200;
+            if (jsonObject.has("experience")) furnaceExp = jsonObject.get("experience").getAsInt();
+            if (jsonObject.has("cookingTime")) furnaceCookingTime = jsonObject.get("cookingTime").getAsInt();
+            return new FurnaceRecipe(namespacedKey, result, furnaceIngredient, furnaceExp, furnaceCookingTime);
+        case "smoking":
+            RecipeChoice smokingIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
+            if (smokingIngredient == null) return null;
+            int smokingExp = 0;
+            int smokingCookingTime = 100;
+            if (jsonObject.has("experience")) smokingExp = jsonObject.get("experience").getAsInt();
+            if (jsonObject.has("cookingTime")) smokingCookingTime = jsonObject.get("cookingTime").getAsInt();
+            return new SmokingRecipe(namespacedKey, result, smokingIngredient, smokingExp, smokingCookingTime);
+        case "blasting":
+            RecipeChoice blastingIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
+            if (blastingIngredient == null) return null;
+            int blastingExp = 0;
+            int blastingCookingTime = 100;
+            if (jsonObject.has("experience")) blastingExp = jsonObject.get("experience").getAsInt();
+            if (jsonObject.has("cookingTime")) blastingCookingTime = jsonObject.get("cookingTime").getAsInt();
+            return new BlastingRecipe(namespacedKey, result, blastingIngredient, blastingExp, blastingCookingTime);
+        case "campfire":
+            RecipeChoice campfireIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
+            if (campfireIngredient == null) return null;
+            int campfireExp = 0;
+            int campfireCookingTime = 600;
+            if (jsonObject.has("experience")) campfireExp = jsonObject.get("experience").getAsInt();
+            if (jsonObject.has("cookingTime")) campfireCookingTime = jsonObject.get("cookingTime").getAsInt();
+            return new CampfireRecipe(namespacedKey, result, campfireIngredient, campfireExp, campfireCookingTime);
+        case "stonecutting":
+            RecipeChoice stonecuttingIngredient = parseRecipeIngredient(jsonObject.get("ingredient"));
+            if (stonecuttingIngredient == null) return null;
+            return new StonecuttingRecipe(namespacedKey, result, stonecuttingIngredient);
+        default:
+            return null;
         }
     }
 

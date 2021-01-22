@@ -76,9 +76,9 @@ public class KnockbackModule extends MatchModule implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
         Player player = (Player) event.getEntity();
         this.queued.put(player, new EntityDamageByEntityContext(
-                event,
-                event.getDamager() instanceof Player && ((Player) event.getDamager()).isSprinting()
-        ));
+                            event,
+                            event.getDamager() instanceof Player && ((Player) event.getDamager()).isSprinting()
+                        ));
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -115,7 +115,7 @@ public class KnockbackModule extends MatchModule implements Listener {
             }
             addArrow((Arrow) projectile, direction);
         }
-        
+
         // Fixes arrow randomization
         if (shooter instanceof Player) {
             Player player = (Player) shooter;
@@ -197,9 +197,9 @@ public class KnockbackModule extends MatchModule implements Listener {
                     }
                 }
                 Vector kb = new Vector(
-                        -Math.sin(yaw * PI / 180.0F) * (kbStrength) * knockBackExtraHorizontal,
-                        event.getPlayer().isOnGround() ? knockBackExtraVertical + vertical : 0,
-                        Math.cos(yaw * PI / 180.0F) * (kbStrength) * knockBackExtraHorizontal
+                    -Math.sin(yaw * PI / 180.0F) * (kbStrength) * knockBackExtraHorizontal,
+                    event.getPlayer().isOnGround() ? knockBackExtraVertical + vertical : 0,
+                    Math.cos(yaw * PI / 180.0F) * (kbStrength) * knockBackExtraHorizontal
                 );
                 velocity.add(kb);
                 event.setVelocity(velocity);
@@ -238,8 +238,8 @@ public class KnockbackModule extends MatchModule implements Listener {
         Collection<AttributeModifier> modifiers = attributeInstance.getModifiers();
         double value = 0;
         modifiers = modifiers.stream()
-                .sorted(Comparator.comparingInt(mod -> mod.getOperation().ordinal()))
-                .collect(Collectors.toList());
+                    .sorted(Comparator.comparingInt(mod -> mod.getOperation().ordinal()))
+                    .collect(Collectors.toList());
         boolean f1 = false;
         boolean f2 = false;
         double scalar = 0;

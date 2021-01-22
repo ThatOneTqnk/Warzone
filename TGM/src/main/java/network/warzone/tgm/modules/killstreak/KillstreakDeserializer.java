@@ -43,9 +43,11 @@ public class KillstreakDeserializer implements JsonDeserializer<Killstreak> {
         }
 
         if (streakJson.has("commands")) {
-            killstreak.setCommands(new ArrayList<String>() {{
-                streakJson.getAsJsonArray("commands").forEach(jsonElement -> add(jsonElement.getAsString()));
-            }});
+            killstreak.setCommands(new ArrayList<String>() {
+                {
+                    streakJson.getAsJsonArray("commands").forEach(jsonElement -> add(jsonElement.getAsString()));
+                }
+            });
         }
 
         if (streakJson.has("actions")) {

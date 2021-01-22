@@ -40,8 +40,8 @@ public class CycleCountdown extends BossBarCountdown {
 
         if (getTimeLeft() % 20 == 0) {
             getBossBar().setTitle(ChatColor.DARK_AQUA + "Cycling to " + ChatColor.AQUA + TGM.get().getMatchManager().getNextMap().getMapInfo().getName()
-                    + ChatColor.DARK_AQUA + " in " + ChatColor.DARK_RED + getTimeLeftSeconds()
-                    + ChatColor.DARK_AQUA + " second" + (getTimeLeftSeconds() > 1 ? "s" : ""));
+                                  + ChatColor.DARK_AQUA + " in " + ChatColor.DARK_RED + getTimeLeftSeconds()
+                                  + ChatColor.DARK_AQUA + " second" + (getTimeLeftSeconds() > 1 ? "s" : ""));
             BossBarUtil.displayForOldVersions(getBossBar());
         }
     }

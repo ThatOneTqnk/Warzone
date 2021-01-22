@@ -33,8 +33,7 @@ public class TagCommands {
             PlayerContext playerContext = TGM.get().getPlayerManager().getPlayerContext((Player) sender);
             TagsMenu tagsMenu = new TagsMenu(ChatColor.UNDERLINE + "Your tags", 9 * 6, playerContext);
             tagsMenu.open((Player) sender);
-        }
-        else {
+        } else {
             if (cmd.getString(0).equalsIgnoreCase("set")) {
                 if (cmd.argsLength() < 2) {
                     if (sender.hasPermission("tgm.tags.set"))

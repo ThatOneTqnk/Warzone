@@ -86,7 +86,7 @@ public class PlayerContext {
         int level = getUserProfile(original).getLevel();
         for (PlayerLevel levelEntry : levels) {
             if (levelEntry.check.test(level)) {
-                return "" + levelEntry.levelColor + "[" + level + "]"; 
+                return "" + levelEntry.levelColor + "[" + level + "]";
             }
         }
 

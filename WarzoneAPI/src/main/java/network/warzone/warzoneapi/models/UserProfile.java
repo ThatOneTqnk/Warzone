@@ -78,7 +78,9 @@ public class UserProfile {
         return null;
     }
 
-    public void addWin() { wins++; }
+    public void addWin() {
+        wins++;
+    }
 
     public void addKill() {
         kills++;
@@ -140,8 +142,7 @@ public class UserProfile {
                 if (highest.getPriority() < rank.getPriority()) highest = rank;
             }
             return highest.isStaff();
-        }
-        else return false;
+        } else return false;
     }
 
     public String getKDR() {
@@ -167,8 +168,7 @@ public class UserProfile {
                 if (highest.getPriority() < rank.getPriority()) highest = rank;
             }
             return highest.getPrefix() != null && !highest.getPrefix().isEmpty() ? highest.getPrefix() : null;
-        }
-        else return null;
+        } else return null;
     }
 
     public Rank getHighestRank() {
@@ -178,8 +178,7 @@ public class UserProfile {
                 if (highest.getPriority() < rank.getPriority()) highest = rank;
             }
             return highest;
-        }
-        else return null;
+        } else return null;
     }
 
     public void saveTags(PlayerTagsUpdateResponse response) {

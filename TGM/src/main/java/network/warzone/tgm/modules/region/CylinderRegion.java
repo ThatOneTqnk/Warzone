@@ -30,8 +30,8 @@ public class CylinderRegion implements Region {
     @Override
     public boolean contains(Location location) {
         return Math.sqrt(NumberConversions.square(base.getX() - location.getX()) + NumberConversions.square(base.getZ() - location.getZ())) <= radius &&
-                location.getY() >= base.getY() &&
-                location.getY() <= base.getY() + height;
+               location.getY() >= base.getY() &&
+               location.getY() <= base.getY() + height;
     }
 
     @Override

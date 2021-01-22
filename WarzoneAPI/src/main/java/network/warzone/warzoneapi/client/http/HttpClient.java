@@ -58,11 +58,11 @@ public class HttpClient implements TeamClient {
     public void heartbeat(Heartbeat heartbeat) {
         try {
             Unirest.post(config.getBaseUrl() + "/mc/server/heartbeat")
-                    .header("x-access-token", config.getAuthToken())
-                    .header("accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .body(heartbeat)
-                    .asJson();
+            .header("x-access-token", config.getAuthToken())
+            .header("accept", "application/json")
+            .header("Content-Type", "application/json")
+            .body(heartbeat)
+            .asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -72,10 +72,10 @@ public class HttpClient implements TeamClient {
     public GetPlayerByNameResponse player(String name) {
         try {
             return Unirest.get(config.getBaseUrl() + "/mc/player/" + name)
-                    .header("x-access-token", config.getAuthToken())
-                    .header("accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .asObject(GetPlayerByNameResponse.class).getBody();
+                   .header("x-access-token", config.getAuthToken())
+                   .header("accept", "application/json")
+                   .header("Content-Type", "application/json")
+                   .asObject(GetPlayerByNameResponse.class).getBody();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -118,11 +118,11 @@ public class HttpClient implements TeamClient {
     public void addKill(Death death) {
         try {
             Unirest.post(config.getBaseUrl() + "/mc/death/new")
-                    .header("x-access-token", config.getAuthToken())
-                    .header("accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .body(death)
-                    .asJson();
+            .header("x-access-token", config.getAuthToken())
+            .header("accept", "application/json")
+            .header("Content-Type", "application/json")
+            .body(death)
+            .asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -148,11 +148,11 @@ public class HttpClient implements TeamClient {
     public void finishMatch(MatchFinishPacket matchFinishPacket) {
         try {
             Unirest.post(config.getBaseUrl() + "/mc/match/finish")
-                    .header("x-access-token", config.getAuthToken())
-                    .header("accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .body(matchFinishPacket)
-                    .asJson();
+            .header("x-access-token", config.getAuthToken())
+            .header("accept", "application/json")
+            .header("Content-Type", "application/json")
+            .body(matchFinishPacket)
+            .asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -162,11 +162,11 @@ public class HttpClient implements TeamClient {
     public void destroyWool(DestroyWoolRequest destroyWoolRequest) {
         try {
             Unirest.post(config.getBaseUrl() + "/mc/match/destroy_wool")
-                    .header("x-access-token", config.getAuthToken())
-                    .header("accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .body(destroyWoolRequest)
-                    .asJson();
+            .header("x-access-token", config.getAuthToken())
+            .header("accept", "application/json")
+            .header("Content-Type", "application/json")
+            .body(destroyWoolRequest)
+            .asJson();
         } catch (UnirestException e) {
             e.printStackTrace();
         }
@@ -191,10 +191,10 @@ public class HttpClient implements TeamClient {
     public RankList retrieveRanks() {
         try {
             HttpResponse<RankList> ranksResponse = Unirest.get(config.getBaseUrl() + "/mc/ranks")
-                    .header("x-access-token", config.getAuthToken())
-                    .header("accept", "application/json")
-                    .header("Content-Type", "application/json")
-                    .asObject(RankList.class);
+                                                   .header("x-access-token", config.getAuthToken())
+                                                   .header("accept", "application/json")
+                                                   .header("Content-Type", "application/json")
+                                                   .asObject(RankList.class);
             return ranksResponse.getBody();
         } catch (UnirestException e) {
             e.printStackTrace();

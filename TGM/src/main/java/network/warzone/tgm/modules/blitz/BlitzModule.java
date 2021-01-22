@@ -166,9 +166,9 @@ public class BlitzModule extends MatchModule implements Listener {
 
     private void showLives(Player player) {
         player.sendTitle(
-                ChatColor.translateAlternateColorCodes('&', title.replaceAll("%lives%", "" + getLives(player)).replaceAll("%player%", player.getName())),
-                ChatColor.translateAlternateColorCodes('&', subtitle.replaceAll("%lives%", "" + getLives(player)).replaceAll("%player%", player.getName())),
-                10, 20, 10
+            ChatColor.translateAlternateColorCodes('&', title.replaceAll("%lives%", "" + getLives(player)).replaceAll("%player%", player.getName())),
+            ChatColor.translateAlternateColorCodes('&', subtitle.replaceAll("%lives%", "" + getLives(player)).replaceAll("%player%", player.getName())),
+            10, 20, 10
         );
     }
 
@@ -198,7 +198,7 @@ public class BlitzModule extends MatchModule implements Listener {
     public void onDeathHigh(TGMPlayerDeathEvent event) {
         if (lastTeamAlive()) {
             MatchTeam winnerTeam = teamManagerModule.getTeams().stream().filter(matchTeam -> !matchTeam.isSpectator()).filter(matchTeam -> getAlivePlayers(matchTeam).size() > 0).findFirst()
-                    .orElseGet(() -> teamManagerModule.getTeams().get(1));
+                                   .orElseGet(() -> teamManagerModule.getTeams().get(1));
 
             TGM.get().getMatchManager().endMatch(winnerTeam);
         }
@@ -222,7 +222,7 @@ public class BlitzModule extends MatchModule implements Listener {
 
         if (lastTeamAlive()) {
             MatchTeam winnerTeam = teamManagerModule.getTeams().stream().filter(matchTeam -> !matchTeam.isSpectator()).filter(matchTeam -> getAlivePlayers(matchTeam).size() > 0).findFirst()
-                    .orElseGet(() -> teamManagerModule.getTeams().get(1));
+                                   .orElseGet(() -> teamManagerModule.getTeams().get(1));
 
             TGM.get().getMatchManager().endMatch(winnerTeam);
         }

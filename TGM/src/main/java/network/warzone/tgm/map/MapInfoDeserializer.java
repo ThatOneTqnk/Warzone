@@ -33,23 +33,23 @@ public class MapInfoDeserializer implements JsonDeserializer<MapInfo> {
                 Author author = TGM.get().getGson().fromJson(authorJson, Author.class);
                 if (TGM.get().getConfig().getBoolean("map.get-names"))
                     Bukkit.getScheduler().runTaskAsynchronously(TGM.get(), () -> {
-                        if (author != null && author.getUuid() != null) {
-                            try {
-                                MojangProfile profile = ProfileCache.getInstance().get(author.getUuid());
-                                if (profile == null) {
-                                    profile = TGM.get().getTeamClient().getMojangProfile(author.getUuid());
-                                    ProfileCache.getInstance().add(profile);
-                                }
-                                if (profile != null) {
-                                    author.setDisplayUsername(profile.getUsername());
-                                } else {
-                                    throw new Exception();
-                                }
-                            } catch (Exception e) {
-                                TGM.get().getLogger().warning("Could not retrieve current name for " + author.getUuid().toString() + " on map " + name);
+                    if (author != null && author.getUuid() != null) {
+                        try {
+                            MojangProfile profile = ProfileCache.getInstance().get(author.getUuid());
+                            if (profile == null) {
+                                profile = TGM.get().getTeamClient().getMojangProfile(author.getUuid());
+                                ProfileCache.getInstance().add(profile);
                             }
+                            if (profile != null) {
+                                author.setDisplayUsername(profile.getUsername());
+                            } else {
+                                throw new Exception();
+                            }
+                        } catch (Exception e) {
+                            TGM.get().getLogger().warning("Could not retrieve current name for " + author.getUuid().toString() + " on map " + name);
                         }
-                    });
+                    }
+                });
                 authors.add(author);
             }
         }

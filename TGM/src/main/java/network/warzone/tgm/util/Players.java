@@ -27,7 +27,7 @@ public class Players {
         }
         if (!keepInv) {
             player.getInventory().clear();
-            player.getInventory().setArmorContents(new ItemStack[]{new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR)});
+            player.getInventory().setArmorContents(new ItemStack[] {new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR), new ItemStack(Material.AIR)});
             player.setItemOnCursor(new ItemStack(Material.AIR));
         }
 

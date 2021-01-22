@@ -66,11 +66,11 @@ public class JoinManager implements Listener {
         Punishment punishment = userProfile.getLatestBan();
         if (punishment != null) {
             event.setKickMessage(ChatColor.RED + "You have been banned from the server. Reason:\n"
-                    + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', punishment.getReason()) + "\n\n"
-                    + ChatColor.RED + "Ban expires: " + ChatColor.RESET + (punishment.getExpires() >= 0 ? new Date(punishment.getExpires()).toString() : "Never") + "\n"
-                    + ChatColor.AQUA + "Appeal at " + TGM.get().getConfig().getString("server.appeal") + "\n"
-                    + ChatColor.GRAY + "ID: " + punishment.getId().toString()
-            );
+                                 + ChatColor.RESET + ChatColor.translateAlternateColorCodes('&', punishment.getReason()) + "\n\n"
+                                 + ChatColor.RED + "Ban expires: " + ChatColor.RESET + (punishment.getExpires() >= 0 ? new Date(punishment.getExpires()).toString() : "Never") + "\n"
+                                 + ChatColor.AQUA + "Appeal at " + TGM.get().getConfig().getString("server.appeal") + "\n"
+                                 + ChatColor.GRAY + "ID: " + punishment.getId().toString()
+                                );
             event.setLoginResult(AsyncPlayerPreLoginEvent.Result.KICK_OTHER);
             return;
         }
@@ -137,16 +137,16 @@ public class JoinManager implements Listener {
         // 2. You are joining and a player nicked as you is online.
         if (nickManager.isNickName(p.getName())) {
             nickManager.getNicks()
-                    .stream()
-                    .filter(nick -> nick.getName().equals(p.getName()))
-                    .findFirst()
-                    .ifPresent(
-                            nick -> {
-                                Player offender = Bukkit.getPlayer(nick.getOriginalName());
-                                if (offender != null) offender.sendMessage(ChatColor.RED + "The player you are nicked as has joined. Your nick must be reset.");
-                                nickManager.reset(TGM.get().getPlayerManager().getPlayerContext(offender), true);
-                            }
-                    );
+            .stream()
+            .filter(nick -> nick.getName().equals(p.getName()))
+            .findFirst()
+            .ifPresent(
+            nick -> {
+                Player offender = Bukkit.getPlayer(nick.getOriginalName());
+                if (offender != null) offender.sendMessage(ChatColor.RED + "The player you are nicked as has joined. Your nick must be reset.");
+                nickManager.reset(TGM.get().getPlayerManager().getPlayerContext(offender), true);
+            }
+            );
         }
 
         if (name != null) {
@@ -169,9 +169,9 @@ public class JoinManager implements Listener {
         if (playerContext.getUserProfile().isNew()) {
             joinMsg += ChatColor.LIGHT_PURPLE + " [NEW]";
             event.getPlayer()
-                    .sendTitle(new Title("", ChatColor.translateAlternateColorCodes('&', "&7Use &b/join&7 to play!")));
+            .sendTitle(new Title("", ChatColor.translateAlternateColorCodes('&', "&7Use &b/join&7 to play!")));
         }
-        
+
         event.setJoinMessage(joinMsg);
 
         handleRotationUpdate(false);
@@ -210,9 +210,9 @@ public class JoinManager implements Listener {
         if (potentialRotation != rotationFile.getRotation()) {
             System.out.println("Rotation has changed to " + potentialRotation.getName() + " from " + rotationFile.getRotation().getName());
             Bukkit.getOnlinePlayers().forEach(
-                    player -> player.sendMessage(
-                            ChatColor.GRAY + "The rotation has been updated to " + ChatColor.GOLD + potentialRotation.getName() + ChatColor.GRAY + " to accommodate for the new player size."
-                    )
+                player -> player.sendMessage(
+                    ChatColor.GRAY + "The rotation has been updated to " + ChatColor.GOLD + potentialRotation.getName() + ChatColor.GRAY + " to accommodate for the new player size."
+                )
             );
 
             rotationFile.setRotation(potentialRotation.getName());

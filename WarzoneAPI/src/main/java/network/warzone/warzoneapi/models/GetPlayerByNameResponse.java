@@ -8,7 +8,7 @@ import java.util.List;
 @AllArgsConstructor @Getter
 public class GetPlayerByNameResponse {
 
-  private UserProfile user;
-  private List<Death> deaths;
+    private UserProfile user;
+    private List<Death> deaths;
 
 }

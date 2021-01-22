@@ -38,7 +38,7 @@ public interface TeamClient {
     void finishMatch(MatchFinishPacket matchFinishPacket);
 
     void destroyWool(DestroyWoolRequest destroyWoolRequest);
-    
+
     RankList retrieveRanks();
 
     RankUpdateResponse updateRank(String player, RankUpdateRequest.Action action, RankUpdateRequest rankUpdateRequest);
@@ -70,7 +70,7 @@ public interface TeamClient {
     default MojangProfile getMojangProfile(String username) {
         try {
             HttpResponse<MojangProfile> response = Unirest.get("https://api.ashcon.app/mojang/v2/user/" + username)
-                    .asObject(MojangProfile.class);
+                                                   .asObject(MojangProfile.class);
             if (response.getStatus() != 200) {
                 return null;
             }

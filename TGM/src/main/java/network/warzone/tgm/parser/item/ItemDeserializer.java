@@ -31,20 +31,22 @@ public class ItemDeserializer implements JsonDeserializer<ItemStack> {
     @Getter @Setter private static ItemTagParser<Material> materialParser = new ItemMaterialParser();
     @Getter @Setter private static ItemTagParser<Integer> amountParser = new ItemAmountParser();
 
-    private static Map<ItemMetaParserType, ItemMetaParser> metaParsers = new HashMap<ItemMetaParserType, ItemMetaParser>() {{
-        put(ItemMetaParserType.DISPLAY_NAME, ItemMetaParserType.DISPLAY_NAME.newDefaultInstance());
-        put(ItemMetaParserType.LORE,         ItemMetaParserType.LORE.newDefaultInstance());
-        put(ItemMetaParserType.DURABILITY,   ItemMetaParserType.DURABILITY.newDefaultInstance());
-        put(ItemMetaParserType.ENCHANTMENTS, ItemMetaParserType.ENCHANTMENTS.newDefaultInstance());
-        put(ItemMetaParserType.UNBREAKABLE,  ItemMetaParserType.UNBREAKABLE.newDefaultInstance());
-        put(ItemMetaParserType.FLAGS,        ItemMetaParserType.FLAGS.newDefaultInstance());
-        put(ItemMetaParserType.SKULL_OWNER,  ItemMetaParserType.SKULL_OWNER.newDefaultInstance());
-        put(ItemMetaParserType.POTION,       ItemMetaParserType.POTION.newDefaultInstance());
-        put(ItemMetaParserType.BOOK,         ItemMetaParserType.BOOK.newDefaultInstance());
-        put(ItemMetaParserType.COLOR,        ItemMetaParserType.COLOR.newDefaultInstance());
-        put(ItemMetaParserType.CAN_PLACE_ON, ItemMetaParserType.CAN_PLACE_ON.newDefaultInstance());
-        put(ItemMetaParserType.CAN_DESTROY,  ItemMetaParserType.CAN_DESTROY.newDefaultInstance());
-    }};
+    private static Map<ItemMetaParserType, ItemMetaParser> metaParsers = new HashMap<ItemMetaParserType, ItemMetaParser>() {
+        {
+            put(ItemMetaParserType.DISPLAY_NAME, ItemMetaParserType.DISPLAY_NAME.newDefaultInstance());
+            put(ItemMetaParserType.LORE,         ItemMetaParserType.LORE.newDefaultInstance());
+            put(ItemMetaParserType.DURABILITY,   ItemMetaParserType.DURABILITY.newDefaultInstance());
+            put(ItemMetaParserType.ENCHANTMENTS, ItemMetaParserType.ENCHANTMENTS.newDefaultInstance());
+            put(ItemMetaParserType.UNBREAKABLE,  ItemMetaParserType.UNBREAKABLE.newDefaultInstance());
+            put(ItemMetaParserType.FLAGS,        ItemMetaParserType.FLAGS.newDefaultInstance());
+            put(ItemMetaParserType.SKULL_OWNER,  ItemMetaParserType.SKULL_OWNER.newDefaultInstance());
+            put(ItemMetaParserType.POTION,       ItemMetaParserType.POTION.newDefaultInstance());
+            put(ItemMetaParserType.BOOK,         ItemMetaParserType.BOOK.newDefaultInstance());
+            put(ItemMetaParserType.COLOR,        ItemMetaParserType.COLOR.newDefaultInstance());
+            put(ItemMetaParserType.CAN_PLACE_ON, ItemMetaParserType.CAN_PLACE_ON.newDefaultInstance());
+            put(ItemMetaParserType.CAN_DESTROY,  ItemMetaParserType.CAN_DESTROY.newDefaultInstance());
+        }
+    };
 
     private static List<ItemMetaParser> extraParsers = new ArrayList<>();
 

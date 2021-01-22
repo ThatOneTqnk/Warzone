@@ -11,7 +11,7 @@ public class BossBarUtil {
         if (!Plugins.isProtocolSupportPresent()) return;
         if (bar.isVisible()) {
             bar.getPlayers().stream().filter(Plugins.ProtocolSupport::isUsingOldVersion)
-                    .forEach(player -> player.sendActionBar(bar.getTitle()));
+            .forEach(player -> player.sendActionBar(bar.getTitle()));
         }
     }
 

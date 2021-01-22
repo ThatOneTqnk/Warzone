@@ -20,25 +20,25 @@ public class MapLoaderImpl implements MapLoader {
 
         File[] children = folder.listFiles();
         if (children != null) for (File child : children) {
-            if (child.isDirectory()) {
-                if (isMapFolder(child)) {
-                    File mapJsonFile = new File(child, "map.json");
-                    try {
-                        JsonReader reader = new JsonReader(new FileReader(mapJsonFile));
-                        MapInfo mapInfo = TGM.get().getGson().fromJson(reader, MapInfo.class);
-                        maps.add(new MapContainer(child, mapInfo));
-                    } catch (Exception e) {
-                        TGM.get().getLogger().warning("Failed to load map " + child.getName());
-                        e.printStackTrace();
-                    }
-                } else {
-                    //recursively loop through directories
-                    for (MapContainer mapContainer : loadMaps(child)) {
-                        maps.add(mapContainer);
+                if (child.isDirectory()) {
+                    if (isMapFolder(child)) {
+                        File mapJsonFile = new File(child, "map.json");
+                        try {
+                            JsonReader reader = new JsonReader(new FileReader(mapJsonFile));
+                            MapInfo mapInfo = TGM.get().getGson().fromJson(reader, MapInfo.class);
+                            maps.add(new MapContainer(child, mapInfo));
+                        } catch (Exception e) {
+                            TGM.get().getLogger().warning("Failed to load map " + child.getName());
+                            e.printStackTrace();
+                        }
+                    } else {
+                        //recursively loop through directories
+                        for (MapContainer mapContainer : loadMaps(child)) {
+                            maps.add(mapContainer);
+                        }
                     }
                 }
             }
-        }
 
         return maps;
     }

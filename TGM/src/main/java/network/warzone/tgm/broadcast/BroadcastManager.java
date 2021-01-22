@@ -65,8 +65,7 @@ public class BroadcastManager {
                     startAutoBroadcast(false);
                 }
             });
-        }
-        else {
+        } else {
             readFromFile();
             startAutoBroadcast(false);
         }
@@ -91,7 +90,7 @@ public class BroadcastManager {
             Gson gson = new Gson();
             JsonReader reader = new JsonReader(new FileReader(broadcastsFile));
             if (this.broadcasts != null && !this.broadcasts.isEmpty()) this.broadcasts.clear();
-            this.broadcasts = new ArrayList(gson.fromJson(reader, new TypeToken<List<Broadcast>>() {}.getType()));
+            this.broadcasts = new ArrayList(gson.fromJson(reader, new TypeToken<List<Broadcast>>() {} .getType()));
         } catch (FileNotFoundException e) {
             System.out.println("Could not load broadcasts file.");
             e.printStackTrace();

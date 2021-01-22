@@ -82,7 +82,7 @@ public class ScoreboardManagerModule extends MatchModule implements Listener {
             String name = player.getPlayer().getName();
             String colouredPrefix = ChatColor.translateAlternateColorCodes('&', prefix.trim());
             player.getPlayer().setPlayerListName(
-                    colouredPrefix + " " + team.getColor() + name);
+                colouredPrefix + " " + team.getColor() + name);
         }
     }
 

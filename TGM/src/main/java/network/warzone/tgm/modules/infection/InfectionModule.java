@@ -87,33 +87,33 @@ public class InfectionModule extends MatchModule implements Listener, TimeSubscr
         TGM.get().getModule(RespawnModule.class).setDefaultRule(defaultRespawnRule);
         TGM.get().getModule(DeathMessageModule.class).getDeathMessages().clear();
         TGM.get().getModule(DeathMessageModule.class).setDefaultDeathMessage(
-                (d) -> {
-                    if (d.killer != null) {
-                        if (d.killerTeam != humans)
-                            DeathMessageModule.broadcastDeathMessage(d.player, d.killer, "%s%s &7has been infected by %s%s",
-                                d.playerTeam.getColor(),
-                                    d.player.getName(),
-                                    d.killerTeam.getColor(),
-                                    d.killer.getName()
-                            );
-                        else
-                            DeathMessageModule.broadcastDeathMessage(d.player, d.killer, "%s%s &7has been slain by %s%s",
-                                    d.playerTeam.getColor(),
-                                    d.player.getName(),
-                                    d.killerTeam.getColor(),
-                                    d.killer.getName());
-                    } else {
-                        if (d.playerTeam != humans)
-                            DeathMessageModule.broadcastDeathMessage(d.player, null, "%s%s &7wasted away to the environment",
-                                    d.playerTeam.getColor(),
-                                    d.player.getName());
-                        else
-                            DeathMessageModule.broadcastDeathMessage(d.player, null, "%s%s &7has been taken by the environment",
-                                    d.playerTeam.getColor(),
-                                    d.player.getName());
-                    }
-                    return true;
-                }
+        (d) -> {
+            if (d.killer != null) {
+                if (d.killerTeam != humans)
+                    DeathMessageModule.broadcastDeathMessage(d.player, d.killer, "%s%s &7has been infected by %s%s",
+                            d.playerTeam.getColor(),
+                            d.player.getName(),
+                            d.killerTeam.getColor(),
+                            d.killer.getName()
+                                                            );
+                else
+                    DeathMessageModule.broadcastDeathMessage(d.player, d.killer, "%s%s &7has been slain by %s%s",
+                            d.playerTeam.getColor(),
+                            d.player.getName(),
+                            d.killerTeam.getColor(),
+                            d.killer.getName());
+            } else {
+                if (d.playerTeam != humans)
+                    DeathMessageModule.broadcastDeathMessage(d.player, null, "%s%s &7wasted away to the environment",
+                            d.playerTeam.getColor(),
+                            d.player.getName());
+                else
+                    DeathMessageModule.broadcastDeathMessage(d.player, null, "%s%s &7has been taken by the environment",
+                            d.playerTeam.getColor(),
+                            d.player.getName());
+            }
+            return true;
+        }
         );
     }
 
@@ -175,7 +175,7 @@ public class InfectionModule extends MatchModule implements Listener, TimeSubscr
     private void refreshOnlyDynamicScoreboard(SimpleScoreboard board) {
         if (board == null) return;
         teamAliveScoreboardLines.forEach((id, i) -> board.add(
-                "  " + ChatColor.YELLOW + teamManager.getTeamById(id).getMembers().size() + ChatColor.WHITE + " alive", i));
+                                             "  " + ChatColor.YELLOW + teamManager.getTeamById(id).getMembers().size() + ChatColor.WHITE + " alive", i));
         board.add(timeScoreboardValue, timeScoreboardLine);
         board.update();
     }
@@ -320,10 +320,10 @@ public class InfectionModule extends MatchModule implements Listener, TimeSubscr
 
     private void freeze(Player player, int ticks) {
         player.addPotionEffects(Arrays.asList(
-                new PotionEffect(PotionEffectType.SLOW, ticks, 255, true, false),
-                new PotionEffect(PotionEffectType.JUMP, ticks, 128, true, false),
-                new PotionEffect(PotionEffectType.BLINDNESS, ticks, 255, true, false)
-        ));
+                                    new PotionEffect(PotionEffectType.SLOW, ticks, 255, true, false),
+                                    new PotionEffect(PotionEffectType.JUMP, ticks, 128, true, false),
+                                    new PotionEffect(PotionEffectType.BLINDNESS, ticks, 255, true, false)
+                                ));
 
         Bukkit.getScheduler().runTaskLater(TGM.get(), () -> unfreeze(player), ticks);
     }

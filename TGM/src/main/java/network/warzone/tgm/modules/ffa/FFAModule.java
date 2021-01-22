@@ -125,8 +125,7 @@ public class FFAModule extends MatchModule implements Listener {
         } else {
             if (this.blitzMode && event.getTeam().equals(this.playersTeam)) {
                 this.playerLives.put(event.getPlayerContext().getPlayer().getName(), this.lives);
-            }
-            else {
+            } else {
                 this.scores.put(event.getPlayerContext().getPlayer().getName(), this.scores.getOrDefault(event.getPlayerContext().getPlayer().getName(), 0));
             }
         }
@@ -230,8 +229,7 @@ public class FFAModule extends MatchModule implements Listener {
                 } else {
                     lines.add(this.playersTeam.getColor() + player + "" + ChatColor.GRAY + ": " + ChatColor.WHITE + score);
                 }
-            }
-            else {
+            } else {
                 if (!iterator.hasNext()) {
                     lines.add(ChatColor.YELLOW + player + ChatColor.GRAY + ": " + ChatColor.RESET + score);
                 } else {
@@ -311,12 +309,12 @@ public class FFAModule extends MatchModule implements Listener {
         if (this.teamManagerModule.getTeamByAlias("winner") == null) {
             this.teamManagerModule.addTeam(new MatchTeam("winner", player, ChatColor.YELLOW, GameMode.SURVIVAL, false, 0, 1, true));
             TGM.get().getPlayerManager().getPlayers().forEach(playerContext ->
-                this.scoreboardManagerModule.registerScoreboardTeam(
+                    this.scoreboardManagerModule.registerScoreboardTeam(
                         this.scoreboardManagerModule.getScoreboard(playerContext.getPlayer()),
                         this.teamManagerModule.getTeamByAlias("winner"),
                         playerContext
-                )
-            );
+                    )
+                                                             );
         }
 
         MatchTeam winnerTeam = this.teamManagerModule.getTeamByAlias("winner");

@@ -26,10 +26,10 @@ public class ScheduledGeneratorUpgrader extends GeneratorUpgrader {
         for (ScheduledGeneratorUpgrade scheduledGeneratorUpgrade : scheduledGeneratorUpgrades) {
             if (taskMap.containsKey(scheduledGeneratorUpgrade.getTime())) continue;
             taskMap.put(scheduledGeneratorUpgrade.getTime(),
-                    Bukkit.getScheduler().runTaskLater(TGM.get(), () -> {
-                        upgrade(scheduledGeneratorUpgrade);
-                    }, scheduledGeneratorUpgrade.getTime()).getTaskId()
-            );
+            Bukkit.getScheduler().runTaskLater(TGM.get(), () -> {
+                upgrade(scheduledGeneratorUpgrade);
+            }, scheduledGeneratorUpgrade.getTime()).getTaskId()
+                       );
         }
     }
 

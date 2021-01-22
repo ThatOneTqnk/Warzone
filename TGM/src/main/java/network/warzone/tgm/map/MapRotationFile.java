@@ -98,16 +98,16 @@ public class MapRotationFile {
 
     public Rotation getDefaultRotation() {
         return this.rotationLibrary.stream()
-                .filter(Rotation::isDefault)
-                .findFirst()
-                .orElse(null);
+               .filter(Rotation::isDefault)
+               .findFirst()
+               .orElse(null);
     }
 
     public Rotation getRotationForPlayerCount(int playerCount) {
         return rotationLibrary.stream()
-                .filter(Rotation::isDefault)
-                .filter(rotation -> rotation.getRequirements().getMin() <= playerCount && rotation.getRequirements().getMax() >= playerCount)
-                .findFirst()
-                .orElseGet(this::getDefaultRotation);
+               .filter(Rotation::isDefault)
+               .filter(rotation -> rotation.getRequirements().getMin() <= playerCount && rotation.getRequirements().getMax() >= playerCount)
+               .findFirst()
+               .orElseGet(this::getDefaultRotation);
     }
 }

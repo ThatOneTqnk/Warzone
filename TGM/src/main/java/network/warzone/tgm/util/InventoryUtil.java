@@ -33,8 +33,7 @@ public class InventoryUtil {
         if (title == null) {
             if (i.getType() == InventoryType.CHEST) inventory = Bukkit.createInventory(i.getHolder(), i.getSize());
             else inventory = Bukkit.createInventory(i.getHolder(), i.getType());
-        }
-        else {
+        } else {
             if (i.getType() == InventoryType.CHEST) inventory = Bukkit.createInventory(i.getHolder(), i.getSize(), title);
             else inventory = Bukkit.createInventory(i.getHolder(), i.getType(), title);
         }
@@ -78,10 +77,10 @@ public class InventoryUtil {
 
     private static ItemStack getHealthItem(Player player) {
         return ItemFactory.createItem(Material.APPLE, ChatColor.RED + "Player health", Arrays.asList(
-                ChatColor.GRAY + "Health: " + ChatColor.WHITE + ((int) player.getHealth()) + " / " + ((int) player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()),
-                ChatColor.GRAY + "Food: " + ChatColor.WHITE + player.getFoodLevel(),
-                ChatColor.GRAY + "Saturation: " + ChatColor.WHITE + player.getSaturation()
-        ));
+                                          ChatColor.GRAY + "Health: " + ChatColor.WHITE + ((int) player.getHealth()) + " / " + ((int) player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue()),
+                                          ChatColor.GRAY + "Food: " + ChatColor.WHITE + player.getFoodLevel(),
+                                          ChatColor.GRAY + "Saturation: " + ChatColor.WHITE + player.getSaturation()
+                                      ));
     }
 
     private static ItemStack getPotionsItem(Collection<PotionEffect> potionEffects) {
@@ -102,11 +101,11 @@ public class InventoryUtil {
                 NBTTagList nmsLore = new NBTTagList();
                 for (PotionEffect potionEffect : potionEffects) {
                     nmsLore.add(NBTTagString.a(String.format("[\"%s\",{\"translate\": \"effect.minecraft.%s\"},\" \",{\"translate\":\"%s\"},\" (%s)\"]",
-                            ChatColor.GRAY.toString(),
-                            Effects.toMinecraftID(potionEffect.getType()),
-                            potionEffect.getAmplifier() > 10 ? "" + potionEffect.getAmplifier() : "enchantment.level." + (potionEffect.getAmplifier() + 1),
-                            Strings.formatTime(potionEffect.getDuration() / 20)
-                    )));
+                                               ChatColor.GRAY.toString(),
+                                               Effects.toMinecraftID(potionEffect.getType()),
+                                               potionEffect.getAmplifier() > 10 ? "" + potionEffect.getAmplifier() : "enchantment.level." + (potionEffect.getAmplifier() + 1),
+                                               Strings.formatTime(potionEffect.getDuration() / 20)
+                                                            )));
                 }
                 nmsItem.getTag().getCompound("display").set("Lore", nmsLore);
             }

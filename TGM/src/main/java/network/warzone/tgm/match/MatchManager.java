@@ -101,7 +101,7 @@ public class MatchManager {
 
         // Transport all players to the new world so we can unload the old one.
         Bukkit.getOnlinePlayers().forEach(player ->
-                player.teleport(world.getSpawnLocation()));
+                                          player.teleport(world.getSpawnLocation()));
 
         //create and load the match.
         Match createdMatch = new Match(matchUuid, matchManifest, world, mapContainer);
@@ -125,12 +125,12 @@ public class MatchManager {
             Bukkit.unloadWorld(oldMatch.getWorld(), save);
             if (!save)
                 Bukkit.getScheduler().runTaskLaterAsynchronously(TGM.get(), () -> {
-                    try {
-                        FileUtils.deleteDirectory(worldFolder);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }, 80L); // 4 seconds
+                try {
+                    FileUtils.deleteDirectory(worldFolder);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }, 80L); // 4 seconds
         }
     }
 

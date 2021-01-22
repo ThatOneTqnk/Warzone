@@ -21,7 +21,7 @@ public class AbilityManager {
             this.hostAbility = hostAbility;
         }
     }
-    
+
     private Set<Ability> abilities = new HashSet<>();
 
     public AbilityManager(Set<Class<? extends Ability>> abilitySet) {
@@ -29,7 +29,7 @@ public class AbilityManager {
             try {
                 abilities.add((Ability) ability.getConstructors()[0].newInstance());
             } catch (InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException | SecurityException e) {
+                         | InvocationTargetException | SecurityException e) {
                 e.printStackTrace();
             }
     }

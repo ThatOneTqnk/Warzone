@@ -66,8 +66,8 @@ public class LaunchPadModule extends MatchModule implements TaskedModule, Listen
             if (isDelayed()) standingOnPadDate.put(event.getPlayer(), getTime());
             else launch(event.getPlayer());
         } else if (region.contains(event.getFrom().getBlock())
-                && !region.contains(event.getTo().getBlock())
-                && allowedTeam(event.getPlayer())) {
+                   && !region.contains(event.getTo().getBlock())
+                   && allowedTeam(event.getPlayer())) {
             standingOnPadDate.remove(event.getPlayer());
         }
     }
