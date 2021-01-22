@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,25 +51,18 @@ public class ItemBookParser implements ItemMetaParser {
                 BookMeta.Generation.valueOf(Strings.getTechnicalName(object.get("generation").getAsString())) : BookMeta.Generation.ORIGINAL);
 
         if (object.has("pages")) { // Json pages
-            try {
-                fieldPages.setAccessible(true);
-
-                List<Object> pages = (List<Object>) fieldPages.get(bookMeta);
-                object.getAsJsonArray("pages").forEach(
-                        jsonElement -> {
-                            try {
-                                String page = (String) methodA.invoke(ColorConverter.filterString(jsonElement.getAsString()));
-                                pages.add(page);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
+            List<String> pages = bookMeta.getPages();
+            object.getAsJsonArray("pages").forEach(
+                    jsonElement -> {
+                        try {
+                            String page = (String) methodA.invoke(ColorConverter.filterString(jsonElement.getAsString()));
+                            pages.add(page);
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                );
-
-                fieldPages.setAccessible(false);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
+                    }
+            );
+            bookMeta.setPages(pages);
         } else {
             bookMeta.addPage("null");
         }
