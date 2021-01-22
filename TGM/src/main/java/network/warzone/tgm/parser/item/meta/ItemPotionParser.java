@@ -17,13 +17,13 @@ import org.bukkit.potion.PotionType;
  */
 public class ItemPotionParser implements ItemMetaParser {
 
-    @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (!ItemUtils.isPotion(itemStack.getType())) return;
-        if (!object.has("potion")) return;
-        PotionMeta potionMeta = (PotionMeta) meta;
+  @Override
+  public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    if (!ItemUtils.isPotion(itemStack.getType())) return;
+    if (!object.has("potion")) return;
+    PotionMeta potionMeta = (PotionMeta) meta;
 
-        /*
+    /*
         Used to get potions that can be obtained from the Creative Inventory
         https://hub.spigotmc.org/javadocs/spigot/org/bukkit/potion/PotionType.html
         "potion": {
@@ -33,18 +33,22 @@ public class ItemPotionParser implements ItemMetaParser {
         }
         */
 
-        if (object.getAsJsonObject("potion").has("type")) {
-            PotionType type = PotionType.valueOf(Strings.getTechnicalName(object.getAsJsonObject("potion").get("type").getAsString()));
-            boolean extended = false;
-            boolean upgraded = false;
-            if (object.getAsJsonObject("potion").has("extend"))
-                extended = object.getAsJsonObject("potion").get("type").getAsBoolean();
-            if (object.getAsJsonObject("potion").has("upgrade"))
-                upgraded = object.getAsJsonObject("potion").get("upgrade").getAsBoolean();
-            potionMeta.setBasePotionData(new PotionData(type, extended, upgraded));
-        }
+    if (object.getAsJsonObject("potion").has("type")) {
+      PotionType type = PotionType.valueOf(
+        Strings.getTechnicalName(
+          object.getAsJsonObject("potion").get("type").getAsString()
+        )
+      );
+      boolean extended = false;
+      boolean upgraded = false;
+      if (object.getAsJsonObject("potion").has("extend")) extended =
+        object.getAsJsonObject("potion").get("type").getAsBoolean();
+      if (object.getAsJsonObject("potion").has("upgrade")) upgraded =
+        object.getAsJsonObject("potion").get("upgrade").getAsBoolean();
+      potionMeta.setBasePotionData(new PotionData(type, extended, upgraded));
+    }
 
-        /*
+    /*
         "potion": {
             "effects": [
                 {
@@ -57,12 +61,16 @@ public class ItemPotionParser implements ItemMetaParser {
             ]}
         */
 
-        if (object.getAsJsonObject("potion").has("effects")) {
-            for (JsonElement element : object.getAsJsonObject("potion").getAsJsonArray("effects")) {
-                if (!element.isJsonObject()) continue;
-                PotionEffect effect = EffectDeserializer.parse(element.getAsJsonObject());
-                potionMeta.addCustomEffect(effect, true);
-            }
-        }
+    if (object.getAsJsonObject("potion").has("effects")) {
+      for (JsonElement element : object
+        .getAsJsonObject("potion")
+        .getAsJsonArray("effects")) {
+        if (!element.isJsonObject()) continue;
+        PotionEffect effect = EffectDeserializer.parse(
+          element.getAsJsonObject()
+        );
+        potionMeta.addCustomEffect(effect, true);
+      }
     }
+  }
 }

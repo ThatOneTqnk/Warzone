@@ -16,17 +16,21 @@ import org.bukkit.event.HandlerList;
 
 @AllArgsConstructor
 public class ScoreboardInitEvent extends Event {
-    private static final HandlerList handlers = new HandlerList();
 
-    @Getter private Player player;
-    @Getter private SimpleScoreboard simpleScoreboard;
+  private static final HandlerList handlers = new HandlerList();
 
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+  @Getter
+  private Player player;
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+  @Getter
+  private SimpleScoreboard simpleScoreboard;
+
+  @Override
+  public HandlerList getHandlers() {
+    return handlers;
+  }
+
+  public static HandlerList getHandlerList() {
+    return handlers;
+  }
 }

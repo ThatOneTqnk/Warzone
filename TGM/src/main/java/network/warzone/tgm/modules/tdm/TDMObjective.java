@@ -7,19 +7,18 @@ import lombok.Getter;
  * Created by Jorge on 9/7/2017.
  */
 
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 public enum TDMObjective {
+  /**
+   * Kills will count towards the killer's team score.
+   */
+  KILLS("Kills"),
+  /**
+   * Deaths will count towards the opponent team scores.
+   * Useful for maps where the deaths are not necessarily caused by the other team(s).
+   */
+  DEATHS("Deaths");
 
-    /**
-     * Kills will count towards the killer's team score.
-    */
-    KILLS("Kills"),
-    /**
-     * Deaths will count towards the opponent team scores.
-     * Useful for maps where the deaths are not necessarily caused by the other team(s).
-     */
-    DEATHS("Deaths");
-
-    private String name;
-
+  private String name;
 }

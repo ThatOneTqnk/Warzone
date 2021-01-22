@@ -1,14 +1,13 @@
 package network.warzone.warzoneapi.models;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
-
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 public class GetPlayerByNameResponse {
 
-    private UserProfile user;
-    private List<Death> deaths;
-
+  private UserProfile user;
+  private List<Death> deaths;
 }

@@ -9,10 +9,13 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum TeamRole {
-    DEFAULT(0, "Default"),
-    OFFICER(1, "Officer"),
-    LEADER(2, "Leader");
+  DEFAULT(0, "Default"),
+  OFFICER(1, "Officer"),
+  LEADER(2, "Leader");
 
-    @Getter private int id;
-    @Getter private String name;
+  @Getter
+  private int id;
+
+  @Getter
+  private String name;
 }

@@ -13,14 +13,15 @@ import org.bukkit.entity.Player;
 
 @AllArgsConstructor
 public class VisibilityControllerImpl implements VisibilityController {
-    private final SpectatorModule spectatorModule;
 
-    @Override
-    public boolean canSee(Player eyes, Player target) {
-        if (spectatorModule.getSpectators().containsPlayer(target)) {
-            return spectatorModule.getSpectators().containsPlayer(eyes);
-        } else {
-            return true;
-        }
+  private final SpectatorModule spectatorModule;
+
+  @Override
+  public boolean canSee(Player eyes, Player target) {
+    if (spectatorModule.getSpectators().containsPlayer(target)) {
+      return spectatorModule.getSpectators().containsPlayer(eyes);
+    } else {
+      return true;
     }
+  }
 }

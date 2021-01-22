@@ -7,8 +7,8 @@ import com.google.gson.JsonObject;
  */
 public class EffectAmplifierParser implements EffectTagParser<Integer> {
 
-    @Override
-    public Integer parse(JsonObject object) {
-        return object.has("amplifier") ? object.get("amplifier").getAsInt() : 0;
-    }
+  @Override
+  public Integer parse(JsonObject object) {
+    return object.has("amplifier") ? object.get("amplifier").getAsInt() : 0;
+  }
 }

@@ -1,8 +1,7 @@
 package network.warzone.warzoneapi.models;
 
-import lombok.Getter;
-
 import java.util.List;
+import lombok.Getter;
 
 /**
  * Created by Jorge on 4/2/2018.
@@ -10,10 +9,9 @@ import java.util.List;
 @Getter
 public class PlayerInfoResponse {
 
-    private boolean error;
-    private String message;
+  private boolean error;
+  private String message;
 
-    private String queryFilter;
-    private List<UserProfile> users;
-
+  private String queryFilter;
+  private List<UserProfile> users;
 }

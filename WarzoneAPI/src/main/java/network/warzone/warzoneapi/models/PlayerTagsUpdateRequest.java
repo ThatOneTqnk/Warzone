@@ -8,9 +8,12 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class PlayerTagsUpdateRequest {
-    private String tag;
 
-    public enum Action {
-        ADD, REMOVE, SET
-    }
+  private String tag;
+
+  public enum Action {
+    ADD,
+    REMOVE,
+    SET,
+  }
 }

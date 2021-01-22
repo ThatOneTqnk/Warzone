@@ -7,8 +7,8 @@ import com.google.gson.JsonObject;
  */
 public class ItemAmountParser implements ItemTagParser<Integer> {
 
-    @Override
-    public Integer parse(JsonObject object) {
-        return object.has("amount") ? object.get("amount").getAsInt() : 1;
-    }
+  @Override
+  public Integer parse(JsonObject object) {
+    return object.has("amount") ? object.get("amount").getAsInt() : 1;
+  }
 }

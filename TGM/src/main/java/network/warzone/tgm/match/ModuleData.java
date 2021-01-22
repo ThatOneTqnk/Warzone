@@ -8,10 +8,8 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ModuleData {
-
-    /**
-     * @return The position of when the module should be loaded
-     */
-    ModuleLoadTime load() default ModuleLoadTime.NORMAL;
-
+  /**
+   * @return The position of when the module should be loaded
+   */
+  ModuleLoadTime load() default ModuleLoadTime.NORMAL;
 }

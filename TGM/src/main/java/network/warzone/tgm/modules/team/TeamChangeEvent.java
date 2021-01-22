@@ -16,29 +16,38 @@ import org.bukkit.event.HandlerList;
  * 2. The map cycles.
  */
 
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 public class TeamChangeEvent extends Event implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
 
-    private PlayerContext playerContext;
-    private MatchTeam team;
-    private MatchTeam oldTeam;
+  private static final HandlerList handlers = new HandlerList();
 
-    @Setter private boolean cancelled;
-    @Getter @Setter private boolean forced;
-    @Getter @Setter private boolean silent;
+  private PlayerContext playerContext;
+  private MatchTeam team;
+  private MatchTeam oldTeam;
 
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+  @Setter
+  private boolean cancelled;
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+  @Getter
+  @Setter
+  private boolean forced;
 
-    @Override
-    public boolean isCancelled() {
-        return !isForced() && this.cancelled;
-    }
+  @Getter
+  @Setter
+  private boolean silent;
+
+  @Override
+  public HandlerList getHandlers() {
+    return handlers;
+  }
+
+  public static HandlerList getHandlerList() {
+    return handlers;
+  }
+
+  @Override
+  public boolean isCancelled() {
+    return !isForced() && this.cancelled;
+  }
 }

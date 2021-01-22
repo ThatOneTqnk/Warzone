@@ -8,52 +8,55 @@ import network.warzone.tgm.match.ModuleLoadTime;
 import network.warzone.tgm.modules.tasked.TaskedModule;
 
 @ModuleData(load = ModuleLoadTime.LATER)
-@Getter @Setter
+@Getter
+@Setter
 public abstract class Countdown extends MatchModule implements TaskedModule {
 
-    private double timeLeft; //ticks
-    private double timeMax; //ticks
+  private double timeLeft; //ticks
+  private double timeMax; //ticks
 
-    private boolean cancelled = true;
+  private boolean cancelled = true;
 
+  public void start(double countdown) {
+    setCancelled(false);
 
-    public void start(double countdown) {
-        setCancelled(false);
+    setTimeMax(countdown * 20);
+    setTimeLeft(countdown * 20);
 
-        setTimeMax(countdown * 20);
-        setTimeLeft(countdown * 20);
+    onStart();
+  }
 
-        onStart();
+  public void cancel() {
+    setCancelled(true);
+    onCancel();
+  }
+
+  @Override
+  public void tick() {
+    if (isCancelled()) return;
+
+    if (timeLeft <= 0) {
+      onFinish();
+      setCancelled(true);
+    } else {
+      onTick();
+      timeLeft--;
     }
+  }
 
-    public void cancel() {
-        setCancelled(true);
-        onCancel();
-    }
+  public int getTimeLeftSeconds() {
+    return (int) timeLeft / 20;
+  }
 
-    @Override
-    public void tick() {
-        if (isCancelled()) return;
+  public double getTimeMaxSeconds() {
+    return timeMax / 20;
+  }
 
-        if (timeLeft <= 0) {
-            onFinish();
-            setCancelled(true);
-        } else {
-            onTick();
-            timeLeft--;
-        }
-    }
+  protected abstract void onStart();
 
-    public int getTimeLeftSeconds() {
-        return (int) timeLeft / 20;
-    }
+  protected abstract void onTick();
 
-    public double getTimeMaxSeconds() {
-        return timeMax / 20;
-    }
+  protected abstract void onFinish();
 
-    protected abstract void onStart();
-    protected abstract void onTick();
-    protected abstract void onFinish();
-    protected abstract void onCancel();
+  protected abstract void onCancel();
 }

@@ -9,11 +9,11 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 public class FireworkDamageModule extends MatchModule implements Listener {
 
-    @EventHandler(priority= EventPriority.LOWEST)
-    public void onDamage(EntityDamageByEntityEvent event) {
-        if (event.getDamager() instanceof Firework) {
-            event.setCancelled(true);
-            event.setDamage(0);
-        }
+  @EventHandler(priority = EventPriority.LOWEST)
+  public void onDamage(EntityDamageByEntityEvent event) {
+    if (event.getDamager() instanceof Firework) {
+      event.setCancelled(true);
+      event.setDamage(0);
     }
+  }
 }

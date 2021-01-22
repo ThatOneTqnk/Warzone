@@ -4,7 +4,6 @@ import network.warzone.tgm.match.MatchModule;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
-
 /**
  * This is a stub class for debugging only. This should
  * not make it into release.
@@ -20,9 +19,8 @@ import org.bukkit.ChatColor;
 
 public class MatchProgressNotifications extends MatchModule {
 
-    @Override
-    public void enable() {
-        Bukkit.broadcastMessage(ChatColor.GREEN + "The match has started!");
-    }
-
+  @Override
+  public void enable() {
+    Bukkit.broadcastMessage(ChatColor.GREEN + "The match has started!");
+  }
 }

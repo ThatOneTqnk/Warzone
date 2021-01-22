@@ -7,8 +7,8 @@ import com.google.gson.JsonObject;
  */
 public class EffectAmbientParser implements EffectTagParser<Boolean> {
 
-    @Override
-    public Boolean parse(JsonObject object) {
-        return !object.has("ambient") || object.get("ambient").getAsBoolean();
-    }
+  @Override
+  public Boolean parse(JsonObject object) {
+    return !object.has("ambient") || object.get("ambient").getAsBoolean();
+  }
 }

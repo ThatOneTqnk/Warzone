@@ -9,14 +9,17 @@ import org.bukkit.entity.Player;
  */
 public class OpenScreenClickEvent extends ClickEvent {
 
-    private String screen;
+  private String screen;
 
-    public OpenScreenClickEvent(String id) {
-        this.screen = id;
-    }
+  public OpenScreenClickEvent(String id) {
+    this.screen = id;
+  }
 
-    @Override
-    public void run(Match match, Player player) {
-        match.getModule(ScreenManagerModule.class).getScreen(this.screen).openInventory(player);
-    }
+  @Override
+  public void run(Match match, Player player) {
+    match
+      .getModule(ScreenManagerModule.class)
+      .getScreen(this.screen)
+      .openInventory(player);
+  }
 }

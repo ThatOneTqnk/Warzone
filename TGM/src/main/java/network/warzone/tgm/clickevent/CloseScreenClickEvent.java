@@ -8,8 +8,8 @@ import org.bukkit.entity.Player;
  */
 public class CloseScreenClickEvent extends ClickEvent {
 
-    @Override
-    public void run(Match match, Player player) {
-        player.closeInventory();
-    }
+  @Override
+  public void run(Match match, Player player) {
+    player.closeInventory();
+  }
 }

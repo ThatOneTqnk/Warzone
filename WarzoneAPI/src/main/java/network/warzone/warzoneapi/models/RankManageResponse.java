@@ -7,7 +7,8 @@ import lombok.Getter;
  */
 @Getter
 public class RankManageResponse {
-    private String message;
-    private boolean error;
-    private Rank rank;
+
+  private String message;
+  private boolean error;
+  private Rank rank;
 }

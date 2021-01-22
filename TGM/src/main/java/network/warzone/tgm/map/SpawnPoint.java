@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.bukkit.Location;
 
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 public class SpawnPoint {
-    private final Location location;
+
+  private final Location location;
 }

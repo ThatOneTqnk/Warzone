@@ -13,15 +13,18 @@ import org.bukkit.event.HandlerList;
 
 @AllArgsConstructor
 public class TeamUpdateEvent extends Event {
-    private static final HandlerList handlers = new HandlerList();
-    @Getter private MatchTeam matchTeam;
 
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+  private static final HandlerList handlers = new HandlerList();
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+  @Getter
+  private MatchTeam matchTeam;
+
+  @Override
+  public HandlerList getHandlers() {
+    return handlers;
+  }
+
+  public static HandlerList getHandlerList() {
+    return handlers;
+  }
 }

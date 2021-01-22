@@ -8,22 +8,24 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 public abstract class BossBarCountdown extends Countdown implements Listener {
-    @Getter protected BossBar bossBar;
 
-    public abstract BossBar initBossBar();
+  @Getter
+  protected BossBar bossBar;
 
-    @EventHandler
-    public void onPlayerJoinMatch(MatchJoinEvent event) {
-        bossBar.addPlayer(event.getPlayerContext().getPlayer());
-    }
+  public abstract BossBar initBossBar();
 
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        bossBar.removePlayer(event.getPlayer());
-    }
+  @EventHandler
+  public void onPlayerJoinMatch(MatchJoinEvent event) {
+    bossBar.addPlayer(event.getPlayerContext().getPlayer());
+  }
 
-    @Override
-    public void unload() {
-        bossBar.removeAll();
-    }
+  @EventHandler
+  public void onPlayerQuit(PlayerQuitEvent event) {
+    bossBar.removePlayer(event.getPlayer());
+  }
+
+  @Override
+  public void unload() {
+    bossBar.removeAll();
+  }
 }

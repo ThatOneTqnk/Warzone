@@ -17,46 +17,50 @@ import org.bukkit.event.player.PlayerJoinEvent;
  */
 public class BroadcastEventTrigger implements Listener {
 
-    private BroadcastManager manager;
+  private BroadcastManager manager;
 
-    BroadcastEventTrigger(BroadcastManager manager) {
-        this.manager = manager;
-        Bukkit.getPluginManager().registerEvents(this, TGM.get());
+  BroadcastEventTrigger(BroadcastManager manager) {
+    this.manager = manager;
+    Bukkit.getPluginManager().registerEvents(this, TGM.get());
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void onJoin(PlayerJoinEvent event) {
+    PlayerContext playerContext = TGM
+      .get()
+      .getPlayerManager()
+      .getPlayerContext(event.getPlayer());
+    if (playerContext.getUserProfile().isNew()) {
+      trigger(event.getPlayer(), "onFirstJoin");
+      return;
     }
+    trigger(event.getPlayer(), "onJoin");
+  }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onJoin(PlayerJoinEvent event) {
-        PlayerContext playerContext = TGM.get().getPlayerManager().getPlayerContext(event.getPlayer());
-        if (playerContext.getUserProfile().isNew()) {
-            trigger(event.getPlayer(), "onFirstJoin");
-            return;
-        }
-        trigger(event.getPlayer(), "onJoin");
-    }
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void onMatchCycle(MatchResultEvent event) {
+    trigger("onMatchResult");
+  }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onMatchCycle(MatchResultEvent event) {
-        trigger("onMatchResult");
-    }
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void onTeamJoin(TeamChangeEvent event) {
+    if (event.isCancelled()) return;
+    if (event.getOldTeam() == null || event.getTeam().isSpectator()) return;
+    trigger(event.getPlayerContext().getPlayer(), "onTeamJoin");
+  }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onTeamJoin(TeamChangeEvent event) {
-        if (event.isCancelled()) return;
-        if (event.getOldTeam() == null || event.getTeam().isSpectator()) return;
-        trigger(event.getPlayerContext().getPlayer(), "onTeamJoin");
-    }
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void onMatchLoad(MatchLoadEvent event) {
+    trigger("onMatchLoad");
+  }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onMatchLoad(MatchLoadEvent event) {
-        trigger("onMatchLoad");
-    }
+  private void trigger(Player player, String name) {
+    this.manager.getOnEvents(name)
+      .forEach(broadcast -> this.manager.broadcast(player, broadcast));
+  }
 
-    private void trigger(Player player, String name) {
-        this.manager.getOnEvents(name).forEach(broadcast -> this.manager.broadcast(player, broadcast));
-    }
-
-    private void trigger(String name) {
-        this.manager.getOnEvents(name).forEach(broadcast -> this.manager.broadcast(broadcast));
-    }
-
+  private void trigger(String name) {
+    this.manager.getOnEvents(name)
+      .forEach(broadcast -> this.manager.broadcast(broadcast));
+  }
 }

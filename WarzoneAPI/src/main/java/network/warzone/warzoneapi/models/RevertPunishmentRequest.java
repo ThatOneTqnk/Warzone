@@ -9,6 +9,5 @@ import org.bson.types.ObjectId;
 @AllArgsConstructor
 public class RevertPunishmentRequest {
 
-    private ObjectId id;
-
+  private ObjectId id;
 }

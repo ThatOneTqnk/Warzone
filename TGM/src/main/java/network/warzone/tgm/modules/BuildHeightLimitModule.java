@@ -14,30 +14,37 @@ import org.bukkit.event.block.BlockPlaceEvent;
  */
 public class BuildHeightLimitModule extends MatchModule implements Listener {
 
-    private int limit = 255;
+  private int limit = 255;
 
-    @Override
-    public void load(Match match) {
-        JsonObject mapInfo = match.getMapContainer().getMapInfo().getJsonObject();
-        if (mapInfo.has("buildHeight")) {
-            this.limit = mapInfo.get("buildHeight").getAsInt();
-        }
+  @Override
+  public void load(Match match) {
+    JsonObject mapInfo = match.getMapContainer().getMapInfo().getJsonObject();
+    if (mapInfo.has("buildHeight")) {
+      this.limit = mapInfo.get("buildHeight").getAsInt();
     }
+  }
 
-    @EventHandler(ignoreCancelled = true)
-    public void onBlockPlace(BlockPlaceEvent event) {
-        if (event.getBlock().getY() > this.limit) {
-            event.getPlayer().sendMessage(ChatColor.RED + "You have reached the build height limit.");
-            event.setCancelled(true);
-        }
+  @EventHandler(ignoreCancelled = true)
+  public void onBlockPlace(BlockPlaceEvent event) {
+    if (event.getBlock().getY() > this.limit) {
+      event
+        .getPlayer()
+        .sendMessage(
+          ChatColor.RED + "You have reached the build height limit."
+        );
+      event.setCancelled(true);
     }
+  }
 
-    @EventHandler(ignoreCancelled = true)
-    public void onBlockBreak(BlockBreakEvent event) {
-        if (event.getBlock().getY() > this.limit) {
-            event.getPlayer().sendMessage(ChatColor.RED + "You have reached the build height limit.");
-            event.setCancelled(true);
-        }
+  @EventHandler(ignoreCancelled = true)
+  public void onBlockBreak(BlockBreakEvent event) {
+    if (event.getBlock().getY() > this.limit) {
+      event
+        .getPlayer()
+        .sendMessage(
+          ChatColor.RED + "You have reached the build height limit."
+        );
+      event.setCancelled(true);
     }
-
+  }
 }

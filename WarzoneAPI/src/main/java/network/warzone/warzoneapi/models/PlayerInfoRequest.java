@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
  */
 @AllArgsConstructor
 public class PlayerInfoRequest {
-    private String name;
-    private String ip;
+
+  private String name;
+  private String ip;
 }

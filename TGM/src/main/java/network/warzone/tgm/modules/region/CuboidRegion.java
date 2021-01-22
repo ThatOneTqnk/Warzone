@@ -1,81 +1,86 @@
 package network.warzone.tgm.modules.region;
 
 import com.google.common.base.Preconditions;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.util.Vector;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Getter
 public class CuboidRegion implements Region {
-    private final World world;
 
-    private double minX;
-    private double minY;
-    private double minZ;
-    private double maxX;
-    private double maxY;
-    private double maxZ;
+  private final World world;
 
-    private final Location min;
-    private final Location max;
+  private double minX;
+  private double minY;
+  private double minZ;
+  private double maxX;
+  private double maxY;
+  private double maxZ;
 
-    public CuboidRegion(Location min, Location max) {
-        Preconditions.checkArgument(min.getWorld() == max.getWorld(), "region location worlds must match");
-        this.world = min.getWorld();
-        minX = Math.min(min.getX(), max.getX());
-        maxX = Math.max(min.getX(), max.getX());
+  private final Location min;
+  private final Location max;
 
-        minY = Math.min(min.getY(), max.getY());
-        maxY = Math.max(min.getY(), max.getY());
+  public CuboidRegion(Location min, Location max) {
+    Preconditions.checkArgument(
+      min.getWorld() == max.getWorld(),
+      "region location worlds must match"
+    );
+    this.world = min.getWorld();
+    minX = Math.min(min.getX(), max.getX());
+    maxX = Math.max(min.getX(), max.getX());
 
-        minZ = Math.min(min.getZ(), max.getZ());
-        maxZ = Math.max(min.getZ(), max.getZ());
+    minY = Math.min(min.getY(), max.getY());
+    maxY = Math.max(min.getY(), max.getY());
 
-        this.min = new Location(world, minX, minY, minZ);
-        this.max = new Location(world, maxX, maxY, maxZ);
-    }
+    minZ = Math.min(min.getZ(), max.getZ());
+    maxZ = Math.max(min.getZ(), max.getZ());
 
-    @Override
-    public Location getMin() {
-        return min;
-    }
+    this.min = new Location(world, minX, minY, minZ);
+    this.max = new Location(world, maxX, maxY, maxZ);
+  }
 
-    @Override
-    public Location getMax() {
-        return max;
-    }
+  @Override
+  public Location getMin() {
+    return min;
+  }
 
-    @Override
-    public boolean contains(Location location) {
-        return location.toVector().isInAABB(getMin().toVector(), getMax().toVector());
-    }
+  @Override
+  public Location getMax() {
+    return max;
+  }
 
-    @Override
-    public boolean contains(Block block) {
-        return contains(block.getLocation());
-    }
+  @Override
+  public boolean contains(Location location) {
+    return location
+      .toVector()
+      .isInAABB(getMin().toVector(), getMax().toVector());
+  }
 
-    @Override
-    public Location getCenter() {
-        Vector v = getMin().toVector().getMidpoint(getMax().toVector());
-        return new Location(world, v.getX(), v.getY(), v.getZ());
-    }
+  @Override
+  public boolean contains(Block block) {
+    return contains(block.getLocation());
+  }
 
-    @Override
-    public List<Block> getBlocks() {
-        List<Block> results = new ArrayList<>();
-        for (int x = (int) getMinX(); x <= getMaxX(); x++) {
-            for (int z = (int) getMinZ(); z <= getMaxZ(); z++) {
-                for (int y = (int) getMinY(); y <= getMaxY(); y++) {
-                    results.add((new Location(world, x, y, z).getBlock()));
-                }
-            }
+  @Override
+  public Location getCenter() {
+    Vector v = getMin().toVector().getMidpoint(getMax().toVector());
+    return new Location(world, v.getX(), v.getY(), v.getZ());
+  }
+
+  @Override
+  public List<Block> getBlocks() {
+    List<Block> results = new ArrayList<>();
+    for (int x = (int) getMinX(); x <= getMaxX(); x++) {
+      for (int z = (int) getMinZ(); z <= getMaxZ(); z++) {
+        for (int y = (int) getMinY(); y <= getMaxY(); y++) {
+          results.add((new Location(world, x, y, z).getBlock()));
         }
-        return results;
+      }
     }
+    return results;
+  }
 }

@@ -9,8 +9,10 @@ import org.bukkit.Material;
  */
 public class ItemMaterialParser implements ItemTagParser<Material> {
 
-    @Override
-    public Material parse(JsonObject object) {
-        return Material.valueOf(Strings.getTechnicalName(object.get("material").getAsString()));
-    }
+  @Override
+  public Material parse(JsonObject object) {
+    return Material.valueOf(
+      Strings.getTechnicalName(object.get("material").getAsString())
+    );
+  }
 }

@@ -9,8 +9,10 @@ import org.bukkit.potion.PotionEffectType;
  */
 public class EffectTypeParser implements EffectTagParser<PotionEffectType> {
 
-    @Override
-    public PotionEffectType parse(JsonObject object) {
-        return PotionEffectType.getByName(Strings.getTechnicalName(object.get("type").getAsString()));
-    }
+  @Override
+  public PotionEffectType parse(JsonObject object) {
+    return PotionEffectType.getByName(
+      Strings.getTechnicalName(object.get("type").getAsString())
+    );
+  }
 }

@@ -10,32 +10,45 @@ import protocolsupport.api.ProtocolVersion;
  * Created by Jorge on 09/28/2019
  */
 public class Plugins {
-    private static final String PROTOCOL_SUPPORT = "ProtocolSupport";
-    private static final String WORLD_EDIT = "WorldEdit";
 
-    @Getter private static boolean protocolSupportPresent = false;
-    @Getter private static boolean worldEditPresent = false;
+  private static final String PROTOCOL_SUPPORT = "ProtocolSupport";
+  private static final String WORLD_EDIT = "WorldEdit";
 
-    public static void checkSoftDependencies() {
-        protocolSupportPresent  = isPresent(PROTOCOL_SUPPORT);
-        worldEditPresent        = isPresent(WORLD_EDIT);
+  @Getter
+  private static boolean protocolSupportPresent = false;
+
+  @Getter
+  private static boolean worldEditPresent = false;
+
+  public static void checkSoftDependencies() {
+    protocolSupportPresent = isPresent(PROTOCOL_SUPPORT);
+    worldEditPresent = isPresent(WORLD_EDIT);
+  }
+
+  public static boolean isPresent(String name) {
+    return Bukkit.getPluginManager().isPluginEnabled(name);
+  }
+
+  public static class ProtocolSupport {
+
+    public static boolean isUsingOldVersion(Player player) {
+      ProtocolVersion version = ProtocolSupportAPI.getProtocolVersion(player);
+      return (
+        version == ProtocolVersion.UNKNOWN ||
+        version.isBefore(ProtocolVersion.MINECRAFT_1_9)
+      );
     }
 
-    public static boolean isPresent(String name) {
-        return Bukkit.getPluginManager().isPluginEnabled(name);
+    public static boolean usingVersionOrNewer(
+      Player player,
+      ProtocolVersion version
+    ) {
+      ProtocolVersion playerVersion = ProtocolSupportAPI.getProtocolVersion(
+        player
+      );
+      return (
+        version != ProtocolVersion.UNKNOWN && !playerVersion.isBefore(version)
+      );
     }
-
-    public static class ProtocolSupport {
-
-        public static boolean isUsingOldVersion(Player player) {
-            ProtocolVersion version = ProtocolSupportAPI.getProtocolVersion(player);
-            return version == ProtocolVersion.UNKNOWN || version.isBefore(ProtocolVersion.MINECRAFT_1_9);
-        }
-
-        public static boolean usingVersionOrNewer(Player player, ProtocolVersion version) {
-            ProtocolVersion playerVersion = ProtocolSupportAPI.getProtocolVersion(player);
-            return version != ProtocolVersion.UNKNOWN && !playerVersion.isBefore(version);
-        }
-    }
-
+  }
 }

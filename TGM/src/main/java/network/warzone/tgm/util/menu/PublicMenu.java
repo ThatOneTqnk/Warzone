@@ -5,13 +5,13 @@ package network.warzone.tgm.util.menu;
  */
 public class PublicMenu extends Menu {
 
-    /**
-     * Remains loaded unless forcefully disabled.
-     *
-     * @param name
-     * @param slots
-     */
-    public PublicMenu(String name, int slots) {
-        super(name, slots);
-    }
+  /**
+   * Remains loaded unless forcefully disabled.
+   *
+   * @param name
+   * @param slots
+   */
+  public PublicMenu(String name, int slots) {
+    super(name, slots);
+  }
 }

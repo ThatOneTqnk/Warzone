@@ -12,12 +12,14 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class ItemFlagParser implements ItemMetaParser {
 
-    // https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/ItemFlag.html
+  // https://hub.spigotmc.org/javadocs/spigot/org/bukkit/inventory/ItemFlag.html
 
-    @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (object.has("flags"))
-            for (JsonElement element : object.getAsJsonArray("flags"))
-                meta.addItemFlags(ItemFlag.valueOf(Strings.getTechnicalName(element.getAsString())));
-    }
+  @Override
+  public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    if (object.has("flags")) for (JsonElement element : object.getAsJsonArray(
+      "flags"
+    )) meta.addItemFlags(
+      ItemFlag.valueOf(Strings.getTechnicalName(element.getAsString()))
+    );
+  }
 }

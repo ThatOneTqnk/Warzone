@@ -12,18 +12,20 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class ItemEnchantmentsParser implements ItemMetaParser {
 
-    @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (object.has("enchantments")) {
-            for (JsonElement element : object.getAsJsonArray("enchantments")) {
-                String[] split = element.getAsString().split(":");
-                String id = split[0].toLowerCase().replace(" ", "_");
-                int level = Integer.parseInt(split[1]);
-                Enchantment enchantment = Enchantment.getByKey(NamespacedKey.minecraft(id));
-                if (enchantment != null) {
-                    meta.addEnchant(enchantment, level, true);
-                }
-            }
+  @Override
+  public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    if (object.has("enchantments")) {
+      for (JsonElement element : object.getAsJsonArray("enchantments")) {
+        String[] split = element.getAsString().split(":");
+        String id = split[0].toLowerCase().replace(" ", "_");
+        int level = Integer.parseInt(split[1]);
+        Enchantment enchantment = Enchantment.getByKey(
+          NamespacedKey.minecraft(id)
+        );
+        if (enchantment != null) {
+          meta.addEnchant(enchantment, level, true);
         }
+      }
     }
+  }
 }

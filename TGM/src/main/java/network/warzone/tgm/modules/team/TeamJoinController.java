@@ -12,5 +12,5 @@ import network.warzone.tgm.user.PlayerContext;
  * to force them into a team.
  */
 public interface TeamJoinController {
-    MatchTeam determineTeam(PlayerContext playerContext);
+  MatchTeam determineTeam(PlayerContext playerContext);
 }

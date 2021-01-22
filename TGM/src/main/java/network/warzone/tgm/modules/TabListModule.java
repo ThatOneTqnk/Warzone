@@ -17,57 +17,114 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 public class TabListModule extends MatchModule implements Listener {
-    @Getter protected int runnableId = -1;
 
-    @Getter private TeamManagerModule teamManagerModule;
+  @Getter
+  protected int runnableId = -1;
 
-    @Override
-    public void load(Match match) {
-        teamManagerModule = match.getModule(TeamManagerModule.class);
+  @Getter
+  private TeamManagerModule teamManagerModule;
 
-        refreshAllTabs();
+  @Override
+  public void load(Match match) {
+    teamManagerModule = match.getModule(TeamManagerModule.class);
 
-        runnableId = Bukkit.getScheduler().scheduleSyncRepeatingTask(TGM.get(), this::refreshAllTabs, 10L, 10L);
+    refreshAllTabs();
+
+    runnableId =
+      Bukkit
+        .getScheduler()
+        .scheduleSyncRepeatingTask(TGM.get(), this::refreshAllTabs, 10L, 10L);
+  }
+
+  @Override
+  public void unload() {
+    Bukkit.getScheduler().cancelTask(runnableId);
+  }
+
+  @EventHandler
+  public void onJoin(PlayerJoinEvent event) {
+    refreshTab(event.getPlayer());
+  }
+
+  private void refreshTab(Player player) {
+    MatchStatus matchStatus = TGM
+      .get()
+      .getMatchManager()
+      .getMatch()
+      .getMatchStatus();
+
+    ChatColor timeColor = ChatColor.GREEN;
+    if (matchStatus == MatchStatus.PRE) {
+      timeColor = ChatColor.GOLD;
+    } else if (matchStatus == MatchStatus.POST) {
+      timeColor = ChatColor.RED;
     }
 
-    @Override
-    public void unload() {
-        Bukkit.getScheduler().cancelTask(runnableId);
+    String header =
+      ChatColor.WHITE +
+      ChatColor.BOLD.toString() +
+      TGM
+        .get()
+        .getMatchManager()
+        .getMatch()
+        .getMapContainer()
+        .getMapInfo()
+        .getGametype()
+        .toString() +
+      ChatColor.DARK_GRAY +
+      " - " +
+      timeColor +
+      Strings.formatTime(
+        TGM
+          .get()
+          .getMatchManager()
+          .getMatch()
+          .getModule(TimeModule.class)
+          .getTimeElapsed()
+      ) +
+      ChatColor.DARK_GRAY +
+      " - " +
+      ChatColor.WHITE +
+      ChatColor.BOLD.toString() +
+      ChatColor.translateAlternateColorCodes(
+        '&',
+        TGM.get().getConfig().getString("server.tablist-name") == null
+          ? "&f&lWARZONE"
+          : TGM.get().getConfig().getString("server.tablist-name")
+      );
+
+    String footer = "";
+    for (MatchTeam matchTeam : teamManagerModule.getTeams()) {
+      if (matchTeam.isSpectator()) continue;
+      footer +=
+        matchTeam.getColor() +
+        matchTeam.getAlias() +
+        ": " +
+        ChatColor.WHITE +
+        matchTeam.getMembers().size() +
+        ChatColor.DARK_GRAY +
+        "/" +
+        ChatColor.GRAY +
+        matchTeam.getMax();
+      footer += ChatColor.DARK_GRAY + " - ";
     }
+    footer +=
+      ChatColor.AQUA +
+      "Spectators: " +
+      ChatColor.WHITE +
+      TGM
+        .get()
+        .getModule(TeamManagerModule.class)
+        .getSpectators()
+        .getMembers()
+        .size();
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        refreshTab(event.getPlayer());
+    player.setPlayerListHeaderFooter(header, footer);
+  }
+
+  private void refreshAllTabs() {
+    for (Player player : Bukkit.getOnlinePlayers()) {
+      refreshTab(player);
     }
-
-    private void refreshTab(Player player) {
-        MatchStatus matchStatus = TGM.get().getMatchManager().getMatch().getMatchStatus();
-
-        ChatColor timeColor = ChatColor.GREEN;
-        if (matchStatus == MatchStatus.PRE) {
-            timeColor = ChatColor.GOLD;
-        } else if (matchStatus == MatchStatus.POST) {
-            timeColor = ChatColor.RED;
-        }
-
-        String header = ChatColor.WHITE + ChatColor.BOLD.toString() + TGM.get().getMatchManager().getMatch().getMapContainer().getMapInfo().getGametype().toString() +
-                        ChatColor.DARK_GRAY + " - " + timeColor + Strings.formatTime(TGM.get().getMatchManager().getMatch().getModule(TimeModule.class).getTimeElapsed()) +
-                        ChatColor.DARK_GRAY + " - " + ChatColor.WHITE + ChatColor.BOLD.toString() + ChatColor.translateAlternateColorCodes('&', TGM.get().getConfig().getString("server.tablist-name") == null ? "&f&lWARZONE" : TGM.get().getConfig().getString("server.tablist-name"));
-
-        String footer = "";
-        for (MatchTeam matchTeam : teamManagerModule.getTeams()) {
-            if (matchTeam.isSpectator()) continue;
-            footer += matchTeam.getColor() + matchTeam.getAlias() + ": " + ChatColor.WHITE + matchTeam.getMembers().size() + ChatColor.DARK_GRAY + "/" + ChatColor.GRAY + matchTeam.getMax();
-            footer += ChatColor.DARK_GRAY + " - ";
-        }
-        footer += ChatColor.AQUA + "Spectators: " + ChatColor.WHITE + TGM.get().getModule(TeamManagerModule.class).getSpectators().getMembers().size();
-
-
-        player.setPlayerListHeaderFooter(header, footer);
-    }
-    private void refreshAllTabs() {
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            refreshTab(player);
-        }
-    }
+  }
 }

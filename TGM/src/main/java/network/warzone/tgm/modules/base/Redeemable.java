@@ -8,10 +8,11 @@ import org.bukkit.entity.Player;
  * Created by yikes on 12/15/2019
  */
 public abstract class Redeemable {
-    /**
-     * Checks if player has the redeemable
-     * @param player Player in question
-     * @return Whether the player has it
-     */
-    public abstract boolean hasRedeemable(Player player);
+
+  /**
+   * Checks if player has the redeemable
+   * @param player Player in question
+   * @return Whether the player has it
+   */
+  public abstract boolean hasRedeemable(Player player);
 }

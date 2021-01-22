@@ -7,13 +7,14 @@ import network.warzone.tgm.modules.team.MatchTeam;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 public class EffectKitNode implements KitNode {
 
-    private final PotionEffect potionEffect;
+  private final PotionEffect potionEffect;
 
-    @Override
-    public void apply(Player player, MatchTeam matchTeam) {
-        player.addPotionEffect(potionEffect, true);
-    }
+  @Override
+  public void apply(Player player, MatchTeam matchTeam) {
+    player.addPotionEffect(potionEffect, true);
+  }
 }

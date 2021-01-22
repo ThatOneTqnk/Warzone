@@ -8,8 +8,7 @@ import lombok.Getter;
 @Getter
 public class RankUpdateResponse {
 
-    private String message;
-    private boolean error;
-    private Rank rank;
-
+  private String message;
+  private boolean error;
+  private Rank rank;
 }

@@ -1,113 +1,140 @@
 package network.warzone.tgm.map;
 
 import com.google.gson.stream.JsonReader;
-import lombok.Getter;
-import network.warzone.tgm.TGM;
-import org.bukkit.Bukkit;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import lombok.Getter;
+import network.warzone.tgm.TGM;
+import org.bukkit.Bukkit;
 
 @Getter
 public class MapRotationFile {
 
-    private final MapLibrary mapLibrary;
-    private final File rotationFile;
-    private List<Rotation> rotationLibrary;
-    private final Map<String, Integer> indexes;
+  private final MapLibrary mapLibrary;
+  private final File rotationFile;
+  private List<Rotation> rotationLibrary;
+  private final Map<String, Integer> indexes;
 
-    private Rotation rotation;
-    private int current = 0;
+  private Rotation rotation;
+  private int current = 0;
 
-    public MapRotationFile(MapLibrary mapLibrary) {
-        this.mapLibrary = mapLibrary;
-        this.rotationFile = new File(TGM.get().getConfig().getString("rotation"));
-        this.rotationLibrary = new ArrayList<>();
-        this.indexes = new HashMap<>();
+  public MapRotationFile(MapLibrary mapLibrary) {
+    this.mapLibrary = mapLibrary;
+    this.rotationFile = new File(TGM.get().getConfig().getString("rotation"));
+    this.rotationLibrary = new ArrayList<>();
+    this.indexes = new HashMap<>();
+  }
+
+  public MapContainer cycle(boolean initial) {
+    current = (current + (initial ? 0 : 1)) % rotation.getMaps().size();
+
+    if (!rotation.isDefault() && current == rotation.getMaps().size() - 1) {
+      MapContainer nextMap = rotation.getMaps().get(current);
+      indexes.remove(rotation.getName());
+      rotation = getRotationForPlayerCount(Bukkit.getOnlinePlayers().size());
+      current = loadRotationPosition(-1);
+
+      return nextMap;
     }
 
-    public MapContainer cycle(boolean initial) {
-        current = (current + (initial ? 0 : 1)) % rotation.getMaps().size();
+    saveRotationPosition(current);
+    return rotation.getMaps().get(current);
+  }
 
-        if (!rotation.isDefault() && current == rotation.getMaps().size() - 1) {
-            MapContainer nextMap = rotation.getMaps().get(current);
-            indexes.remove(rotation.getName());
-            rotation = getRotationForPlayerCount(Bukkit.getOnlinePlayers().size());
-            current = loadRotationPosition(-1);
+  public MapContainer getNext() {
+    return rotation.getMaps().get((current + 1) % rotation.getMaps().size());
+  }
 
-            return nextMap;
-        }
+  public void refresh() {
+    // Load rotation files
 
-        saveRotationPosition(current);
-        return rotation.getMaps().get(current);
+    if (!rotationFile.exists()) {
+      this.rotationLibrary =
+        Collections.singletonList(
+          new Rotation(
+            "Preset",
+            true,
+            new RotationRequirement(0, 999999),
+            this.mapLibrary.getMaps()
+          )
+        );
+      this.rotation = this.rotationLibrary.get(0);
+
+      this.current = 0;
+      return;
     }
 
-    public MapContainer getNext() {
-        return rotation.getMaps().get((current + 1) % rotation.getMaps().size());
+    try {
+      JsonReader reader = new JsonReader(new FileReader(this.rotationFile));
+      Rotation[] rotationList = TGM
+        .get()
+        .getGson()
+        .fromJson(reader, Rotation[].class);
+
+      this.rotationLibrary = Arrays.asList(rotationList);
+
+      rotation =
+        this.rotationLibrary.stream()
+          .filter(Rotation::isDefault)
+          .findFirst()
+          .orElseThrow(
+            () -> new IllegalArgumentException("No default rotation present.")
+          );
+      current = this.loadRotationPosition(0);
+    } catch (IOException | IllegalArgumentException e) {
+      e.printStackTrace();
     }
+  }
 
-    public void refresh() {
-        // Load rotation files
+  public boolean hasRotation(String name) {
+    return rotationLibrary
+      .stream()
+      .anyMatch(rot -> rot.getName().equalsIgnoreCase(name));
+  }
 
-        if (!rotationFile.exists()) {
-            this.rotationLibrary = Collections.singletonList(new Rotation("Preset", true, new RotationRequirement(0, 999999), this.mapLibrary.getMaps()));
-            this.rotation = this.rotationLibrary.get(0);
+  public void setRotation(String name) {
+    Rotation newRotation = rotationLibrary
+      .stream()
+      .filter(rot -> rot.getName().equalsIgnoreCase(name))
+      .findFirst()
+      .orElse(null);
+    if (newRotation == null) return;
 
-            this.current = 0;
-            return;
-        }
+    rotation = newRotation;
+    current = loadRotationPosition(-1);
+  }
 
-        try {
-            JsonReader reader = new JsonReader(new FileReader(this.rotationFile));
-            Rotation[] rotationList = TGM.get().getGson().fromJson(reader, Rotation[].class);
+  public List<MapContainer> getMaps() {
+    return rotation.getMaps();
+  }
 
-            this.rotationLibrary = Arrays.asList(rotationList);
+  public int loadRotationPosition(int defaultValue) {
+    return indexes.getOrDefault(rotation.getName(), defaultValue);
+  }
 
-            rotation = this.rotationLibrary.stream().filter(Rotation::isDefault).findFirst().orElseThrow(() -> new IllegalArgumentException("No default rotation present."));
-            current = this.loadRotationPosition(0);
-        } catch (IOException | IllegalArgumentException e) {
-            e.printStackTrace();
-        }
-    }
+  public void saveRotationPosition(int index) {
+    indexes.put(rotation.getName(), index);
+  }
 
-    public boolean hasRotation(String name) {
-        return rotationLibrary.stream().anyMatch(rot -> rot.getName().equalsIgnoreCase(name));
-    }
+  public Rotation getDefaultRotation() {
+    return this.rotationLibrary.stream()
+      .filter(Rotation::isDefault)
+      .findFirst()
+      .orElse(null);
+  }
 
-    public void setRotation(String name) {
-        Rotation newRotation = rotationLibrary.stream().filter(rot -> rot.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
-        if (newRotation == null) return;
-
-        rotation = newRotation;
-        current = loadRotationPosition( -1);
-    }
-
-    public List<MapContainer> getMaps() {
-        return rotation.getMaps();
-    }
-
-    public int loadRotationPosition(int defaultValue) {
-        return indexes.getOrDefault(rotation.getName(), defaultValue);
-    }
-
-    public void saveRotationPosition(int index) {
-        indexes.put(rotation.getName(), index);
-    }
-
-    public Rotation getDefaultRotation() {
-        return this.rotationLibrary.stream()
-               .filter(Rotation::isDefault)
-               .findFirst()
-               .orElse(null);
-    }
-
-    public Rotation getRotationForPlayerCount(int playerCount) {
-        return rotationLibrary.stream()
-               .filter(Rotation::isDefault)
-               .filter(rotation -> rotation.getRequirements().getMin() <= playerCount && rotation.getRequirements().getMax() >= playerCount)
-               .findFirst()
-               .orElseGet(this::getDefaultRotation);
-    }
+  public Rotation getRotationForPlayerCount(int playerCount) {
+    return rotationLibrary
+      .stream()
+      .filter(Rotation::isDefault)
+      .filter(
+        rotation ->
+          rotation.getRequirements().getMin() <= playerCount &&
+          rotation.getRequirements().getMax() >= playerCount
+      )
+      .findFirst()
+      .orElseGet(this::getDefaultRotation);
+  }
 }

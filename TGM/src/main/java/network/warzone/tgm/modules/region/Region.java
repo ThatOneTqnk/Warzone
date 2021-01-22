@@ -1,20 +1,19 @@
 package network.warzone.tgm.modules.region;
 
+import java.util.List;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 
-import java.util.List;
-
 public interface Region {
-    boolean contains(Location location);
+  boolean contains(Location location);
 
-    boolean contains(Block block);
+  boolean contains(Block block);
 
-    Location getCenter();
+  Location getCenter();
 
-    List<Block> getBlocks();
+  List<Block> getBlocks();
 
-    Location getMin();
+  Location getMin();
 
-    Location getMax();
+  Location getMax();
 }

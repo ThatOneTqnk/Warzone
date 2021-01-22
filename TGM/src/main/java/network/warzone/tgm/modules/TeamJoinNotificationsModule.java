@@ -7,11 +7,21 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-public class TeamJoinNotificationsModule extends MatchModule implements Listener {
+public class TeamJoinNotificationsModule
+  extends MatchModule
+  implements Listener {
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onTeamJoin(TeamChangeEvent event) {
-        if (!event.isCancelled() && !event.isSilent())
-            event.getPlayerContext().getPlayer().sendMessage(ChatColor.WHITE + "You joined " + event.getTeam().getColor() + ChatColor.BOLD + event.getTeam().getAlias());
-    }
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void onTeamJoin(TeamChangeEvent event) {
+    if (!event.isCancelled() && !event.isSilent()) event
+      .getPlayerContext()
+      .getPlayer()
+      .sendMessage(
+        ChatColor.WHITE +
+        "You joined " +
+        event.getTeam().getColor() +
+        ChatColor.BOLD +
+        event.getTeam().getAlias()
+      );
+  }
 }

@@ -11,22 +11,22 @@ import org.bukkit.entity.Player;
 @AllArgsConstructor
 public class TeleportClickEvent extends ClickEvent {
 
-    private double x;
-    private double y;
-    private double z;
-    private float yaw;
-    private float pitch;
+  private double x;
+  private double y;
+  private double z;
+  private float yaw;
+  private float pitch;
 
-    public TeleportClickEvent(Location location) {
-        this.x = location.getX();
-        this.y = location.getY();
-        this.z = location.getZ();
-        this.yaw = location.getYaw();
-        this.pitch = location.getPitch();
-    }
+  public TeleportClickEvent(Location location) {
+    this.x = location.getX();
+    this.y = location.getY();
+    this.z = location.getZ();
+    this.yaw = location.getYaw();
+    this.pitch = location.getPitch();
+  }
 
-    @Override
-    public void run(Match match, Player player) {
-        player.teleport(new Location(match.getWorld(), x, y, z, yaw, pitch));
-    }
+  @Override
+  public void run(Match match, Player player) {
+    player.teleport(new Location(match.getWorld(), x, y, z, yaw, pitch));
+  }
 }

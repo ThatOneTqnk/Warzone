@@ -7,8 +7,10 @@ import lombok.Getter;
 @AllArgsConstructor
 public class MatchInProgress {
 
-    @SerializedName("_id")
-    @Getter private String id;
+  @SerializedName("_id")
+  @Getter
+  private String id;
 
-    @Getter private String map; //id
+  @Getter
+  private String map; //id
 }

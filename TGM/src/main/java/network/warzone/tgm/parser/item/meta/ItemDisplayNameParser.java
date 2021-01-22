@@ -10,9 +10,10 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class ItemDisplayNameParser implements ItemMetaParser {
 
-    @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (object.has("displayName"))
-            meta.setDisplayName(ColorConverter.filterString(object.get("displayName").getAsString()));
-    }
+  @Override
+  public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    if (object.has("displayName")) meta.setDisplayName(
+      ColorConverter.filterString(object.get("displayName").getAsString())
+    );
+  }
 }

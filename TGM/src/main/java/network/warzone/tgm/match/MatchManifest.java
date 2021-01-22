@@ -1,6 +1,8 @@
 package network.warzone.tgm.match;
 
 import com.google.gson.JsonObject;
+import java.util.ArrayList;
+import java.util.List;
 import network.warzone.tgm.modules.*;
 import network.warzone.tgm.modules.border.WorldBorderModule;
 import network.warzone.tgm.modules.chat.ChatModule;
@@ -30,76 +32,77 @@ import network.warzone.tgm.modules.team.TeamManagerModule;
 import network.warzone.tgm.modules.time.TimeModule;
 import network.warzone.tgm.modules.visibility.VisibilityModule;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by luke on 4/27/17.
  */
 public abstract class MatchManifest {
 
-    /**
-     * Determines which modules to load based on the
-     * given gametype.
-     * @return
-     */
-    public abstract List<MatchModule> allocateGameModules();
+  /**
+   * Determines which modules to load based on the
+   * given gametype.
+   * @return
+   */
+  public abstract List<MatchModule> allocateGameModules();
 
-    /**
-     * Core set of modules that nearly all games will use.
-     * Match Manifests still have the option to override these
-     * if needed.
-     * @return
-     */
-    public List<MatchModule> allocateCoreModules(JsonObject mapJson) {
-        List<MatchModule> modules = new ArrayList<>();
+  /**
+   * Core set of modules that nearly all games will use.
+   * Match Manifests still have the option to override these
+   * if needed.
+   * @return
+   */
+  public List<MatchModule> allocateCoreModules(JsonObject mapJson) {
+    List<MatchModule> modules = new ArrayList<>();
 
-        modules.add(new TeamJoinNotificationsModule());
-        modules.add(new TeamManagerModule());
-        modules.add(new SpectatorModule());
-        modules.add(new InventoryPreviewModule());
-        modules.add(new SpawnPointHandlerModule());
-        modules.add(new SpawnPointLoaderModule());
-        modules.add(new VisibilityModule());
-        modules.add(new TimeModule());
-        modules.add(new TabListModule());
-        modules.add(new MatchProgressNotifications());
-        modules.add(new MatchResultModule());
-        modules.add(new ScoreboardManagerModule());
-        modules.add(new RegionManagerModule());
-        modules.add(new TaskedModuleManager());
-        modules.add(new CountdownManagerModule());
-        modules.add(new KitLoaderModule());
-        modules.add(new DeathModule());
-        modules.add(new DeathMessageModule());
-        modules.add(new BuildHeightLimitModule());
-        modules.add(new FilterManagerModule());
-        modules.add(new ChatModule());
-        modules.add(new DisabledCommandsModule());
-        modules.add(new ScreenManagerModule());
-        modules.add(new PointsModule());
-        modules.add(new LegacyDamageModule());
-        modules.add(new EntityDamageModule());
-        modules.add(new FireworkDamageModule());
-        modules.add(new GameRuleModule());
-        modules.add(new ItemRemoveModule());
-        modules.add(new ItemKeepModule());
-        modules.add(new RegenModule());
-        modules.add(new KillstreakModule());
-        modules.add(new ReportsModule());
-        modules.add(new StatsModule());
-        modules.add(new PortalLoaderModule());
-        modules.add(new LaunchPadLoaderModule());
-        modules.add(new WorldBorderModule());
-        modules.add(new KnockbackModule());
-        modules.add(new MapCommandsModule());
-        modules.add(new DamageControlModule());
-        modules.add(new RespawnModule());
-        modules.add(new CraftingModule());
+    modules.add(new TeamJoinNotificationsModule());
+    modules.add(new TeamManagerModule());
+    modules.add(new SpectatorModule());
+    modules.add(new InventoryPreviewModule());
+    modules.add(new SpawnPointHandlerModule());
+    modules.add(new SpawnPointLoaderModule());
+    modules.add(new VisibilityModule());
+    modules.add(new TimeModule());
+    modules.add(new TabListModule());
+    modules.add(new MatchProgressNotifications());
+    modules.add(new MatchResultModule());
+    modules.add(new ScoreboardManagerModule());
+    modules.add(new RegionManagerModule());
+    modules.add(new TaskedModuleManager());
+    modules.add(new CountdownManagerModule());
+    modules.add(new KitLoaderModule());
+    modules.add(new DeathModule());
+    modules.add(new DeathMessageModule());
+    modules.add(new BuildHeightLimitModule());
+    modules.add(new FilterManagerModule());
+    modules.add(new ChatModule());
+    modules.add(new DisabledCommandsModule());
+    modules.add(new ScreenManagerModule());
+    modules.add(new PointsModule());
+    modules.add(new LegacyDamageModule());
+    modules.add(new EntityDamageModule());
+    modules.add(new FireworkDamageModule());
+    modules.add(new GameRuleModule());
+    modules.add(new ItemRemoveModule());
+    modules.add(new ItemKeepModule());
+    modules.add(new RegenModule());
+    modules.add(new KillstreakModule());
+    modules.add(new ReportsModule());
+    modules.add(new StatsModule());
+    modules.add(new PortalLoaderModule());
+    modules.add(new LaunchPadLoaderModule());
+    modules.add(new WorldBorderModule());
+    modules.add(new KnockbackModule());
+    modules.add(new MapCommandsModule());
+    modules.add(new DamageControlModule());
+    modules.add(new RespawnModule());
+    modules.add(new CraftingModule());
 
-        if (GameClassModule.isUsingClasses(mapJson)) modules.add(new GameClassModule());
-        if (GeneratorModule.hasGenerators(mapJson)) modules.add(new GeneratorModule());
+    if (GameClassModule.isUsingClasses(mapJson)) modules.add(
+      new GameClassModule()
+    );
+    if (GeneratorModule.hasGenerators(mapJson)) modules.add(
+      new GeneratorModule()
+    );
 
-        return modules;
-    }
+    return modules;
+  }
 }

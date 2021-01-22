@@ -1,27 +1,28 @@
 package network.warzone.warzoneapi.models;
 
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.UUID;
-
 /**
  * Created by Jorge on 09/08/2019
  */
-@Getter @AllArgsConstructor
+@Getter
+@AllArgsConstructor
 public class Author {
 
-    private final UUID uuid;
-    private final String username; // Fallback
-    @Setter private String displayUsername;
+  private final UUID uuid;
+  private final String username; // Fallback
 
-    public Author(UUID uuid) {
-        this(uuid, null, null);
-    }
+  @Setter
+  private String displayUsername;
 
-    public Author(String username) {
-        this(null, username, null);
-    }
+  public Author(UUID uuid) {
+    this(uuid, null, null);
+  }
 
+  public Author(String username) {
+    this(null, username, null);
+  }
 }

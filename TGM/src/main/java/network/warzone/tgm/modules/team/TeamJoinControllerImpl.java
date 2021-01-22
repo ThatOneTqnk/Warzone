@@ -6,10 +6,12 @@ import network.warzone.tgm.user.PlayerContext;
 
 @AllArgsConstructor
 public class TeamJoinControllerImpl implements TeamJoinController {
-    @Getter private TeamManagerModule teamManagerModule;
 
-    @Override
-    public MatchTeam determineTeam(PlayerContext playerContext) {
-        return teamManagerModule.getSpectators();
-    }
+  @Getter
+  private TeamManagerModule teamManagerModule;
+
+  @Override
+  public MatchTeam determineTeam(PlayerContext playerContext) {
+    return teamManagerModule.getSpectators();
+  }
 }

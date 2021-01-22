@@ -7,12 +7,12 @@ import org.bukkit.entity.Player;
  * Created by yikes on 12/15/2019
  */
 public abstract class PlayerRedeemable extends Redeemable {
-    /**
-     * Called when the redeemable is redeemed
-     * Criteria of player should be invalidated when this method is called
-     *
-     * @param player Player who has redeemed
-     */
-    public abstract void redeem(Player player);
 
+  /**
+   * Called when the redeemable is redeemed
+   * Criteria of player should be invalidated when this method is called
+   *
+   * @param player Player who has redeemed
+   */
+  public abstract void redeem(Player player);
 }

@@ -6,9 +6,11 @@ import lombok.Getter;
 /**
  * Created by Jorge on 4/14/2018.
  */
-@AllArgsConstructor @Getter
+@AllArgsConstructor
+@Getter
 public class Broadcast {
-    private String id;
-    private String message;
-    private String permission;
+
+  private String id;
+  private String message;
+  private String permission;
 }

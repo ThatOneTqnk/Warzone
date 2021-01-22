@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PunishmentsListRequest {
 
-    private String name;
-    private String ip;
-
+  private String name;
+  private String ip;
 }

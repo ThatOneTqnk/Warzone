@@ -1,12 +1,11 @@
 package network.warzone.tgm.match;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import network.warzone.tgm.modules.team.MatchTeam;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
-import java.util.List;
 
 /**
  * Called when a player enters a match.
@@ -18,17 +17,24 @@ import java.util.List;
 
 @AllArgsConstructor
 public class MatchResultEvent extends Event {
-    private static final HandlerList handlers = new HandlerList();
-    @Getter private Match match;
-    @Getter private MatchTeam winningTeam;
-    @Getter private List<MatchTeam> losingTeams;
 
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+  private static final HandlerList handlers = new HandlerList();
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+  @Getter
+  private Match match;
+
+  @Getter
+  private MatchTeam winningTeam;
+
+  @Getter
+  private List<MatchTeam> losingTeams;
+
+  @Override
+  public HandlerList getHandlers() {
+    return handlers;
+  }
+
+  public static HandlerList getHandlerList() {
+    return handlers;
+  }
 }

@@ -10,17 +10,40 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class BuilderAbility extends Ability {
-    public BuilderAbility() {
-        super("Super Breaker", 20 * 10, Material.FEATHER, ChatColor.RED + "Super Breaker");
-    }
 
-    @Override
-    public void onClick(final Player player) {
-        player.sendMessage(ChatColor.GRAY + "You activated " + ChatColor.GREEN + "Super Breaker" + ChatColor.GRAY + " (5 seconds)");
+  public BuilderAbility() {
+    super(
+      "Super Breaker",
+      20 * 10,
+      Material.FEATHER,
+      ChatColor.RED + "Super Breaker"
+    );
+  }
 
-        FireworkUtil.spawnFirework(player.getLocation(), FireworkEffect.builder().with(FireworkEffect.Type.STAR).withColor(Color.YELLOW).build(), 0);
+  @Override
+  public void onClick(final Player player) {
+    player.sendMessage(
+      ChatColor.GRAY +
+      "You activated " +
+      ChatColor.GREEN +
+      "Super Breaker" +
+      ChatColor.GRAY +
+      " (5 seconds)"
+    );
 
-        player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 5, 1));
-        super.putOnCooldown(player);
-    }
+    FireworkUtil.spawnFirework(
+      player.getLocation(),
+      FireworkEffect
+        .builder()
+        .with(FireworkEffect.Type.STAR)
+        .withColor(Color.YELLOW)
+        .build(),
+      0
+    );
+
+    player.addPotionEffect(
+      new PotionEffect(PotionEffectType.FAST_DIGGING, 20 * 5, 1)
+    );
+    super.putOnCooldown(player);
+  }
 }

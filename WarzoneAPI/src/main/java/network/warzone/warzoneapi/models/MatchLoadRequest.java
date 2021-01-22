@@ -5,5 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public class MatchLoadRequest {
-    @Getter private String map; //id
+
+  @Getter
+  private String map; //id
 }

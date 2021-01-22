@@ -7,8 +7,8 @@ import com.google.gson.JsonObject;
  */
 public class EffectDurationParser implements EffectTagParser<Integer> {
 
-    @Override
-    public Integer parse(JsonObject object) {
-        return object.has("duration") ? object.get("duration").getAsInt() : 30;
-    }
+  @Override
+  public Integer parse(JsonObject object) {
+    return object.has("duration") ? object.get("duration").getAsInt() : 30;
+  }
 }

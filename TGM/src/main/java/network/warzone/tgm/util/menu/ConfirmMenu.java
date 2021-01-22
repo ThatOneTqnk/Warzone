@@ -11,10 +11,27 @@ import org.bukkit.inventory.ItemStack;
  */
 public class ConfirmMenu extends PlayerMenu {
 
-    public ConfirmMenu(Player player, String title, ItemStack displayItem, MenuAction yes, MenuAction no) {
-        super(title, 9*5, player);
-        setItem(13, displayItem);
-        setItem(30, ItemFactory.createItem(Material.LIME_TERRACOTTA, ChatColor.GREEN + "Confirm"), yes);
-        setItem(32, ItemFactory.createItem(Material.RED_TERRACOTTA, ChatColor.RED + "Cancel"), no);
-    }
+  public ConfirmMenu(
+    Player player,
+    String title,
+    ItemStack displayItem,
+    MenuAction yes,
+    MenuAction no
+  ) {
+    super(title, 9 * 5, player);
+    setItem(13, displayItem);
+    setItem(
+      30,
+      ItemFactory.createItem(
+        Material.LIME_TERRACOTTA,
+        ChatColor.GREEN + "Confirm"
+      ),
+      yes
+    );
+    setItem(
+      32,
+      ItemFactory.createItem(Material.RED_TERRACOTTA, ChatColor.RED + "Cancel"),
+      no
+    );
+  }
 }

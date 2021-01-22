@@ -9,23 +9,25 @@ import org.bukkit.event.HandlerList;
 
 @Getter
 public class TGMPlayerRespawnEvent extends Event implements Cancellable {
-    private static final HandlerList handlers = new HandlerList();
-    @Setter private boolean cancelled;
 
-    private Player player;
+  private static final HandlerList handlers = new HandlerList();
 
-    public TGMPlayerRespawnEvent(Player player) {
-        super();
+  @Setter
+  private boolean cancelled;
 
-        this.player = player;
-    }
+  private Player player;
 
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+  public TGMPlayerRespawnEvent(Player player) {
+    super();
+    this.player = player;
+  }
 
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+  @Override
+  public HandlerList getHandlers() {
+    return handlers;
+  }
+
+  public static HandlerList getHandlerList() {
+    return handlers;
+  }
 }

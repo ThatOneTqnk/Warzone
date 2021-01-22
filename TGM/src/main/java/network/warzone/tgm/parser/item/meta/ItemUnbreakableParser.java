@@ -9,9 +9,10 @@ import org.bukkit.inventory.meta.ItemMeta;
  */
 public class ItemUnbreakableParser implements ItemMetaParser {
 
-    @Override
-    public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
-        if (object.has("unbreakable"))
-            meta.setUnbreakable(object.get("unbreakable").getAsBoolean());
-    }
+  @Override
+  public void parse(ItemStack itemStack, ItemMeta meta, JsonObject object) {
+    if (object.has("unbreakable")) meta.setUnbreakable(
+      object.get("unbreakable").getAsBoolean()
+    );
+  }
 }
