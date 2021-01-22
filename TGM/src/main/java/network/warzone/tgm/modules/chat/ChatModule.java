@@ -111,12 +111,6 @@ public class ChatModule extends MatchModule implements Listener {
             format.append(prefix)
                     .append(matchTeam.getColor())
                     .append(event.getPlayer().getName());
-            if (!playerContext.isNicked() && userProfile.getActiveTag() != null && !"".equals(userProfile.getActiveTag()))
-                format.append(ChatColor.GRAY)
-                        .append(" [")
-                        .append(ChatColor.translateAlternateColorCodes('&', userProfile.getActiveTag()))
-                        .append(ChatColor.GRAY)
-                        .append("]");
             format.append(ChatColor.WHITE)
                     .append(": ")
                     .append(event.getMessage().replaceAll("%", "%%"));

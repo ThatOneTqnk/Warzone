@@ -798,9 +798,8 @@ public class CycleCommands {
             return;
         }
         PlayerContext targetUser = TGM.get().getPlayerManager().getPlayerContext(targetPlayer);
-        boolean getNickedStats = !target.equalsIgnoreCase(targetUser.getOriginalName()) && targetUser.isNicked();
-        UserProfile profile = getNickedStats ? targetUser.getUserProfile() : targetUser.getUserProfile(true);
-        String levelString = getNickedStats ? targetUser.getLevelString() : targetUser.getLevelString(true);
+        UserProfile profile = targetUser.getUserProfile(true);
+        String levelString = targetUser.getLevelString(true);
         sender.sendMessage(ChatColor.BLUE + ChatColor.STRIKETHROUGH.toString() + "-------------------------------");
         sender.sendMessage(ChatColor.DARK_AQUA + "   Viewing stats for " + ChatColor.AQUA + (target.equalsIgnoreCase(targetUser.getOriginalName()) ? targetUser.getOriginalName() : targetUser.getDisplayName()));
         sender.sendMessage("");

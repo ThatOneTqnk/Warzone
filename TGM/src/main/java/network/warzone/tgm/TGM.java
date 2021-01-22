@@ -22,7 +22,6 @@ import network.warzone.tgm.match.MatchModule;
 import network.warzone.tgm.modules.GameRuleModule;
 import network.warzone.tgm.modules.killstreak.Killstreak;
 import network.warzone.tgm.modules.killstreak.KillstreakDeserializer;
-import network.warzone.tgm.nickname.NickManager;
 import network.warzone.tgm.parser.effect.EffectDeserializer;
 import network.warzone.tgm.parser.item.ItemDeserializer;
 import network.warzone.tgm.player.PlayerManager;
@@ -64,7 +63,6 @@ public class TGM extends JavaPlugin {
     private PlayerManager playerManager;
     private JoinManager joinManager;
     private ApiManager apiManager;
-    private NickManager nickManager;
 
     private BroadcastManager broadcastManager;
 
@@ -132,7 +130,6 @@ public class TGM extends JavaPlugin {
         commandManager.register(CycleCommands.class);
         commandManager.register(BroadcastCommands.class);
         commandManager.register(MiscCommands.class);
-        commandManager.register(NickCommands.class);
         commandManager.register(RotationCommands.class);
         if (apiConfig.getBoolean("enabled", false)) {
             commandManager.register(PunishCommands.class);
@@ -147,7 +144,6 @@ public class TGM extends JavaPlugin {
         Plugins.checkSoftDependencies();
 
         matchManager.cycleNextMatch();
-        nickManager = new NickManager(); 
     }
 
     @Override

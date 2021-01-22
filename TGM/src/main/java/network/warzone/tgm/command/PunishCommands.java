@@ -405,10 +405,6 @@ public class PunishCommands {
         PlayerContext reportedContext = TGM.get().getPlayerManager().getPlayerContext(reported.getUniqueId());
         StringBuilder reportedNameBuilder = new StringBuilder(reported.getName());
 
-        if (reportedContext.isNicked()) {
-            reportedNameBuilder.append(" ").append("&8(&a").append(reportedContext.getOriginalName()).append("&8)");
-        }
-
         String reportedName = reportedNameBuilder.toString();
 
         for (Player player : Bukkit.getOnlinePlayers()) {
@@ -511,7 +507,7 @@ public class PunishCommands {
                         kickPlayer(response.getPunishment(), response.getName());
                     }
 
-                    broadcastPunishment(response.getName(), response.getIp(), TGM.get().getNickManager().getOriginalName(punisher.getName()).replace("CONSOLE", "Console"), verb, timeUnitPair, reason, time, broadcast);
+                    broadcastPunishment(response.getName(), response.getIp(), punisher.getName().replace("CONSOLE", "Console"), verb, timeUnitPair, reason, time, broadcast);
                     Player target;
                     if (response.getName() != null && (target = Bukkit.getPlayer(response.getName())) != null) {
                         TGM.get().getPlayerManager().getPlayerContext(target).getUserProfile().addPunishment(response.getPunishment());

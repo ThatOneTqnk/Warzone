@@ -8,8 +8,6 @@ import network.warzone.tgm.map.MapRotationFile;
 import network.warzone.tgm.map.Rotation;
 import network.warzone.tgm.match.MatchPostLoadEvent;
 import network.warzone.tgm.modules.chat.ChatModule;
-import network.warzone.tgm.nickname.Nick;
-import network.warzone.tgm.nickname.NickManager;
 import network.warzone.tgm.user.PlayerContext;
 import network.warzone.tgm.util.Ranks;
 import network.warzone.warzoneapi.models.PlayerLogin;
@@ -105,57 +103,6 @@ public class JoinManager implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         PlayerContext playerContext = TGM.get().getPlayerManager().getPlayerContext(event.getPlayer());
         Bukkit.getPluginManager().callEvent(new MatchJoinEvent(playerContext));
-
-        Player p = playerContext.getPlayer();
-        NickManager nickManager = TGM.get().getNickManager();
-
-        String name = null;
-        Skin skin = null;
-
-        // Get the optional nick for the player.
-        Optional<Nick> optionalNick = nickManager.getNick(playerContext);
-
-        // Check if the the nick is present and active.
-        if (optionalNick.isPresent() && optionalNick.get().isApplied()) {
-            // Get the nick.
-            Nick queuedNick = optionalNick.get();
-
-            name = queuedNick.getName();
-            skin = queuedNick.getSkin();
-
-            nickManager.update(playerContext, nick -> nick.setActive(true));
-        }
-
-        // 1. Username you're nicked as is online.
-        if (name != null && Bukkit.getPlayer(name) != null) {
-            name = null;
-            nickManager.getNick(playerContext).ifPresent(nick -> nick.setName(null));
-            p.sendMessage(ChatColor.RED + "The username you are nicked as is online so your nickname has been removed.");
-        }
-        // 2. You are joining and a player nicked as you is online.
-        if (nickManager.isNickName(p.getName())) {
-            nickManager.getNicks()
-                    .stream()
-                    .filter(nick -> nick.getName().equals(p.getName()))
-                    .findFirst()
-                    .ifPresent(
-                            nick -> {
-                                Player offender = Bukkit.getPlayer(nick.getOriginalName());
-                                if (offender != null) offender.sendMessage(ChatColor.RED + "The player you are nicked as has joined. Your nick must be reset.");
-                                nickManager.reset(TGM.get().getPlayerManager().getPlayerContext(offender), true);
-                            }
-                    );
-        }
-
-        if (name != null) {
-            try {
-                nickManager.setName(playerContext, name);
-            } catch (NoSuchFieldException | IllegalAccessException ignored) {
-            }
-        }
-        if (skin != null) {
-            nickManager.setSkin(playerContext, skin);
-        }
 
         String joinMsg;
         if (event.getPlayer().hasPermission("tgm.donator.joinmsg") && !playerContext.getUserProfile().isStaff() && playerContext.getUserProfile().getPrefix() != null) {

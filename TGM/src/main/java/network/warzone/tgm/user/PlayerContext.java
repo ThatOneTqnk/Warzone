@@ -53,29 +53,15 @@ public class PlayerContext {
     }
 
     public UserProfile getUserProfile(boolean original) {
-        if (isNicked() && !original) {
-            return TGM.get().getNickManager().getNick(this).get().getProfile();
-        } else {
-            return userProfile;
-        }
+        return userProfile;
     }
 
     public String getDisplayName() {
-        if (isNicked()) {
-            return TGM.get().getNickManager().getNick(this).get().getName();
-        }
         return player.getName();
     }
 
     public String getOriginalName() {
-        if (isNicked()) {
-            return TGM.get().getNickManager().getNick(this).get().getOriginalName();
-        }
         return player.getName();
-    }
-
-    public boolean isNicked() {
-        return TGM.get().getNickManager().isNicked(this);
     }
 
     public String getLevelString() {
