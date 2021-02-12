@@ -11,17 +11,6 @@ import java.util.Set;
  * Created by yikes on 09/27/19
  */
 public class AbilityManager {
-    public enum AbilityStore {
-        PHOENIX(PhoenixAbility.class),
-        NINJA(NinjaAbility.class),
-        BUILDER(BuilderAbility.class);
-
-        @Getter private Class hostAbility;
-        AbilityStore(Class hostAbility) {
-            this.hostAbility = hostAbility;
-        }
-    }
-    
     private Set<Ability> abilities = new HashSet<>();
 
     public AbilityManager(Set<Class<? extends Ability>> abilitySet) {

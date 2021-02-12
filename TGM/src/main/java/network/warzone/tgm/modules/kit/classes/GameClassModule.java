@@ -211,7 +211,13 @@ public class GameClassModule extends MatchModule implements Listener {
                 Arrays.asList(SpyAbility.class),
                 ItemFactory.createItem(Material.LEATHER_HELMET,
                         ChatColor.LIGHT_PURPLE + "Spy",
-                        Arrays.asList(ChatColor.YELLOW + "Keep your friends close, and your enemies closer!")));
+                        Arrays.asList(ChatColor.YELLOW + "Keep your friends close, and your enemies closer!"))),
+
+        DEMOMAN(DemomanClass.class,
+                Arrays.asList(DemomanAbility.class),
+                ItemFactory.createItem(Material.TNT,
+                        ChatColor.RED + "Demoman",
+                        Arrays.asList(ChatColor.YELLOW + "Throw grenades to blow up towers and players!")));
 
         @Getter private Class hostGameClass;
         @Getter private List<Class<? extends Ability>> hostAbilities;
